@@ -139,6 +139,7 @@ public class FileHandler {
 				Entity entity = dimension.entities.get(j);
 				text += "entity: " + entity.getClass().getName() + ":" + entity.getX() + ":" + entity.getY() + ":" + entity.getHealth() + ";";
 			}
+			text += "#";
 		}
 
 		os.write(text.getBytes());
