@@ -21,8 +21,8 @@ public class GameScreen extends Menu {
 			this.handler.loadFiles();
 		} catch(Exception e) {
 			this.handler.getDimensionHandler().loadDimension(0);
-			System.out.println("No world could be detected, creating new world...");
-			e.printStackTrace();
+			//System.out.println("No world could be detected, creating new world...");
+			//e.printStackTrace();
 		}
 	}
 
