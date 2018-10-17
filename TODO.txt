@@ -16,14 +16,17 @@ Make items stackable
 		render & tick the normal item
 		only remove 1 on use tho
 		max stack limit = 16
-		
+
 Add Sounds:
 	effects: eating sound, firball, teleport, onhit/attack
 	music: dungeon, boss fight/fighting music, menu, dimension casual/ different per
 	
 Add Textures:
 	new splash, inventory, health bar, player & most creatures
-	add water dragon, crabs, frost walkers, mamoths, sabertooth tigers, sharks, sting rays, jellyfish
 	
 Add Items:
-	leather armor, metal armor, amethyst armor, 
+	leather armor, metal armor, amethyst armor, frostbite armor, chain armor
+
+Add Entities:
+	water dragon, crabs, frost walkers, mamoths, sabertooth tigers, sharks, sting rays, jellyfish
+	

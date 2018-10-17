@@ -42,7 +42,11 @@ public class FileHandler {
 		System.out.println("Loading dimensions...");
 		loadDimension(files.get(1), handler);
 
-		return false;
+		for (int i = 0; i < files.size(); i++) {
+			if (!files.get(i).exists())
+				return false;
+		}
+		return true;
 	}
 
 	private static void loadPlayer(File file, Handler handler) throws FileNotFoundException, IOException {
@@ -78,22 +82,26 @@ public class FileHandler {
 		ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
 		@SuppressWarnings("deprecation")
 		String[] ogStrings = in.readLine().split("#");
-		for(int j = 0; j < handler.getDimensionHandler().dimensions.size(); j++) {
-			String[] strings = ogStrings[j].split(";");
-			System.out.println("Loading dimension: " + j);
-			for (int i = 0; i < strings.length; i++) {
-				String[] s = strings[i].split(":");
-				if (s[0].startsWith("entity")) {
-					@SuppressWarnings("unchecked")
-					Class<? extends Entity> cc = (Class<? extends Entity>) Class.forName(s[1].trim());
-					if(!cc.equals(Player.class)) {
-					float x = Float.parseFloat(s[2]);
-					float y = Float.parseFloat(s[3]);
-					Entity entity = (Entity) cc.getConstructors()[0].newInstance(x, y, handler);
-					entity.setHealth(Integer.parseInt(s[4]));
-					handler.getDimensionHandler().dimensions.get(j).entities.add(entity);
+		for (int j = 0; j < handler.getDimensionHandler().dimensions.size(); j++) {
+			if (ogStrings.length - 1 < j) {
+				String[] strings = ogStrings[j].split(";");
+				System.out.println("Loading dimension: " + j);
+				for (int i = 0; i < strings.length; i++) {
+					String[] s = strings[i].split(":");
+					if (s[0].startsWith("entity")) {
+						@SuppressWarnings("unchecked")
+						Class<? extends Entity> cc = (Class<? extends Entity>) Class.forName(s[1].trim());
+						if (!cc.equals(Player.class)) {
+							float x = Float.parseFloat(s[2]);
+							float y = Float.parseFloat(s[3]);
+							Entity entity = (Entity) cc.getConstructors()[0].newInstance(x, y, handler);
+							entity.setHealth(Integer.parseInt(s[4]));
+							handler.getDimensionHandler().dimensions.get(j).entities.add(entity);
+						}
 					}
 				}
+			} else {
+				break;
 			}
 		}
 		in.close();
@@ -134,10 +142,10 @@ public class FileHandler {
 		System.out.println("Saving dimensions...");
 		for (int i = 0; i < handler.getDimensionHandler().dimensions.size(); i++) {
 			Dimension dimension = handler.getDimensionHandler().dimensions.get(i);
-			System.out.println("Saving dimension:" + i);
+			System.out.println("Saving dimension: " + i);
 			for (int j = 0; j < dimension.entities.size(); j++) {
 				Entity entity = dimension.entities.get(j);
-				text += "entity: " + entity.getClass().getName() + ":" + entity.getX() + ":" + entity.getY() + ":" + entity.getHealth() + ";";
+				text += "entity:" + entity.getClass().getName() + ":" + entity.getX() + ":" + entity.getY() + ":" + entity.getHealth() + ";";
 			}
 			text += "#";
 		}
