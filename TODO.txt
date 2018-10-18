@@ -6,7 +6,7 @@ if value in certain range it must be armor
 	check if its armor & if not, move to unarmor spot
 	check if its correct armor type (head, chest, legs, boots)
 	give effects/qualities to player
-	
+
 Make items stackable
 	Check if its am item stack
 	if it is, convert it, otherwise leave it & render it normally
@@ -19,14 +19,13 @@ Make items stackable
 
 Add Sounds:
 	effects: eating sound, firball, teleport, onhit/attack
-	music: dungeon, boss fight/fighting music, menu, dimension casual/ different per
-	
+	music: dungeon, boss fight/fighting music, menu, dimension casual/different per
+
 Add Textures:
 	new splash, inventory, health bar, player & most creatures
-	
+
 Add Items:
 	leather armor, metal armor, amethyst armor, frostbite armor, chain armor
 
 Add Entities:
 	water dragon, crabs, frost walkers, mamoths, sabertooth tigers, sharks, sting rays, jellyfish
-	

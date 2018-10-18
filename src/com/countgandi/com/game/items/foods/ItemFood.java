@@ -17,15 +17,16 @@ public abstract class ItemFood extends Item {
 	}
 
 	@Override
-	public void onUse() {
+	public boolean onUse() {
 		if (handler.getPlayer().getHealth() >= handler.getPlayer().maxHealth) {
-			return;
+			return false;
 		}
 		handler.getPlayer().setHealth(handler.getPlayer().getHealth() + health);
 		if (handler.getPlayer().getHealth() > handler.getPlayer().maxHealth) {
 			handler.getPlayer().setHealth(handler.getPlayer().maxHealth);
 		}
-		InventoryGui.items.remove(this);
+		InventoryGui.removeItem(this);
+		return true;
 	}
 	
 	@Override

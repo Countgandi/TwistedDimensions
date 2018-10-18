@@ -10,6 +10,7 @@ import com.countgandi.com.guis.ItemStatGui;
 public abstract class Item {
 	
 	protected boolean facingl = true;
+	public boolean stackable = true;
 	protected Handler handler;
 	protected String name = "Item";
 	protected BufferedImage[] imgs;
@@ -40,8 +41,16 @@ public abstract class Item {
 		}
 	}
 	
-	public abstract void onUse();	
+	public abstract boolean onUse();
 	public abstract BufferedImage getImage();
 	public abstract ItemStatGui createGuiStats(int x, int y);
+	
+	public BufferedImage[] getImgs() {
+		return imgs;
+	}
+	
+	public Handler getHandler() {
+		return handler;
+	}
 
 }

@@ -18,10 +18,10 @@ public class GameScreen extends Menu {
 		this.handler.addGui(new HotbarGui(handler));
 		this.handler.addGui(new HudGui(handler));
 		try {
-			if(!this.handler.loadFiles()) {
+			//if(!this.handler.loadFiles()) {
 				this.handler.getDimensionHandler().loadDimension(0);
-				System.out.println("No world could be detected, creating new world...");
-			}
+			//	System.out.println("No world could be detected, creating new world...");
+			//}
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

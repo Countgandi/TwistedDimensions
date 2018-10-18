@@ -21,7 +21,7 @@ public abstract class ItemSword extends Item {
 	}
 
 	@Override
-	public void onUse() {
+	public boolean onUse() {
 		int x, y, width = 64, height = 16;
 		if (facingl) {
 			x = (int) handler.getPlayer().getX() - 30;
@@ -53,6 +53,7 @@ public abstract class ItemSword extends Item {
 				}
 			}
 		}
+		return false;
 	}
 
 	@Override

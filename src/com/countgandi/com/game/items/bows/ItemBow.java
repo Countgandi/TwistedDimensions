@@ -51,7 +51,7 @@ public abstract class ItemBow extends Item {
 	}
 
 	@Override
-	public void onUse() {
+	public boolean onUse() {
 		if (timer > 60) {
 			if (facingl) {
 				handler.addEntity(new EntityArrow((int) handler.getPlayer().getX() - 10, (int) handler.getPlayer().getY() + 24, (int) (tex * multiplySpeed), facingl, type, dmg + handler.getPlayer().getBaseBowDamage(), handler));
@@ -61,6 +61,7 @@ public abstract class ItemBow extends Item {
 
 		}
 		timer = 0;
+		return false;
 	}
 
 	@Override

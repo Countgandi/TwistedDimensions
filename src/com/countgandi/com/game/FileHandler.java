@@ -41,7 +41,7 @@ public class FileHandler {
 		loadPlayer(files.get(0), handler);
 		System.out.println("Loading dimensions...");
 		loadDimension(files.get(1), handler);
-
+		
 		for (int i = 0; i < files.size(); i++) {
 			if (!files.get(i).exists())
 				return false;
@@ -85,13 +85,14 @@ public class FileHandler {
 		for (int j = 0; j < handler.getDimensionHandler().dimensions.size(); j++) {
 			if (ogStrings.length - 1 < j) {
 				String[] strings = ogStrings[j].split(";");
-				System.out.println("Loading dimension: " + j);
+				System.out.println("Loading dimension: " + j + ogStrings[j]);
 				for (int i = 0; i < strings.length; i++) {
 					String[] s = strings[i].split(":");
-					if (s[0].startsWith("entity")) {
+					if (s[0].contains("entity")) {
 						@SuppressWarnings("unchecked")
 						Class<? extends Entity> cc = (Class<? extends Entity>) Class.forName(s[1].trim());
 						if (!cc.equals(Player.class)) {
+							System.out.println("Entity");
 							float x = Float.parseFloat(s[2]);
 							float y = Float.parseFloat(s[3]);
 							Entity entity = (Entity) cc.getConstructors()[0].newInstance(x, y, handler);
