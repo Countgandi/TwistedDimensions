@@ -14,7 +14,6 @@ import com.countgandi.com.Game;
 import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.items.Item;
 import com.countgandi.com.game.items.ItemStackable;
-import com.countgandi.com.game.items.foods.ItemDuckFood;
 import com.countgandi.com.game.items.swords.ItemWoodSword;
 
 public class InventoryGui extends Gui {
@@ -29,7 +28,7 @@ public class InventoryGui extends Gui {
 	public InventoryGui(Handler handler) {
 		super(handler);
 		items.add(new ItemWoodSword(handler));
-		items.add(new ItemStackable(new ItemDuckFood(handler), 8));
+		// items.add(new ItemStackable(new ItemDuckFood(handler), 8));
 		for (int y = 0; y < ColumnAmount; y++) {
 			for (int x = 0; x < RowAmount; x++) {
 				slots[x + y * RowAmount] = new Rectangle(142 + x * 48, 128 + y * 48, 32, 32);
@@ -53,9 +52,11 @@ public class InventoryGui extends Gui {
 				if (i < items.size() && i > -1 && items.size() > 0) {
 					g.drawImage(items.get(i).getImage(), 144 + x * 48, 130 + y * 48, 32, 32, null);
 					if (items.get(i) instanceof ItemStackable) {
-						g.setColor(Color.WHITE);
-						g.setFont(new Font("arial", 2, 12));
-						g.drawString("" + ((ItemStackable) items.get(i)).stacked, 144 + x * 48, 130 + y * 48 + 31);
+						if (((ItemStackable) items.get(i)).stacked > 1) {
+							g.setColor(Color.WHITE);
+							g.setFont(new Font("arial", 2, 12));
+							g.drawString("" + ((ItemStackable) items.get(i)).stacked, 144 + x * 48, 130 + y * 48 + 31);
+						}
 					}
 				}
 				i++;
@@ -102,20 +103,27 @@ public class InventoryGui extends Gui {
 	}
 
 	/**
-	 * Adds an item to an itemstack (if stackable) and adds that to the item storage
-	 * @param item - the item to be added
+	 * Adds an item to an itemstack (if stackable) and adds that to the item
+	 * storage
+	 * 
+	 * @param item
+	 *            - the item to be added
 	 */
 	public static void addItem(Item item) {
 		if (item.stackable) {
 			for (int i = 0; i < InventoryGui.items.size(); i++) {
 				if (InventoryGui.items.get(i) instanceof ItemStackable) {
 					ItemStackable stackableItem = (ItemStackable) InventoryGui.items.get(i);
-					if(stackableItem.item.getClass().equals(item.getClass()) && stackableItem.stacked + 1 > ItemStackable.MAX_STACKS) {
+					if (stackableItem.item.getClass().equals(item.getClass()) && stackableItem.stacked < ItemStackable.MAX_STACKS) {
 						stackableItem.stacked++;
 						return;
+					} else if (stackableItem.stacked >= ItemStackable.MAX_STACKS && i >= InventoryGui.items.size() - 1) {
+						InventoryGui.items.add(new ItemStackable(item, 1));
+						return;
 					}
-				} else if(i == InventoryGui.items.size()) {
-					InventoryGui.addItem(new ItemStackable(item, 1));
+				} else if (i >= InventoryGui.items.size() - 1) {
+					InventoryGui.items.add(new ItemStackable(item, 1));
+					return;
 				}
 			}
 		} else {
@@ -124,17 +132,19 @@ public class InventoryGui extends Gui {
 	}
 
 	public static void removeItem(Item item) {
-		if(item.stackable) {
+		if (item.stackable) {
 			for (int i = 0; i < InventoryGui.items.size(); i++) {
 				if (InventoryGui.items.get(i) instanceof ItemStackable) {
 					ItemStackable stackableItem = (ItemStackable) InventoryGui.items.get(i);
-					if(stackableItem.item.getClass().equals(item.getClass()) && stackableItem.stacked - 1 > 0) {
+					if (stackableItem.item.getClass().equals(item.getClass()) && stackableItem.stacked - 1 > 0) {
 						stackableItem.stacked--;
 						return;
-					} else if(stackableItem.stacked - 1 > 0) {
-						
+					} else if (stackableItem.stacked - 1 <= 0) {
+						InventoryGui.items.remove(item);
 						return;
 					}
+				} else if(i >= InventoryGui.items.size() - 1) {
+					InventoryGui.items.remove(item);
 				}
 			}
 		} else {

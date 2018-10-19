@@ -73,7 +73,7 @@ public abstract class Entity {
 	public void onKill() {
 		if (lootDrop != null) {
 			for (int i = 0; i < lootDrop.getItems().size(); i++) {
-				InventoryGui.items.add(lootDrop.getItems().get(i));
+				InventoryGui.addItem(lootDrop.getItems().get(i));
 			}
 		}
 		handler.getPlayer().setExp(handler.getPlayer().getExp() + exp);

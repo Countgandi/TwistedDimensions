@@ -7,16 +7,6 @@ if value in certain range it must be armor
 	check if its correct armor type (head, chest, legs, boots)
 	give effects/qualities to player
 
-Make items stackable
-	Check if its am item stack
-	if it is, convert it, otherwise leave it & render it normally
-	render picture, but render a quantative amount @ bottom left
-	ItemStack should have
-		one item instance & a # of Items for it
-		render & tick the normal item
-		only remove 1 on use tho
-		max stack limit = 16
-
 Add Sounds:
 	effects: eating sound, firball, teleport, onhit/attack
 	music: dungeon, boss fight/fighting music, menu, dimension casual/different per

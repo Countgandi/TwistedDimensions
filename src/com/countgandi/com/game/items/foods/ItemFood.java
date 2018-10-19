@@ -14,6 +14,7 @@ public abstract class ItemFood extends Item {
 	public ItemFood(Handler handler) {
 		super(handler);
 		name = "Food";
+		stackable = true;
 	}
 
 	@Override

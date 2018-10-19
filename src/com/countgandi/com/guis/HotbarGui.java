@@ -27,11 +27,11 @@ public class HotbarGui extends Gui {
 	public void tick() {
 		items.clear();
 		if (InventoryGui.items.size() > 21) {
-			for(int i = 0; i < 21; i++) {
+			for (int i = 0; i < 21; i++) {
 				items.add(InventoryGui.items.get(i));
 			}
 		} else if (InventoryGui.items.size() > 0) {
-			for(int i = 0; i < InventoryGui.items.size(); i++) {
+			for (int i = 0; i < InventoryGui.items.size(); i++) {
 				items.add(InventoryGui.items.get(i));
 			}
 		}
@@ -40,7 +40,7 @@ public class HotbarGui extends Gui {
 		} else {
 			currentItem = null;
 		}
-		if(currentItem != null) {
+		if (currentItem != null) {
 			currentItem.tick();
 		}
 	}
@@ -51,10 +51,12 @@ public class HotbarGui extends Gui {
 		for (int x = 0; x < 21; x++) {
 			if (x < items.size() && x > -1 && items.size() > 0) {
 				g.drawImage(items.get(x).getImage(), 148 + x * 48, Game.HEIGHT - 44, 32, 32, null);
-				if(items.get(x) instanceof ItemStackable) {
-					g.setColor(Color.WHITE);
-					g.setFont(new Font("arial", 2, 12));
-					g.drawString("" + ((ItemStackable)items.get(x)).stacked, 148 + x * 48, Game.HEIGHT - 13);
+				if (items.get(x) instanceof ItemStackable) {
+					if (((ItemStackable) items.get(x)).stacked > 1) {
+						g.setColor(Color.WHITE);
+						g.setFont(new Font("arial", 2, 12));
+						g.drawString("" + ((ItemStackable) items.get(x)).stacked, 148 + x * 48, Game.HEIGHT - 13);
+					}
 				}
 			}
 		}
