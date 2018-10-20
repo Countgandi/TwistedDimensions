@@ -11,15 +11,23 @@ public abstract class ItemArmor extends Item {
 	public ItemArmor(ArmorType type, Handler handler) {
 		super(handler);
 	}
-
+	
+	@Override
+	public void tick() {
+		
+	}
+	
+	@Override
 	public boolean onUse() {
 		return false;
 	}
 	
+	@Override
 	public BufferedImage getImage() {
 		return imgs[0];
 	}
 	
+	@Override
 	public ItemStatGui createGuiStats(int x, int y) {
 		return null;
 	}
