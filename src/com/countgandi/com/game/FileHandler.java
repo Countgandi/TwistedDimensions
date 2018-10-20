@@ -128,8 +128,8 @@ public class FileHandler {
 		text += "maxEnergy:" + handler.getPlayer().maxHealth + ";";
 		text += "x:" + handler.getPlayer().getX() + ";";
 		text += "y:" + handler.getPlayer().getY() + ";";
-		for (int i = 0; i < InventoryGui.items.size(); i++) {
-			text += "item:" + InventoryGui.items.get(i).getClass().getName() + ";";
+		for (int i = 0; i < InventoryGui.items.length; i++) {
+			text += "item:" + InventoryGui.items[i].getClass().getName() + ";";
 		}
 
 		os.write(text.getBytes());

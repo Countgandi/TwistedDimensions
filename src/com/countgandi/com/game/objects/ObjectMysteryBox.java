@@ -34,7 +34,7 @@ public class ObjectMysteryBox extends GameObject {
 
 	@Override
 	public void onHit() {
-		InventoryGui.items.add(table.getItem());
+		InventoryGui.addItem(table.getItem());
 		if(handler.dungeon == null) {
 			handler.getDimensionHandler().currentDimension.objects.remove(this);
 		} else {

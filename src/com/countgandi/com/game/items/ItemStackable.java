@@ -42,7 +42,7 @@ public class ItemStackable extends Item {
 		if (item.onUse()) {
 			stacked--;
 			if (stacked < 1) {
-				InventoryGui.items.remove(this);
+				InventoryGui.removeItem(this);
 			}
 			return true;
 		}

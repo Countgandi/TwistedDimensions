@@ -28,13 +28,13 @@ public class HotbarGui extends Gui {
 	@Override
 	public void tick() {
 		items.clear();
-		if (InventoryGui.items.size() > 10) {
+		if (InventoryGui.items.length > 10) {
 			for (int i = 0; i < 10; i++) {
-				items.add(InventoryGui.items.get(i));
+				items.add(InventoryGui.items[i]);
 			}
-		} else if (InventoryGui.items.size() > 0) {
-			for (int i = 0; i < InventoryGui.items.size(); i++) {
-				items.add(InventoryGui.items.get(i));
+		} else if (InventoryGui.items.length > 0) {
+			for (int i = 0; i < InventoryGui.items.length; i++) {
+				items.add(InventoryGui.items[i]);
 			}
 		}
 		if (!(selected > items.size() - 1)) {
@@ -47,22 +47,22 @@ public class HotbarGui extends Gui {
 				currentItem.tick();
 			}
 		}
-		if(InventoryGui.headpiece != null) {
+		if (InventoryGui.headpiece != null) {
 			InventoryGui.headpiece.tick();
 		}
-		if(InventoryGui.chestpiece != null) {
+		if (InventoryGui.chestpiece != null) {
 			InventoryGui.chestpiece.tick();
 		}
-		if(InventoryGui.leggings != null) {
+		if (InventoryGui.leggings != null) {
 			InventoryGui.leggings.tick();
 		}
-		if(InventoryGui.boots != null) {
+		if (InventoryGui.boots != null) {
 			InventoryGui.boots.tick();
 		}
-		if(InventoryGui.trinket1 != null) {
+		if (InventoryGui.trinket1 != null) {
 			InventoryGui.trinket1.tick();
 		}
-		if(InventoryGui.trinket2 != null) {
+		if (InventoryGui.trinket2 != null) {
 			InventoryGui.trinket2.tick();
 		}
 	}
@@ -72,12 +72,14 @@ public class HotbarGui extends Gui {
 		g.drawImage(Assets.Guis.hotbar, 191, Game.HEIGHT - 28, null);
 		for (int x = 0; x < 10; x++) {
 			if (x < items.size() && x > -1 && items.size() > 0) {
-				g.drawImage(items.get(x).getImage(), 195 + x * 26, Game.HEIGHT - 24, 16, 16, null);
-				if (items.get(x) instanceof ItemStackable) {
-					if (((ItemStackable) items.get(x)).stacked > 1) {
-						g.setColor(Color.WHITE);
-						g.setFont(new Font("arial", 2, 6));
-						g.drawString("" + ((ItemStackable) items.get(x)).stacked, 195 + x * 26, Game.HEIGHT - 9);
+				if (items.get(x) != null) {
+					g.drawImage(items.get(x).getImage(), 195 + x * 26, Game.HEIGHT - 24, 16, 16, null);
+					if (items.get(x) instanceof ItemStackable) {
+						if (((ItemStackable) items.get(x)).stacked > 1) {
+							g.setColor(Color.WHITE);
+							g.setFont(new Font("arial", 2, 6));
+							g.drawString("" + ((ItemStackable) items.get(x)).stacked, 195 + x * 26, Game.HEIGHT - 9);
+						}
 					}
 				}
 			}

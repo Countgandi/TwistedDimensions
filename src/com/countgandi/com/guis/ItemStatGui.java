@@ -24,7 +24,7 @@ public class ItemStatGui extends Gui {
 		this.y = y + 16;
 		for(int i = 0; i < text.length; i++) {
 			String[] strs = text[i].split("/#");
-			if(strs[i].length() > this.width) {
+			if(strs[0].length() > this.width) {
 				this.width = strs[i].length();
 			}
 		}

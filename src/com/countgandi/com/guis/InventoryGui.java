@@ -7,7 +7,6 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 import com.countgandi.com.Assets;
 import com.countgandi.com.Game;
@@ -30,7 +29,7 @@ import com.countgandi.com.game.items.swords.ItemWoodSword;
 
 public class InventoryGui extends Gui {
 
-	public static ArrayList<Item> items = new ArrayList<Item>(50);
+	public static Item[] items = new Item[50];
 	public static ItemArmorHeadpiece headpiece;
 	public static ItemArmorChestpiece chestpiece;
 	public static ItemArmorLeggings leggings;
@@ -42,12 +41,13 @@ public class InventoryGui extends Gui {
 	private Item item;
 	private ItemStatGui itemGui;
 	private static final int xPos = 191, yPos = 40;
+	private int mx, my;
 
 	public InventoryGui(Handler handler) {
 		super(handler);
-		items.add(new ItemWoodSword(handler));
-		items.add(new ItemWoodBow(handler));
-		items.add(new ItemStackable(new ItemDuckFood(handler), 8));
+		items[0] = new ItemWoodSword(handler);
+		items[1] = new ItemWoodBow(handler);
+		items[2] = new ItemStackable(new ItemDuckFood(handler), 8);
 		headpiece = new ItemLeatherArmorHeadpiece(handler);
 		chestpiece = new ItemLeatherArmorChestpiece(handler);
 		leggings = new ItemLeatherArmorLeggings(handler);
@@ -80,23 +80,25 @@ public class InventoryGui extends Gui {
 		int i = 0;
 		for (int y = 0; y < ColumnAmount; y++) {
 			for (int x = 0; x < RowAmount; x++) {
-				if (i < items.size() && i > -1 && items.size() > 0) {
-					if (y == 0) {
-						g.drawImage(items.get(i).getImage(), xPos + 4 + x * 26, yPos + 226, 16, 16, null);
-						if (items.get(i) instanceof ItemStackable) {
-							if (((ItemStackable) items.get(i)).stacked > 1) {
-								g.setColor(Color.WHITE);
-								g.setFont(new Font("arial", 2, 6));
-								g.drawString("" + ((ItemStackable) items.get(i)).stacked, xPos + 4 + x * 26, yPos + 241);
+				if (items[i] != null) {
+					if (i < items.length && i > -1 && items.length > 0) {
+						if (y == 0) {
+							g.drawImage(items[i].getImage(), xPos + 4 + x * 26, yPos + 226, 16, 16, null);
+							if (items[i] instanceof ItemStackable) {
+								if (((ItemStackable) items[i]).stacked > 1) {
+									g.setColor(Color.WHITE);
+									g.setFont(new Font("arial", 2, 6));
+									g.drawString("" + ((ItemStackable) items[i]).stacked, xPos + 4 + x * 26, yPos + 241);
+								}
 							}
-						}
-					} else {
-						g.drawImage(items.get(i).getImage(), xPos + 4 + x * 26, yPos + 137 + y * 22, 16, 16, null);
-						if (items.get(i) instanceof ItemStackable) {
-							if (((ItemStackable) items.get(i)).stacked > 1) {
-								g.setColor(Color.WHITE);
-								g.setFont(new Font("arial", 2, 6));
-								g.drawString("" + ((ItemStackable) items.get(i)).stacked, xPos + 4 + x * 26, yPos + 152 + (y - 1) * 22);
+						} else {
+							g.drawImage(items[i].getImage(), xPos + 4 + x * 26, yPos + 137 + (y - 1) * 22, 16, 16, null);
+							if (items[i] instanceof ItemStackable) {
+								if (((ItemStackable) items[i]).stacked > 1) {
+									g.setColor(Color.WHITE);
+									g.setFont(new Font("arial", 2, 6));
+									g.drawString("" + ((ItemStackable) items[i]).stacked, xPos + 4 + x * 26, yPos + 152 + (y - 1) * 22);
+								}
 							}
 						}
 					}
@@ -124,13 +126,20 @@ public class InventoryGui extends Gui {
 			g.drawImage(trinket2.getImage(), xPos + 238, yPos + 4 + 110, null);
 		}
 		if (currentSlot != null) {
-			g.drawImage(Assets.Guis.inventorySelected, currentSlot.x - 2, currentSlot.y - 1, null);
+			g.drawImage(Assets.Guis.inventorySelected, currentSlot.x - 2, currentSlot.y - 2, null);
 		}
 		if (itemGui != null) {
 			itemGui.render(g);
 		}
+		if (dragging) {
+			if (item != null) {
+				g.drawImage(item.getImage(), mx, my, 16, 16, null);
+			}
+		}
 
 	}
+
+	private boolean dragging = false;
 
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -140,12 +149,14 @@ public class InventoryGui extends Gui {
 				for (int x = 0; x < RowAmount; x++) {
 					if (slots[x + y * RowAmount].contains(m)) {
 						currentSlot = slots[x + y * RowAmount];
-						if (items.size() > x + y * RowAmount) {
-							item = items.get(x + y * RowAmount);
-							if (y == 0) {
-								itemGui = item.createGuiStats(xPos + 4 + x * 26, yPos + 226);
-							} else {
-								itemGui = item.createGuiStats(xPos + 4 + x * 26, yPos + 137 + y * 22);
+						if (items.length > x + y * RowAmount) {
+							item = items[x + y * RowAmount];
+							if (item != null) {
+								if (y == 0) {
+									itemGui = item.createGuiStats(xPos + 4 + x * 26, yPos + 226);
+								} else {
+									itemGui = item.createGuiStats(xPos + 4 + x * 26, yPos + 137 + y * 22);
+								}
 							}
 						}
 					} else if (currentSlot == slots[x + y * RowAmount]) {
@@ -188,16 +199,81 @@ public class InventoryGui extends Gui {
 				}
 			}
 		}
+		dragging = true;
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {
-
+	public void mouseDragged(MouseEvent e) {
+		Point m = new Point((int) (e.getX() / Toolkit.getDefaultToolkit().getScreenSize().getWidth() * Game.WIDTH), (int) (e.getY() / Toolkit.getDefaultToolkit().getScreenSize().getHeight() * Game.HEIGHT));
+		// move items
+		itemGui = null;
+		mx = (int) m.getX();
+		my = (int) m.getY();
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
 
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		if (dragging) {
+			int j = 0;
+			for (int i = 0; i < slots.length; i++) {
+				if (currentSlot != null) {
+					if (slots[i].intersects(currentSlot)) {
+						j = i;
+					}
+				}
+			}
+			for (int i = 0; i < slots.length; i++) {
+				if (slots[i].contains(mx, my)) {
+					if (j > slots.length - 6 && i < slots.length - 7) {
+						if (j == slots.length - 1) {
+							headpiece = null;
+						} else if (j == slots.length - 2) {
+							chestpiece = null;
+						} else if (j == slots.length - 3) {
+							leggings = null;
+						} else if (j == slots.length - 4) {
+							boots = null;
+						} else if (j == slots.length - 5) {
+							trinket1 = null;
+						} else if (j == slots.length - 6) {
+							trinket2 = null;
+						}
+						moveItem(item, j, InventoryGui.findFirstInventoryFreeSpace());
+					} else if (i > slots.length - 7) {
+						boolean madeit = true;
+						if (i == slots.length - 1 && item instanceof ItemArmorHeadpiece) {
+							headpiece = (ItemArmorHeadpiece) item;
+						} else if (i == slots.length - 2 && item instanceof ItemArmorChestpiece) {
+							chestpiece = (ItemArmorChestpiece) item;
+						} else if (i == slots.length - 3 && item instanceof ItemArmorLeggings) {
+							leggings = (ItemArmorLeggings) item;
+						} else if (i == slots.length - 4 && item instanceof ItemArmorBoots) {
+							boots = null;
+						} else if (i == slots.length - 5 && item instanceof ItemTrinket) {
+							trinket1 = (ItemTrinket) item;
+						} else if (i == slots.length - 6 && item instanceof ItemTrinket) {
+							trinket2 = (ItemTrinket) item;
+						} else {
+							madeit = false;
+						}
+						if (madeit) {
+							items[j] = null;
+						}
+					} else {
+						moveItem(item, j, i);
+					}
+				}
+			}
+		}
+		mx = 10000;
+		my = 10000;
+		item = null;
+		dragging = false;
 	}
 
 	/**
@@ -209,45 +285,89 @@ public class InventoryGui extends Gui {
 	 */
 	public static void addItem(Item item) {
 		if (item.stackable) {
-			for (int i = 0; i < InventoryGui.items.size(); i++) {
-				if (InventoryGui.items.get(i) instanceof ItemStackable) {
-					ItemStackable stackableItem = (ItemStackable) InventoryGui.items.get(i);
+			for (int i = 0; i < InventoryGui.items.length; i++) {
+				if (InventoryGui.items[i] instanceof ItemStackable) {
+					ItemStackable stackableItem = (ItemStackable) InventoryGui.items[i];
 					if (stackableItem.item.getClass().equals(item.getClass()) && stackableItem.stacked < ItemStackable.MAX_STACKS) {
 						stackableItem.stacked++;
 						return;
-					} else if (stackableItem.stacked >= ItemStackable.MAX_STACKS && i >= InventoryGui.items.size() - 1) {
-						InventoryGui.items.add(new ItemStackable(item, 1));
+					} else if (stackableItem.stacked >= ItemStackable.MAX_STACKS && i >= InventoryGui.items.length - 1) {
+						InventoryGui.items[findFirstInventoryFreeSpace()] = new ItemStackable(item, 1);
 						return;
 					}
-				} else if (i >= InventoryGui.items.size() - 1) {
-					InventoryGui.items.add(new ItemStackable(item, 1));
+				} else if (i >= InventoryGui.items.length - 1) {
+					InventoryGui.items[findFirstInventoryFreeSpace()] = new ItemStackable(item, 1);
 					return;
 				}
 			}
 		} else {
-			InventoryGui.items.add(item);
+			InventoryGui.items[findFirstInventoryFreeSpace()] = item;
 		}
 	}
 
+	private static int findFirstInventoryFreeSpace() {
+		for (int i = 0; i < items.length; i++) {
+			if (items[i] == null) {
+				return i;
+			}
+		}
+		System.err.println("There is no free space in INVENTORY....");
+		return -1;
+	}
+
 	public static void removeItem(Item item) {
+		int found = 0;
+		for (int k = 0; k < items.length; k++) {
+			if (items[k].equals(item)) {
+				found = k;
+			}
+		}
 		if (item.stackable) {
-			for (int i = 0; i < InventoryGui.items.size(); i++) {
-				if (InventoryGui.items.get(i) instanceof ItemStackable) {
-					ItemStackable stackableItem = (ItemStackable) InventoryGui.items.get(i);
+			for (int i = 0; i < InventoryGui.items.length; i++) {
+				if (InventoryGui.items[i] instanceof ItemStackable) {
+					ItemStackable stackableItem = (ItemStackable) InventoryGui.items[i];
 					if (stackableItem.item.getClass().equals(item.getClass()) && stackableItem.stacked - 1 > 0) {
 						stackableItem.stacked--;
 						return;
 					} else if (stackableItem.stacked - 1 <= 0) {
-						InventoryGui.items.remove(item);
+						InventoryGui.items[found] = null;
 						return;
 					}
-				} else if (i >= InventoryGui.items.size() - 1) {
-					InventoryGui.items.remove(item);
+				} else if (i >= InventoryGui.items.length - 1) {
+					InventoryGui.items[found] = null;
 				}
 			}
 		} else {
-			InventoryGui.items.remove(item);
+			InventoryGui.items[found] = null;
 		}
+	}
+
+	/**
+	 * Moves an item to a different location in the inventory
+	 * 
+	 * @param item
+	 *            - the item being moved
+	 * @param current
+	 *            - the current position of the item
+	 * @param next
+	 *            - the position to move to
+	 * @return if the item was moved successfully
+	 */
+	public static boolean moveItem(Item item, int current, int next) {
+		if (items[next] == null) {
+			items[next] = item;
+			if (current < items.length) {
+				items[current] = null;
+			}
+			return true;
+		} else if (items[next] != null) {
+			Item nitem = items[next];
+			items[next] = item;
+			items[current] = nitem;
+			return true;
+		}
+		System.err.println("Could not move item: " + item.getClass().getName() + " to position " + next + " from position " + current);
+		return false;
 	}
 
 }

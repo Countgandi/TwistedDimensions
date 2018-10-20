@@ -42,7 +42,7 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		handler.getGame().menu.mouseReleased(e);
-		handler.mousePressed(e);
+		handler.mouseReleased(e);
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 		int key = e.getKeyCode();
 
 		if (key == KeyEvent.VK_ESCAPE) {
-			handler.saveFiles();
+			//handler.saveFiles();
 			System.exit(0);
 		}
 		if (key == KeyEvent.VK_SHIFT) {
@@ -99,6 +99,7 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		handler.getGame().menu.mouseDragged(e);
+		handler.mouseDragged(e);
 	}
 
 	@Override

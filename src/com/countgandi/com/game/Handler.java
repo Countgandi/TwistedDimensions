@@ -190,4 +190,10 @@ public class Handler {
 			guis.get(i).keyReleased(e);
 		}
 	}
+
+	public void mouseDragged(MouseEvent e) {
+		for(int i = 0; i < guis.size(); i++) {
+			guis.get(i).mouseDragged(e);
+		}
+	}
 }
