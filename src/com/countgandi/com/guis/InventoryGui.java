@@ -14,6 +14,11 @@ import com.countgandi.com.Game;
 import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.items.Item;
 import com.countgandi.com.game.items.ItemStackable;
+import com.countgandi.com.game.items.armor.ItemArmorBoots;
+import com.countgandi.com.game.items.armor.ItemArmorChestpiece;
+import com.countgandi.com.game.items.armor.ItemArmorHeadpiece;
+import com.countgandi.com.game.items.armor.ItemArmorLeggings;
+import com.countgandi.com.game.items.armor.ItemTrinket;
 import com.countgandi.com.game.items.bows.ItemWoodBow;
 import com.countgandi.com.game.items.foods.ItemDuckFood;
 import com.countgandi.com.game.items.swords.ItemWoodSword;
@@ -21,8 +26,13 @@ import com.countgandi.com.game.items.swords.ItemWoodSword;
 public class InventoryGui extends Gui {
 
 	public static ArrayList<Item> items = new ArrayList<Item>(50);
+	public static ItemArmorHeadpiece headpiece;
+	public static ItemArmorChestpiece chestpiece;
+	public static ItemArmorLeggings leggings;
+	public static ItemArmorBoots boots;
+	public static ItemTrinket trinket1, trinket2;
 	public static int RowAmount = 10, ColumnAmount = 5;
-	private Rectangle[] slots = new Rectangle[RowAmount * ColumnAmount];
+	private Rectangle[] slots = new Rectangle[RowAmount * ColumnAmount + 6];
 	private Rectangle currentSlot;
 	private Item item;
 	private ItemStatGui itemGui;
@@ -41,6 +51,9 @@ public class InventoryGui extends Gui {
 					slots[x + y * RowAmount] = new Rectangle(xPos + 4 + x * 26, yPos + 136 + (y - 1) * 22, 16, 16);
 				}
 			}
+		}
+		for(int i = 0; i < 6; i++) {
+			slots[slots.length - i - 1] = new Rectangle(xPos + 238, yPos + 4 + i * 22);
 		}
 	}
 
@@ -81,6 +94,17 @@ public class InventoryGui extends Gui {
 				i++;
 			}
 		}
+		
+		try {
+			g.drawImage(headpiece.getImage(), xPos + 238, yPos + 4, null);
+			g.drawImage(chestpiece.getImage(), xPos + 238, yPos + 4 + 22, null);
+			g.drawImage(leggings.getImage(), xPos + 238, yPos + 4 + 44, null);
+			g.drawImage(boots.getImage(), xPos + 238, yPos + 4 + 66, null);
+			g.drawImage(trinket1.getImage(), xPos + 238, yPos + 4 + 88, null);
+			g.drawImage(trinket2.getImage(), xPos + 238, yPos + 4 + 110, null);
+		} catch(NullPointerException e) {
+			// Do nothings
+		}
 		if (currentSlot != null) {
 			g.drawImage(Assets.Guis.inventorySelected, currentSlot.x - 2, currentSlot.y - 1, null);
 		}
@@ -88,9 +112,6 @@ public class InventoryGui extends Gui {
 			itemGui.render(g);
 		}
 		
-		for(int j = 0; j < slots.length; j++) {
-			//g.drawRect(slots[j].x, slots[j].y, slots[j].width, slots[j].height);
-		}
 	}
 
 	@Override

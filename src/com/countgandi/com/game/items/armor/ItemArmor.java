@@ -1,5 +1,6 @@
 package com.countgandi.com.game.items.armor;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import com.countgandi.com.game.Handler;
@@ -7,6 +8,10 @@ import com.countgandi.com.game.items.Item;
 import com.countgandi.com.guis.ItemStatGui;
 
 public abstract class ItemArmor extends Item {
+	
+	protected int magical, physical = 2;
+	protected float slowness = 0;
+	protected ArmorType type;
 
 	public ItemArmor(ArmorType type, Handler handler) {
 		super(handler);
@@ -16,6 +21,9 @@ public abstract class ItemArmor extends Item {
 	public void tick() {
 		
 	}
+	
+	@Override
+	public void render(Graphics g) {}
 	
 	@Override
 	public boolean onUse() {
@@ -34,6 +42,18 @@ public abstract class ItemArmor extends Item {
 	
 	protected enum ArmorType {
 		Head, Chest, Legs, Boots, Trinket;
+	}
+	
+	public int getArmorPhysical() {
+		return physical;
+	}
+	
+	public int getArmorMagical() {
+		return magical;
+	}
+	
+	public ArmorType getArmorType() {
+		return type;
 	}
 
 }
