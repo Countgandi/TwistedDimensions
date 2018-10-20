@@ -6,7 +6,7 @@ import com.countgandi.com.game.items.armor.ItemArmorChestpiece;
 public class ItemLeatherArmorChestpiece extends ItemArmorChestpiece {
 
 	public ItemLeatherArmorChestpiece(Handler handler) {
-		super(handler);
+		super("Leather", handler);
 		physical = 4;
 		magical = 0;
 		slowness = 0;

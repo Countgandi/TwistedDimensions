@@ -13,9 +13,13 @@ public abstract class ItemArmor extends Item {
 	protected int magical, physical = 2;
 	protected float slowness = 0;
 	protected ArmorType type;
+	protected String mat;
 
-	public ItemArmor(ArmorType type, Handler handler) {
+	public ItemArmor(ArmorType type, String mat, Handler handler) {
 		super(handler);
+		stackable = false;
+		this.type = type;
+		this.mat = mat;
 		imgs = Assets.Items.LeatherArmor;
 	}
 
@@ -26,6 +30,7 @@ public abstract class ItemArmor extends Item {
 
 	@Override
 	public void render(Graphics g) {
+		
 	}
 
 	@Override
@@ -53,7 +58,7 @@ public abstract class ItemArmor extends Item {
 
 	@Override
 	public ItemStatGui createGuiStats(int x, int y) {
-		return null;
+		return new ItemStatGui(x, y, new String[] {mat + " " + type + "/#00FFFF", "MR:" + magical, "Armor:" + physical}, handler);
 	}
 
 	protected enum ArmorType {

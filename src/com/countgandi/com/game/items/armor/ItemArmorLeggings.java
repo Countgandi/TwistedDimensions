@@ -4,8 +4,8 @@ import com.countgandi.com.game.Handler;
 
 public abstract class ItemArmorLeggings extends ItemArmor {
 
-	public ItemArmorLeggings(Handler handler) {
-		super(ArmorType.Legs, handler);
+	public ItemArmorLeggings(String mat, Handler handler) {
+		super(ArmorType.Legs, mat, handler);
 	}
 
 }

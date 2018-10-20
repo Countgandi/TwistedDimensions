@@ -4,8 +4,8 @@ import com.countgandi.com.game.Handler;
 
 public abstract class ItemArmorBoots extends ItemArmor {
 
-	public ItemArmorBoots(Handler handler) {
-		super(ArmorType.Boots, handler);
+	public ItemArmorBoots(String mat, Handler handler) {
+		super(ArmorType.Boots, mat, handler);
 	}
 
 }

@@ -39,16 +39,20 @@ public class Assets {
 		public static BufferedImage[] AmethystSword = loadImageSheet(16, 16, "/pics/items/AmethystSword.png");
 		public static BufferedImage[] FrostbiteSword = loadImageSheet(16, 16, "/pics/items/FrostbiteSword.png");
 		public static BufferedImage[] BeachSword = loadImageSheet(16, 16, "/pics/items/BeachSword.png");
-		
-		//Armor
+
+		// Armor
 		private static BufferedImage[] armor = loadImageSheet(16, 64, "/pics/items/armor.png");
 		public static BufferedImage[] LeatherArmor = loadImageSheet(16, 16, armor[0]);
+		// public static BufferedImage[] AmethystArmor = loadImageSheet(16, 16, armor[1]);
+
+		// Trinkets
+		public static BufferedImage[] WoodenRing = loadImageSheet(16, 16, "/pics/items/trinkets.png");
 
 		// Bows
 		public static BufferedImage[] WoodBow = loadImageSheet(20, 16, "/pics/items/Bow.png");
 		public static BufferedImage[] AmethystBow = loadImageSheet(20, 16, replaceImageColor(loadImage("/pics/items/Bow.png"), 0xFF7F3300, 0xFF9000D3));
 		public static BufferedImage[] FrostbiteBow = loadImageSheet(20, 16, replaceImageColor(loadImage("/pics/items/Bow.png"), 0xFF7F3300, 0xFF00FFFF));
-		
+
 		// Foods
 		public static BufferedImage[] ChickenWings = loadImageSheet(16, 16, "/pics/items/ChickenWing.png");
 

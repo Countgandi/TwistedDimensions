@@ -6,7 +6,7 @@ import com.countgandi.com.game.items.armor.ItemArmorLeggings;
 public class ItemLeatherArmorLeggings extends ItemArmorLeggings {
 
 	public ItemLeatherArmorLeggings(Handler handler) {
-		super(handler);
+		super("Leather", handler);
 		physical = 4;
 		magical = 0;
 		slowness = 0;

@@ -18,6 +18,7 @@ public abstract class ItemBow extends Item {
 
 	public ItemBow(Handler handler) {
 		super(handler);
+		stackable = false;
 		type = DamageType.Attack;
 		dmg = 10;
 		imgs = Assets.Items.WoodBow;

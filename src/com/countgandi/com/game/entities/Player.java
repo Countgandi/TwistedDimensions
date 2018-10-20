@@ -6,6 +6,7 @@ import com.countgandi.com.Assets;
 import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.dimensions.Dimension;
 import com.countgandi.com.guis.HotbarGui;
+import com.countgandi.com.guis.InventoryGui;
 
 public class Player extends Entity {
 
@@ -51,6 +52,22 @@ public class Player extends Entity {
 			direction = 3;
 		} else if (!handler.left) {
 			velX = 0;
+		}
+		if(InventoryGui.headpiece != null) {
+			armorStats[0] = InventoryGui.headpiece.getArmorMagical();
+			armorStats[4] = InventoryGui.headpiece.getArmorPhysical();
+		}
+		if(InventoryGui.chestpiece != null) {
+			armorStats[1] = InventoryGui.chestpiece.getArmorMagical();
+			armorStats[5] = InventoryGui.chestpiece.getArmorPhysical();
+		}
+		if(InventoryGui.leggings != null) {
+			armorStats[2] = InventoryGui.leggings.getArmorMagical();
+			armorStats[6] = InventoryGui.leggings.getArmorPhysical();
+		}
+		if(InventoryGui.boots != null) {
+			armorStats[3] = InventoryGui.boots.getArmorMagical();
+			armorStats[7] = InventoryGui.boots.getArmorPhysical();
 		}
 	}
 
@@ -99,7 +116,7 @@ public class Player extends Entity {
 			}
 			speed = 3;
 		} else {
-			if (energy < 100 && velX == 0 && velY == 0) {
+			if (energy < maxEnergy && velX == 0 && velY == 0) {
 				energy++;
 			}
 			speed = 2;

@@ -4,8 +4,8 @@ import com.countgandi.com.game.Handler;
 
 public abstract class ItemArmorHeadpiece extends ItemArmor {
 
-	public ItemArmorHeadpiece(Handler handler) {
-		super(ArmorType.Head, handler);
+	public ItemArmorHeadpiece(String mat, Handler handler) {
+		super(ArmorType.Head, mat, handler);
 	}
 
 }

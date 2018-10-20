@@ -18,6 +18,7 @@ public abstract class ItemSword extends Item {
 	public ItemSword(Handler handler) {
 		super(handler);
 		name = "Sword";
+		stackable = false;
 	}
 
 	@Override

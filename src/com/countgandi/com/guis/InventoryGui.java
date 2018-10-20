@@ -18,8 +18,12 @@ import com.countgandi.com.game.items.armor.ItemArmorBoots;
 import com.countgandi.com.game.items.armor.ItemArmorChestpiece;
 import com.countgandi.com.game.items.armor.ItemArmorHeadpiece;
 import com.countgandi.com.game.items.armor.ItemArmorLeggings;
-import com.countgandi.com.game.items.armor.ItemTrinket;
+import com.countgandi.com.game.items.armor.leather.ItemLeatherArmorBoots;
+import com.countgandi.com.game.items.armor.leather.ItemLeatherArmorChestpiece;
 import com.countgandi.com.game.items.armor.leather.ItemLeatherArmorHeadpiece;
+import com.countgandi.com.game.items.armor.leather.ItemLeatherArmorLeggings;
+import com.countgandi.com.game.items.armor.trinkets.ItemTrinket;
+import com.countgandi.com.game.items.armor.trinkets.ItemWoodenRingTrinket;
 import com.countgandi.com.game.items.bows.ItemWoodBow;
 import com.countgandi.com.game.items.foods.ItemDuckFood;
 import com.countgandi.com.game.items.swords.ItemWoodSword;
@@ -45,6 +49,10 @@ public class InventoryGui extends Gui {
 		items.add(new ItemWoodBow(handler));
 		items.add(new ItemStackable(new ItemDuckFood(handler), 8));
 		headpiece = new ItemLeatherArmorHeadpiece(handler);
+		chestpiece = new ItemLeatherArmorChestpiece(handler);
+		leggings = new ItemLeatherArmorLeggings(handler);
+		boots = new ItemLeatherArmorBoots(handler);
+		trinket1 = new ItemWoodenRingTrinket(handler);
 		for (int y = 0; y < ColumnAmount; y++) {
 			for (int x = 0; x < RowAmount; x++) {
 				if (y == 0) {
@@ -97,26 +105,29 @@ public class InventoryGui extends Gui {
 			}
 		}
 
-		try {
+		if (headpiece != null) {
 			g.drawImage(headpiece.getImage(), xPos + 238, yPos + 4, null);
+		}
+		if (chestpiece != null) {
 			g.drawImage(chestpiece.getImage(), xPos + 238, yPos + 4 + 22, null);
+		}
+		if (leggings != null) {
 			g.drawImage(leggings.getImage(), xPos + 238, yPos + 4 + 44, null);
+		}
+		if (boots != null) {
 			g.drawImage(boots.getImage(), xPos + 238, yPos + 4 + 66, null);
+		}
+		if (trinket1 != null) {
 			g.drawImage(trinket1.getImage(), xPos + 238, yPos + 4 + 88, null);
+		}
+		if (trinket2 != null) {
 			g.drawImage(trinket2.getImage(), xPos + 238, yPos + 4 + 110, null);
-		} catch (NullPointerException e) {
-			// Do nothings
-			System.out.println("Err");
 		}
 		if (currentSlot != null) {
 			g.drawImage(Assets.Guis.inventorySelected, currentSlot.x - 2, currentSlot.y - 1, null);
 		}
 		if (itemGui != null) {
 			itemGui.render(g);
-		}
-
-		for (int j = 0; j < slots.length; j++) {
-			g.drawRect(slots[j].x, slots[j].y, slots[j].width, slots[j].height);
 		}
 
 	}

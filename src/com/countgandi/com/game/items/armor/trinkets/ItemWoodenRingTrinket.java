@@ -1,16 +1,15 @@
 package com.countgandi.com.game.items.armor.trinkets;
 
 import com.countgandi.com.game.Handler;
-import com.countgandi.com.game.items.armor.ItemTrinket;
 
 public class ItemWoodenRingTrinket extends ItemTrinket {
 
 	public ItemWoodenRingTrinket(Handler handler) {
-		super(handler);
+		super("Wooden Ring", handler);
 	}
 
 	@Override
-	public void tick(boolean inUse) {
+	public void tick() {
 		handler.getPlayer().maxEnergy = 200;
 	}
 

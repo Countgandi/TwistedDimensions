@@ -14,6 +14,7 @@ import com.countgandi.com.Game;
 import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.items.Item;
 import com.countgandi.com.game.items.ItemStackable;
+import com.countgandi.com.game.items.armor.ItemArmor;
 
 public class HotbarGui extends Gui {
 
@@ -42,7 +43,27 @@ public class HotbarGui extends Gui {
 			currentItem = null;
 		}
 		if (currentItem != null) {
-			currentItem.tick();
+			if (!(currentItem instanceof ItemArmor)) {
+				currentItem.tick();
+			}
+		}
+		if(InventoryGui.headpiece != null) {
+			InventoryGui.headpiece.tick();
+		}
+		if(InventoryGui.chestpiece != null) {
+			InventoryGui.chestpiece.tick();
+		}
+		if(InventoryGui.leggings != null) {
+			InventoryGui.leggings.tick();
+		}
+		if(InventoryGui.boots != null) {
+			InventoryGui.boots.tick();
+		}
+		if(InventoryGui.trinket1 != null) {
+			InventoryGui.trinket1.tick();
+		}
+		if(InventoryGui.trinket2 != null) {
+			InventoryGui.trinket2.tick();
 		}
 	}
 
@@ -81,13 +102,13 @@ public class HotbarGui extends Gui {
 			selected = InventoryGui.RowAmount - 1;
 		}
 	}
-	
+
 	@Override
 	public void keyPressed(KeyEvent e) {
-		for(int i = KeyEvent.VK_1; i < KeyEvent.VK_9 + 1; i++) {
-			if(e.getKeyCode() == i) {
+		for (int i = KeyEvent.VK_1; i < KeyEvent.VK_9 + 1; i++) {
+			if (e.getKeyCode() == i) {
 				selected = i - KeyEvent.VK_0 - 1;
-			} else if(e.getKeyCode() == KeyEvent.VK_0) {
+			} else if (e.getKeyCode() == KeyEvent.VK_0) {
 				selected = 9;
 			}
 		}
