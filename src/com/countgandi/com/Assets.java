@@ -1,7 +1,6 @@
 package com.countgandi.com;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
@@ -40,12 +39,16 @@ public class Assets {
 		public static BufferedImage[] AmethystSword = loadImageSheet(16, 16, "/pics/items/AmethystSword.png");
 		public static BufferedImage[] FrostbiteSword = loadImageSheet(16, 16, "/pics/items/FrostbiteSword.png");
 		public static BufferedImage[] BeachSword = loadImageSheet(16, 16, "/pics/items/BeachSword.png");
+		
+		//Armor
+		private static BufferedImage[] armor = loadImageSheet(16, 64, "/pics/items/armor.png");
+		public static BufferedImage[] LeatherArmor = loadImageSheet(16, 16, armor[0]);
 
 		// Bows
 		public static BufferedImage[] WoodBow = loadImageSheet(20, 16, "/pics/items/Bow.png");
 		public static BufferedImage[] AmethystBow = loadImageSheet(20, 16, replaceImageColor(loadImage("/pics/items/Bow.png"), 0xFF7F3300, 0xFF9000D3));
 		public static BufferedImage[] FrostbiteBow = loadImageSheet(20, 16, replaceImageColor(loadImage("/pics/items/Bow.png"), 0xFF7F3300, 0xFF00FFFF));
-
+		
 		// Foods
 		public static BufferedImage[] ChickenWings = loadImageSheet(16, 16, "/pics/items/ChickenWing.png");
 
@@ -70,7 +73,8 @@ public class Assets {
 	public static BufferedImage loadImage(String src) {
 		try {
 			return ImageIO.read(Assets.class.getClassLoader().getResourceAsStream(src.substring(1)));
-		} catch (IOException e) {
+		} catch (Exception e) {
+			System.err.println("Could not load image with src: " + src);
 			e.printStackTrace();
 		}
 		return null;

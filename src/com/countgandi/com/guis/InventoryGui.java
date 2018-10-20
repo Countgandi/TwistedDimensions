@@ -19,6 +19,7 @@ import com.countgandi.com.game.items.armor.ItemArmorChestpiece;
 import com.countgandi.com.game.items.armor.ItemArmorHeadpiece;
 import com.countgandi.com.game.items.armor.ItemArmorLeggings;
 import com.countgandi.com.game.items.armor.ItemTrinket;
+import com.countgandi.com.game.items.armor.leather.ItemLeatherArmorHeadpiece;
 import com.countgandi.com.game.items.bows.ItemWoodBow;
 import com.countgandi.com.game.items.foods.ItemDuckFood;
 import com.countgandi.com.game.items.swords.ItemWoodSword;
@@ -43,17 +44,18 @@ public class InventoryGui extends Gui {
 		items.add(new ItemWoodSword(handler));
 		items.add(new ItemWoodBow(handler));
 		items.add(new ItemStackable(new ItemDuckFood(handler), 8));
+		headpiece = new ItemLeatherArmorHeadpiece(handler);
 		for (int y = 0; y < ColumnAmount; y++) {
 			for (int x = 0; x < RowAmount; x++) {
 				if (y == 0) {
-					slots[x + y * RowAmount] = new Rectangle(xPos + 4 + x * 26, yPos + 225, 16, 16);
+					slots[x + y * RowAmount] = new Rectangle(xPos + 4 + x * 26, yPos + 226, 16, 16);
 				} else {
-					slots[x + y * RowAmount] = new Rectangle(xPos + 4 + x * 26, yPos + 136 + (y - 1) * 22, 16, 16);
+					slots[x + y * RowAmount] = new Rectangle(xPos + 4 + x * 26, yPos + 137 + (y - 1) * 22, 16, 16);
 				}
 			}
 		}
-		for(int i = 0; i < 6; i++) {
-			slots[slots.length - i - 1] = new Rectangle(xPos + 238, yPos + 4 + i * 22);
+		for (int i = 0; i < 6; i++) {
+			slots[slots.length - i - 1] = new Rectangle(xPos + 238, yPos + 4 + i * 22, 16, 16);
 		}
 	}
 
@@ -94,7 +96,7 @@ public class InventoryGui extends Gui {
 				i++;
 			}
 		}
-		
+
 		try {
 			g.drawImage(headpiece.getImage(), xPos + 238, yPos + 4, null);
 			g.drawImage(chestpiece.getImage(), xPos + 238, yPos + 4 + 22, null);
@@ -102,8 +104,9 @@ public class InventoryGui extends Gui {
 			g.drawImage(boots.getImage(), xPos + 238, yPos + 4 + 66, null);
 			g.drawImage(trinket1.getImage(), xPos + 238, yPos + 4 + 88, null);
 			g.drawImage(trinket2.getImage(), xPos + 238, yPos + 4 + 110, null);
-		} catch(NullPointerException e) {
+		} catch (NullPointerException e) {
 			// Do nothings
+			System.out.println("Err");
 		}
 		if (currentSlot != null) {
 			g.drawImage(Assets.Guis.inventorySelected, currentSlot.x - 2, currentSlot.y - 1, null);
@@ -111,7 +114,11 @@ public class InventoryGui extends Gui {
 		if (itemGui != null) {
 			itemGui.render(g);
 		}
-		
+
+		for (int j = 0; j < slots.length; j++) {
+			g.drawRect(slots[j].x, slots[j].y, slots[j].width, slots[j].height);
+		}
+
 	}
 
 	@Override
@@ -135,6 +142,38 @@ public class InventoryGui extends Gui {
 						itemGui = null;
 						item = null;
 					}
+				}
+			}
+			for (int i = 0; i < 6; i++) {
+				if (slots[slots.length - 1 - i].contains(m)) {
+					currentSlot = slots[slots.length - 1 - i];
+					switch (i) {
+					case 0:
+						item = headpiece;
+						break;
+					case 1:
+						item = chestpiece;
+						break;
+					case 2:
+						item = leggings;
+						break;
+					case 3:
+						item = boots;
+						break;
+					case 4:
+						item = trinket1;
+						break;
+					case 5:
+						item = trinket2;
+						break;
+					}
+					if (item != null) {
+						itemGui = item.createGuiStats(xPos + 4 + x * 26, yPos + 226);
+					}
+				} else if (currentSlot == slots[slots.length - 1 - i]) {
+					currentSlot = null;
+					itemGui = null;
+					item = null;
 				}
 			}
 		}
