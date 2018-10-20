@@ -2,6 +2,7 @@ package com.countgandi.com.game;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.io.IOException;
@@ -173,8 +174,20 @@ public class Handler {
 	 * @throws InstantiationException
 	 * @throws ClassNotFoundException
 	 */
-	public boolean loadFiles() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException {
+	public boolean loadFiles() throws IOException, ClassNotFoundException, InstantiationException,
+			IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException {
 		return FileHandler.load(this);
 	}
 
+	public void keyPressed(KeyEvent e) {
+		for(int i = 0; i < guis.size(); i++) {
+			guis.get(i).keyPressed(e);
+		}
+	}
+
+	public void keyReleased(KeyEvent e) {
+		for(int i = 0; i < guis.size(); i++) {
+			guis.get(i).keyReleased(e);
+		}
+	}
 }

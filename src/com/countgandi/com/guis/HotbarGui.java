@@ -3,6 +3,7 @@ package com.countgandi.com.guis;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.util.ArrayList;
@@ -78,6 +79,17 @@ public class HotbarGui extends Gui {
 		}
 		if (selected < 0) {
 			selected = InventoryGui.RowAmount - 1;
+		}
+	}
+	
+	@Override
+	public void keyPressed(KeyEvent e) {
+		for(int i = KeyEvent.VK_1; i < KeyEvent.VK_9 + 1; i++) {
+			if(e.getKeyCode() == i) {
+				selected = i - KeyEvent.VK_0 - 1;
+			} else if(e.getKeyCode() == KeyEvent.VK_0) {
+				selected = 9;
+			}
 		}
 	}
 

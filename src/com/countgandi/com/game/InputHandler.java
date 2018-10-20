@@ -61,6 +61,7 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 		}
 
 		handler.getGame().menu.keyPressed(e);
+		handler.keyPressed(e);
 	}
 
 	@Override
@@ -87,6 +88,7 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 		}
 
 		handler.getGame().menu.keyReleased(e);
+		handler.keyReleased(e);
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package com.countgandi.com.guis;
 
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
@@ -32,6 +33,14 @@ public abstract class Gui {
 	}
 	
 	public void mouseWheelMoved(MouseWheelEvent e) {
+		
+	}
+	
+	public void keyPressed(KeyEvent e) {
+		
+	}
+	
+	public void keyReleased(KeyEvent e) {
 		
 	}
 
