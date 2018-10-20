@@ -9,8 +9,8 @@ public class ObjectBush extends GameObject {
 
 	public ObjectBush(int x, int y, Handler handler) {
 		super(x, y, handler);
-		width = 23;
-		height = 15;
+		width = 23 * 3;
+		height = 15 * 3;
 	}
 
 	@Override
@@ -20,7 +20,7 @@ public class ObjectBush extends GameObject {
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(Assets.Objects.OverworldBush, (int)x, (int)y, width * 3, height * 3, null);
+		g.drawImage(Assets.Objects.OverworldBush, (int)x, (int)y, width, height, null);
 	}
 
 }

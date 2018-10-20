@@ -51,13 +51,13 @@ public abstract class Dimension {
 				for (int x = 0; x < img.getWidth(); x++) {
 					int color = img.getRGB(x, y);
 					if (color == 0xFF007F0E) {
-						objects.add(new ObjectTree(x * 64, y * 64, handler));
+						objects.add(new ObjectTree(x * 32, y * 32, handler));
 					} else if (color == 0xFF00FF21) {
-						objects.add(new ObjectBush(x * 64, y * 64, handler));
+						objects.add(new ObjectBush(x * 32, y * 32, handler));
 					} else if (color == 0xFFFF0000) {
-						dungeons.add(new BossDungeon(x * 64, y * 64, handler));
+						dungeons.add(new BossDungeon(x * 32, y * 32, handler));
 					} else if (color == 0xFF7F3300) {
-						objects.add(new ObjectMysteryBox(x * 64, y * 64, handler));
+						objects.add(new ObjectMysteryBox(x * 32, y * 32, handler));
 					}
 				}
 			}

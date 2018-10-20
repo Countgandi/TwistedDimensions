@@ -19,15 +19,15 @@ public class EntityCoyote extends Entity {
 	public EntityCoyote(float x, float y, Handler handler) {
 		super(x, y, handler);
 		attackRange = 400;
-		width = 11 * 4;
-		height = 7 * 4;
+		width = 11 * 3;
+		height = 7 * 3;
 		health = 10;
 		id = handler.getDimensionHandler().dimensions.indexOf(handler.getDimensionHandler().currentDimension) * 4;
 		
 		activities.add(new ActivityWander(this, handler));
-		activities.add(new ActivityChaseTarget(this, Player.class, 2.0f, handler));
+		activities.add(new ActivityChaseTarget(this, Player.class, 1.0f, handler));
 		activities.add(new ActivityAttackTarget(this, Player.class, 8 + id, 12 + id, 60, DamageType.Attack, handler));
-		activities.add(new ActivityChaseTarget(this, EntityDuck.class, 2.0f, handler));
+		activities.add(new ActivityChaseTarget(this, EntityDuck.class, 1.0f, handler));
 		activities.add(new ActivityAttackTarget(this, EntityDuck.class, 8 + id, 12 + id, 60, DamageType.Attack, handler));
 	}
 

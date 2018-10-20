@@ -16,7 +16,7 @@ public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 	private static Thread thread;
 	private static boolean running = false;
-	public static int WIDTH = 1280, HEIGHT = (int)((float)WIDTH * 9.0F / 16.0F);
+	public static int WIDTH = 640, HEIGHT = (int)((float)WIDTH * 9.0F / 16.0F);
 	public static String TITLE = "Twisted Dimensions";
 	public static Window window;
 

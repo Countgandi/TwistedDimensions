@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 public class Assets {
 
 	public static BufferedImage[] tileSet = loadImageSheet(16, 16, "/pics/tileset.png");
-	public static BufferedImage[] player = loadImageSheet(12, 12, "/pics/Player.png");
+	public static BufferedImage[] player = loadImageSheet(7, 12, "/pics/Player.png");
 	public static BufferedImage icon = loadImage("/pics/icon.png");
 
 	public static final class Guis {

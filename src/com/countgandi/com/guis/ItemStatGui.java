@@ -9,7 +9,7 @@ import com.countgandi.com.game.Handler;
 public class ItemStatGui extends Gui {
 	
 	private String[] text;
-	private int x, y;
+	private int x, y, width;
 
 	/**
 	 * @param x
@@ -20,8 +20,14 @@ public class ItemStatGui extends Gui {
 	public ItemStatGui(int x, int y, String[] text, Handler handler) {
 		super(handler);
 		this.text = text;
-		this.x = x + 32;
-		this.y = y + 32;
+		this.x = x + 16;
+		this.y = y + 16;
+		for(int i = 0; i < text.length; i++) {
+			String[] strs = text[i].split("/#");
+			if(strs[i].length() > this.width) {
+				this.width = strs[i].length();
+			}
+		}
 	}
 
 	@Override
@@ -32,11 +38,11 @@ public class ItemStatGui extends Gui {
 	@Override
 	public void render(Graphics g) {
 		g.setColor(Color.DARK_GRAY);
-		g.fillRect(x, y, 100, 200);
+		g.fillRect(x, y, width * 4, text.length * 6 + 11);
 		g.setColor(Color.BLACK);
-		g.drawRect(x, y, 100, 200);
+		g.drawRect(x, y, width * 4, text.length * 6 + 11);
 		
-		g.setFont(new Font("arial", 0, 12));
+		g.setFont(new Font("arial", 0, 6));
 		for(int i = 0; i < text.length; i++) {
 			String[] strs = text[i].split("/#");
 			if(strs.length > 1) {
@@ -44,7 +50,7 @@ public class ItemStatGui extends Gui {
 			} else {
 				g.setColor(Color.WHITE);
 			}
-			g.drawString(strs[0], x + 2, y + 12 * (i + 1));
+			g.drawString(strs[0], x + 1, y + 6 * (i + 1));
 		}
 	}
 

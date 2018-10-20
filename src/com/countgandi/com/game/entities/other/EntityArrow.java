@@ -17,14 +17,14 @@ public class EntityArrow extends Entity {
 		super(x, y, handler);
 		this.type = type;
 		this.dmg = dmg;
-		speed = tex * 2;
+		speed = (float) tex * 1.5F;
 		if(facingl) {
 			velX = -speed;
 		} else {
 			velX = speed;
 		}
-		width = 15 * 2;
-		height = 5 * 2;
+		width = (int) (15 * 1.3333F);
+		height = (int) (5 * 1.3333F);
 	}
 	
 	@Override

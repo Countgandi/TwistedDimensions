@@ -22,15 +22,13 @@ public abstract class ItemSword extends Item {
 
 	@Override
 	public boolean onUse() {
-		int x, y, width = 64, height = 16;
+		int x, y = (int) (handler.getPlayer().getY() + 12), width = 32, height = 8;
 		if (facingl) {
-			x = (int) handler.getPlayer().getX() - 30;
-			y = (int) handler.getPlayer().getY() + 26;
-			handler.addAnimation(new SwordSlashAnimation((int) handler.getPlayer().getX() - 30, (int) handler.getPlayer().getY() + 26, handler));
+			x = (int) handler.getPlayer().getX() - 19;
+			handler.addAnimation(new SwordSlashAnimation((int) handler.getPlayer().getX() - 19, (int) handler.getPlayer().getY() + 12, handler));
 		} else {
-			x = (int) handler.getPlayer().getX() + 4;
-			y = (int) handler.getPlayer().getY() + 26;
-			handler.addAnimation(new SwordSlashAnimation((int) handler.getPlayer().getX() + 4, (int) handler.getPlayer().getY() + 26, handler));
+			x = (int) handler.getPlayer().getX() + 2;
+			handler.addAnimation(new SwordSlashAnimation((int) handler.getPlayer().getX() + 2, (int) handler.getPlayer().getY() + 12, handler));
 		}
 		if (handler.dungeon != null) {
 			try {

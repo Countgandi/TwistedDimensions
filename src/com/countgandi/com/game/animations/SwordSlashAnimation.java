@@ -13,7 +13,7 @@ public class SwordSlashAnimation extends Animation {
 	
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(Assets.Animations.swordSlash, x, y, 64, 16, null);
+		g.drawImage(Assets.Animations.swordSlash, x, y, 32, 8, null);
 	}
 
 }

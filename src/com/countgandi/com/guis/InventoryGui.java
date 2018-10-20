@@ -14,24 +14,32 @@ import com.countgandi.com.Game;
 import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.items.Item;
 import com.countgandi.com.game.items.ItemStackable;
+import com.countgandi.com.game.items.bows.ItemWoodBow;
+import com.countgandi.com.game.items.foods.ItemDuckFood;
 import com.countgandi.com.game.items.swords.ItemWoodSword;
 
 public class InventoryGui extends Gui {
 
-	public static ArrayList<Item> items = new ArrayList<Item>(210);
-	public static int RowAmount = 21, ColumnAmount = 10;
+	public static ArrayList<Item> items = new ArrayList<Item>(50);
+	public static int RowAmount = 10, ColumnAmount = 5;
 	private Rectangle[] slots = new Rectangle[RowAmount * ColumnAmount];
 	private Rectangle currentSlot;
 	private Item item;
 	private ItemStatGui itemGui;
+	private static final int xPos = 191, yPos = 40;
 
 	public InventoryGui(Handler handler) {
 		super(handler);
 		items.add(new ItemWoodSword(handler));
-		// items.add(new ItemStackable(new ItemDuckFood(handler), 8));
+		items.add(new ItemWoodBow(handler));
+		items.add(new ItemStackable(new ItemDuckFood(handler), 8));
 		for (int y = 0; y < ColumnAmount; y++) {
 			for (int x = 0; x < RowAmount; x++) {
-				slots[x + y * RowAmount] = new Rectangle(142 + x * 48, 128 + y * 48, 32, 32);
+				if (y == 0) {
+					slots[x + y * RowAmount] = new Rectangle(xPos + 4 + x * 26, yPos + 225, 16, 16);
+				} else {
+					slots[x + y * RowAmount] = new Rectangle(xPos + 4 + x * 26, yPos + 136 + (y - 1) * 22, 16, 16);
+				}
 			}
 		}
 	}
@@ -45,17 +53,28 @@ public class InventoryGui extends Gui {
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(Assets.Guis.inventory, 0, 0, null);
+		g.drawImage(Assets.Guis.inventory, xPos, yPos, null);
 		int i = 0;
-		for (int y = 0; y < 10; y++) {
-			for (int x = 0; x < 21; x++) {
+		for (int y = 0; y < ColumnAmount; y++) {
+			for (int x = 0; x < RowAmount; x++) {
 				if (i < items.size() && i > -1 && items.size() > 0) {
-					g.drawImage(items.get(i).getImage(), 144 + x * 48, 130 + y * 48, 32, 32, null);
-					if (items.get(i) instanceof ItemStackable) {
-						if (((ItemStackable) items.get(i)).stacked > 1) {
-							g.setColor(Color.WHITE);
-							g.setFont(new Font("arial", 2, 12));
-							g.drawString("" + ((ItemStackable) items.get(i)).stacked, 144 + x * 48, 130 + y * 48 + 31);
+					if (y == 0) {
+						g.drawImage(items.get(i).getImage(), xPos + 4 + x * 26, yPos + 226, 16, 16, null);
+						if (items.get(i) instanceof ItemStackable) {
+							if (((ItemStackable) items.get(i)).stacked > 1) {
+								g.setColor(Color.WHITE);
+								g.setFont(new Font("arial", 2, 6));
+								g.drawString("" + ((ItemStackable) items.get(i)).stacked, xPos + 4 + x * 26, yPos + 241);
+							}
+						}
+					} else {
+						g.drawImage(items.get(i).getImage(), xPos + 4 + x * 26, yPos + 137 + y * 22, 16, 16, null);
+						if (items.get(i) instanceof ItemStackable) {
+							if (((ItemStackable) items.get(i)).stacked > 1) {
+								g.setColor(Color.WHITE);
+								g.setFont(new Font("arial", 2, 6));
+								g.drawString("" + ((ItemStackable) items.get(i)).stacked, xPos + 4 + x * 26, yPos + 152 + (y - 1) * 22);
+							}
 						}
 					}
 				}
@@ -63,10 +82,14 @@ public class InventoryGui extends Gui {
 			}
 		}
 		if (currentSlot != null) {
-			g.drawImage(Assets.Guis.inventorySelected, currentSlot.x, currentSlot.y, null);
+			g.drawImage(Assets.Guis.inventorySelected, currentSlot.x - 2, currentSlot.y - 1, null);
 		}
 		if (itemGui != null) {
 			itemGui.render(g);
+		}
+		
+		for(int j = 0; j < slots.length; j++) {
+			//g.drawRect(slots[j].x, slots[j].y, slots[j].width, slots[j].height);
 		}
 	}
 
@@ -80,7 +103,11 @@ public class InventoryGui extends Gui {
 						currentSlot = slots[x + y * RowAmount];
 						if (items.size() > x + y * RowAmount) {
 							item = items.get(x + y * RowAmount);
-							itemGui = item.createGuiStats(144 + x * 48, 130 + y * 48);
+							if (y == 0) {
+								itemGui = item.createGuiStats(xPos + 4 + x * 26, yPos + 226);
+							} else {
+								itemGui = item.createGuiStats(xPos + 4 + x * 26, yPos + 137 + y * 22);
+							}
 						}
 					} else if (currentSlot == slots[x + y * RowAmount]) {
 						currentSlot = null;
@@ -143,7 +170,7 @@ public class InventoryGui extends Gui {
 						InventoryGui.items.remove(item);
 						return;
 					}
-				} else if(i >= InventoryGui.items.size() - 1) {
+				} else if (i >= InventoryGui.items.size() - 1) {
 					InventoryGui.items.remove(item);
 				}
 			}

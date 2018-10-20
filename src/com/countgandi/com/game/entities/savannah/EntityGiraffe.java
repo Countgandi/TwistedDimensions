@@ -11,8 +11,8 @@ public class EntityGiraffe extends Entity {
 
 	public EntityGiraffe(float x, float y, Handler handler) {
 		super(x, y, handler);
-		width = 59 * 5;
-		height = 38 * 5;
+		width = 59 * 3;
+		height = 38 * 3;
 		health = 100;
 		activities.add(new ActivityWander(this, handler));
 	}

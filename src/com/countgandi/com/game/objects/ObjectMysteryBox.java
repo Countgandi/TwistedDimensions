@@ -17,8 +17,8 @@ public class ObjectMysteryBox extends GameObject {
 	
 	public ObjectMysteryBox(int x, int y, ChestTable table, Handler handler) {
 		super(x, y, handler);
-		width = 23 * 6;
-		height = 12 * 6;
+		width = 23 * 3;
+		height = 12 * 3;
 		this.table = table;
 	}
 

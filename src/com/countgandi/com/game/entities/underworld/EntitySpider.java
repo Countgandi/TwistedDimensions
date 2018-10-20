@@ -13,7 +13,6 @@ import com.countgandi.com.game.entities.other.EntityCoyote;
 
 public class EntitySpider extends Entity {
 	
-
 	public EntitySpider(float x, float y, Handler handler) {
 		super(x, y, handler);
 		attackRange = 200;

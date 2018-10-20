@@ -19,8 +19,8 @@ public class EntityBat extends Entity {
 	public EntityBat(float x, float y, Handler handler) {
 		super(x, y, handler);
 		attackRange = 400;
-		width = 16 * 4;
-		height = 13 * 4;
+		width = 16 * 3;
+		height = 13 * 3;
 		health = 60;
 		activities.add(new ActivityWander(this, handler));
 		activities.add(new ActivityChaseTarget(this, Player.class, 2.0f, handler));

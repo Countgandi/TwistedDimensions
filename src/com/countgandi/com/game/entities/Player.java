@@ -20,8 +20,8 @@ public class Player extends Entity {
 
 	public Player(float x, float y, Handler handler) {
 		super(x, y, handler);
-		width = 64;
-		height = 64;
+		width = 7 * 3;
+		height = 12 * 3;
 		exp = 0;
 		health = maxHealth;
 	}
@@ -97,12 +97,12 @@ public class Player extends Entity {
 			if (energy <= 0) {
 				sprinting = false;
 			}
-			speed = 4;
+			speed = 3;
 		} else {
 			if (energy < 100 && velX == 0 && velY == 0) {
 				energy++;
 			}
-			speed = 3;
+			speed = 2;
 		}
 
 		tick();

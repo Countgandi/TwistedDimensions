@@ -19,8 +19,8 @@ public class ObjectTree extends GameObject {
 		} else if (id == 1) {
 			img = Assets.Objects.SavannahTree;
 		}
-		width = img.getWidth() * 6;
-		height = img.getHeight() * 6;
+		width = img.getWidth() * 3;
+		height = img.getHeight() * 3;
 
 	}
 

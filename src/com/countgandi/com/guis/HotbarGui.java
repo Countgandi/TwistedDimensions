@@ -16,7 +16,7 @@ import com.countgandi.com.game.items.ItemStackable;
 
 public class HotbarGui extends Gui {
 
-	public List<Item> items = new ArrayList<Item>(21);
+	public List<Item> items = new ArrayList<Item>(10);
 	public static Item currentItem;
 
 	public HotbarGui(Handler handler) {
@@ -26,8 +26,8 @@ public class HotbarGui extends Gui {
 	@Override
 	public void tick() {
 		items.clear();
-		if (InventoryGui.items.size() > 21) {
-			for (int i = 0; i < 21; i++) {
+		if (InventoryGui.items.size() > 10) {
+			for (int i = 0; i < 10; i++) {
 				items.add(InventoryGui.items.get(i));
 			}
 		} else if (InventoryGui.items.size() > 0) {
@@ -47,20 +47,20 @@ public class HotbarGui extends Gui {
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(Assets.Guis.hotbar, 144, Game.HEIGHT - 48, null);
-		for (int x = 0; x < 21; x++) {
+		g.drawImage(Assets.Guis.hotbar, 191, Game.HEIGHT - 28, null);
+		for (int x = 0; x < 10; x++) {
 			if (x < items.size() && x > -1 && items.size() > 0) {
-				g.drawImage(items.get(x).getImage(), 148 + x * 48, Game.HEIGHT - 44, 32, 32, null);
+				g.drawImage(items.get(x).getImage(), 195 + x * 26, Game.HEIGHT - 24, 16, 16, null);
 				if (items.get(x) instanceof ItemStackable) {
 					if (((ItemStackable) items.get(x)).stacked > 1) {
 						g.setColor(Color.WHITE);
-						g.setFont(new Font("arial", 2, 12));
-						g.drawString("" + ((ItemStackable) items.get(x)).stacked, 148 + x * 48, Game.HEIGHT - 13);
+						g.setFont(new Font("arial", 2, 6));
+						g.drawString("" + ((ItemStackable) items.get(x)).stacked, 195 + x * 26, Game.HEIGHT - 9);
 					}
 				}
 			}
 		}
-		g.drawImage(Assets.Guis.inventorySelected, 146 + selected * 48, Game.HEIGHT - 46, null);
+		g.drawImage(Assets.Guis.inventorySelected, 193 + selected * 26, Game.HEIGHT - 26, null);
 	}
 
 	@Override

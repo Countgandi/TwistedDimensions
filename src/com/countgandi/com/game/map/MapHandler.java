@@ -25,17 +25,17 @@ public class MapHandler {
 	}
 
 	public void render(Graphics g) {
-		int yIncrement = 96, xIncrement = 96;
+		int yIncrement = 48, xIncrement = 48;
 		if (handler.dungeon != null) {
 			for (int y = (int) (Camera.y - yIncrement - (Camera.y % yIncrement)); y < Camera.y + Game.HEIGHT + yIncrement; y += yIncrement) {
 				for (int x = (int) (Camera.x - xIncrement - (Camera.x % xIncrement)); x < Camera.x + Game.WIDTH + xIncrement; x += xIncrement) {
-					g.drawImage(Assets.tileSet[handler.dungeon.id], x, y, 96, 96, null);
+					g.drawImage(Assets.tileSet[handler.dungeon.id], x, y, xIncrement, yIncrement, null);
 				}
 			}
 		} else {
 			for (int y = (int) (Camera.y - yIncrement - (Camera.y % yIncrement)); y < Camera.y + Game.HEIGHT + yIncrement; y += yIncrement) {
 				for (int x = (int) (Camera.x - xIncrement - (Camera.x % xIncrement)); x < Camera.x + Game.WIDTH + xIncrement; x += xIncrement) {
-					g.drawImage(Assets.tileSet[handler.getDimensionHandler().currentDimension.getGroundTexture()], x, y, 96, 96, null);
+					g.drawImage(Assets.tileSet[handler.getDimensionHandler().currentDimension.getGroundTexture()], x, y, xIncrement, yIncrement, null);
 				}
 			}
 		}

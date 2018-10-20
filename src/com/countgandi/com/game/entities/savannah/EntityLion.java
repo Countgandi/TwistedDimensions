@@ -16,8 +16,8 @@ public class EntityLion extends Entity {
 	public EntityLion(float x, float y, Handler handler) {
 		super(x, y, handler);
 		attackRange = 400;
-		width = 19 * 6;
-		height = 9 * 6;
+		width = 19 * 3;
+		height = 9 * 3;
 		health = 60;
 		activities.add(new ActivityWander(this, handler));
 		activities.add(new ActivityChaseTarget(this, Player.class, 2.0f, handler));

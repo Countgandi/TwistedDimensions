@@ -15,7 +15,7 @@ import com.countgandi.com.game.Handler;
 
 public class MenuScreen extends Menu {
 
-	private Rectangle playRectangle = new Rectangle(50, 300, 200, 50);
+	private Rectangle playRectangle = new Rectangle(25, 150, 100, 25);
 
 	private int mx, my, timer;
 
@@ -40,7 +40,7 @@ public class MenuScreen extends Menu {
 		g.drawImage(Assets.Menu.splash2, timer, 100, Game.WIDTH, Game.HEIGHT, null);
 		g.drawImage(Assets.Menu.splash1, 0, 0, Game.WIDTH, Game.HEIGHT, null);
 		
-		g.drawImage(Assets.Menu.splash3, 60, 60, (int)(666 * 1.5f), (int)(55 * 1.5f), null);
+		g.drawImage(Assets.Menu.splash3, 60, 60, (int)(333 * 1.5f), (int)(22.5F * 1.5f), null);
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("arial", 2, 50));
 

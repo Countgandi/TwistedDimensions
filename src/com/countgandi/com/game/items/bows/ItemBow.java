@@ -44,9 +44,9 @@ public abstract class ItemBow extends Item {
 	@Override
 	public void render(Graphics g) {
 		if (facingl) {
-			g.drawImage(imgs[tex], (int) handler.getPlayer().getX() - 10, (int) handler.getPlayer().getY() + 14, 40, 32, null);
+			g.drawImage(imgs[tex], (int) handler.getPlayer().getX() - 7, (int) handler.getPlayer().getY() + 2, 30, 24, null);
 		} else {
-			g.drawImage(imgs[4 + tex], (int) handler.getPlayer().getX() + 12, (int) handler.getPlayer().getY() + 14, 40, 32, null);
+			g.drawImage(imgs[4 + tex], (int) handler.getPlayer().getX() - 2, (int) handler.getPlayer().getY() + 2, 30, 24, null);
 		}
 	}
 
@@ -54,9 +54,9 @@ public abstract class ItemBow extends Item {
 	public boolean onUse() {
 		if (timer > 60) {
 			if (facingl) {
-				handler.addEntity(new EntityArrow((int) handler.getPlayer().getX() - 10, (int) handler.getPlayer().getY() + 24, (int) (tex * multiplySpeed), facingl, type, dmg + handler.getPlayer().getBaseBowDamage(), handler));
+				handler.addEntity(new EntityArrow((int) handler.getPlayer().getX() - 7, (int) handler.getPlayer().getY() + 10, (int) (tex * multiplySpeed), facingl, type, dmg + handler.getPlayer().getBaseBowDamage(), handler));
 			} else {
-				handler.addEntity(new EntityArrow((int) handler.getPlayer().getX() + 12, (int) handler.getPlayer().getY() + 24, (int) (tex * multiplySpeed), facingl, type, dmg + handler.getPlayer().getBaseBowDamage(), handler));
+				handler.addEntity(new EntityArrow((int) handler.getPlayer().getX() - 2, (int) handler.getPlayer().getY() + 10, (int) (tex * multiplySpeed), facingl, type, dmg + handler.getPlayer().getBaseBowDamage(), handler));
 			}
 
 		}

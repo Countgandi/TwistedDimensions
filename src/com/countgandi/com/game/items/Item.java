@@ -35,9 +35,9 @@ public abstract class Item {
 	 */
 	public void render(Graphics g) {
 		if (facingl) {
-			g.drawImage(imgs[0], (int) handler.getPlayer().getX() - 30, (int) handler.getPlayer().getY(), 32, 32, null);
+			g.drawImage(imgs[0], (int) handler.getPlayer().getX() - 23, (int) handler.getPlayer().getY() - 6, 24, 24, null);
 		} else {
-			g.drawImage(imgs[1], (int) handler.getPlayer().getX() + 34, (int) handler.getPlayer().getY(), 32, 32, null);
+			g.drawImage(imgs[1], (int) handler.getPlayer().getX() + 20, (int) handler.getPlayer().getY() - 6, 24, 24, null);
 		}
 	}
 	
