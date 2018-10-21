@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import com.countgandi.com.Assets;
 import com.countgandi.com.game.Handler;
+import com.countgandi.com.game.SkillHandler;
 import com.countgandi.com.game.dimensions.Dimension;
 import com.countgandi.com.guis.HotbarGui;
 import com.countgandi.com.guis.InventoryGui;
@@ -11,6 +12,7 @@ import com.countgandi.com.guis.InventoryGui;
 public class Player extends Entity {
 
 	public int maxHealth = 100, maxEnergy = 100, maxExperience = 100, level = 1;
+	public int[] baseDamage = new int[3];
 	public boolean sprinting = false;
 	private float energy = 100;
 	/**
@@ -23,8 +25,9 @@ public class Player extends Entity {
 		super(x, y, handler);
 		width = 7 * 3;
 		height = 12 * 3;
-		exp = 0;
+		exp = 90;
 		health = maxHealth;
+		SkillHandler.init();
 	}
 
 	@Override
@@ -139,10 +142,10 @@ public class Player extends Entity {
 	}
 
 	public int getBaseBowDamage() {
-		return level;
+		return baseDamage[1];
 	}
 	public int getBaseSwordDamage() {
-		return level;
+		return baseDamage[0];
 	}
 
 }

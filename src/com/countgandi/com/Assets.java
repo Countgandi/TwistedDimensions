@@ -15,6 +15,13 @@ public class Assets {
 		public static BufferedImage hotbar = loadImage("/pics/guis/hotbar.png");
 		public static BufferedImage inventorySelected = loadImage("/pics/guis/inventorySelected.png");
 	}
+	
+	public static final class Buttons {
+		public static final BufferedImage addButtonLit = loadImage("/pics/buttons/addbutton.png");
+		public static final BufferedImage addButtonPressed = replaceImageColor(loadImage("/pics/buttons/addbutton.png"), 0xFF808080, 0xFF00FFFF);
+		public static final BufferedImage addButton = replaceImageColor(loadImage("/pics/buttons/addbutton.png"), 0xFF808080, 0xFF686868);
+
+	}
 
 	public static final class Animations {
 		public static BufferedImage swordSlash = loadImage("/pics/animations/SwordSlash.png");

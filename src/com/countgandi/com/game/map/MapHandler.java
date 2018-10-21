@@ -27,9 +27,10 @@ public class MapHandler {
 	public void render(Graphics g) {
 		int yIncrement = 48, xIncrement = 48;
 		if (handler.dungeon != null) {
+			int dungenID = handler.dungeon.id;
 			for (int y = (int) (Camera.y - yIncrement - (Camera.y % yIncrement)); y < Camera.y + Game.HEIGHT + yIncrement; y += yIncrement) {
 				for (int x = (int) (Camera.x - xIncrement - (Camera.x % xIncrement)); x < Camera.x + Game.WIDTH + xIncrement; x += xIncrement) {
-					g.drawImage(Assets.tileSet[handler.dungeon.id], x, y, xIncrement, yIncrement, null);
+					g.drawImage(Assets.tileSet[dungenID], x, y, xIncrement, yIncrement, null);
 				}
 			}
 		} else {

@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import com.countgandi.com.game.Handler;
+import com.countgandi.com.game.SkillHandler;
 
 public class HudGui extends Gui {
 	
@@ -18,6 +19,7 @@ public class HudGui extends Gui {
 	public void tick() {
 		if(handler.getPlayer().getExp() >= handler.getPlayer().maxExperience) {
 			handler.getPlayer().level ++;
+			SkillHandler.available += 1;
 			handler.getPlayer().setExp(0);
 			handler.getPlayer().maxExperience += 20;
 		}
