@@ -43,7 +43,9 @@ public class Assets {
 		// Armor
 		private static BufferedImage[] armor = loadImageSheet(16, 64, "/pics/items/armor.png");
 		public static BufferedImage[] LeatherArmor = loadImageSheet(16, 16, armor[0]);
-		// public static BufferedImage[] AmethystArmor = loadImageSheet(16, 16, armor[1]);
+		public static BufferedImage[] MetalArmor = loadImageSheet(16, 16, armor[1]);
+		public static BufferedImage[] AmethystArmor = loadImageSheet(16, 16, armor[2]);
+		public static BufferedImage[] FrostbiteArmor = loadImageSheet(16, 16, armor[3]);
 
 		// Trinkets
 		public static BufferedImage[] WoodenRing = loadImageSheet(16, 16, "/pics/items/trinkets.png");

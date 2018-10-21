@@ -11,8 +11,8 @@ public class EntityDimensionPortal extends Entity {
 
 	public EntityDimensionPortal(float x, float y, Handler handler) {
 		super(x, y, handler);
-		width = Assets.Objects.DimensionPortal.getWidth() * 6;
-		height = Assets.Objects.DimensionPortal.getHeight() * 6;
+		width = Assets.Objects.DimensionPortal.getWidth() * 3;
+		height = Assets.Objects.DimensionPortal.getHeight() * 3;
 	}
 
 	@Override

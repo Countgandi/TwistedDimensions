@@ -1,13 +1,5 @@
 This files contain everything that needs to happen
 
-each item will have a position (x,y) or an i value
-change that value when moveed & switched if the value is already being used
-if value in certain range it must be armor
-	check if its armor & if not, move to unarmor spot
-	check if its correct armor type (head, chest, legs, boots)
-	give effects/qualities to player
-	time to grind out armor
-
 Add Sounds:
 	effects: eating sound, firball, teleport, onhit/attack
 	music: dungeon, boss fight/fighting music, menu, dimension casual/different per

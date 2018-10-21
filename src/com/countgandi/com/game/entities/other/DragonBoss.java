@@ -22,8 +22,8 @@ public class DragonBoss extends Entity {
 
 	public DragonBoss(float x, float y, Handler handler) {
 		super(x, y, handler);
-		width = 54 * 4;
-		height = 64 * 4;
+		width = 54 * 3;
+		height = 64 * 3;
 		id = handler.getDimensionHandler().dimension;
 		health = 25 + 25 * id;
 		exp = health * 4;

@@ -15,8 +15,8 @@ public class EntityFireball extends Entity {
 	public EntityFireball(float x, float y, DragonBoss b, Handler handler) {
 		super(x, y, handler);
 		this.b = b;
-		width = 20 * 4;
-		height = 17 * 4;
+		width = 20 * 3;
+		height = 17 * 3;
 		health = 5;
 		speed = 5;
 		double angle = Math.atan2(handler.getPlayer().getY() - y, handler.getPlayer().getX() - x);
@@ -27,7 +27,7 @@ public class EntityFireball extends Entity {
 	@Override
 	public void tick() {
 		if (getRectangle().intersects(handler.getPlayer().getRectangle())) {
-			handler.getPlayer().takeDamage(50 + handler.getDimensionHandler().dimension * 25, b, DamageType.Magic);
+			handler.getPlayer().takeDamage(25 + handler.getDimensionHandler().dimension * 25, b, DamageType.Magic);
 			handler.dungeon.getEntities().remove(this);
 		}
 

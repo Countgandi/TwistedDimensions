@@ -17,12 +17,7 @@ import com.countgandi.com.game.items.armor.ItemArmorBoots;
 import com.countgandi.com.game.items.armor.ItemArmorChestpiece;
 import com.countgandi.com.game.items.armor.ItemArmorHeadpiece;
 import com.countgandi.com.game.items.armor.ItemArmorLeggings;
-import com.countgandi.com.game.items.armor.leather.ItemLeatherArmorBoots;
-import com.countgandi.com.game.items.armor.leather.ItemLeatherArmorChestpiece;
-import com.countgandi.com.game.items.armor.leather.ItemLeatherArmorHeadpiece;
-import com.countgandi.com.game.items.armor.leather.ItemLeatherArmorLeggings;
 import com.countgandi.com.game.items.armor.trinkets.ItemTrinket;
-import com.countgandi.com.game.items.armor.trinkets.ItemWoodenRingTrinket;
 import com.countgandi.com.game.items.bows.ItemWoodBow;
 import com.countgandi.com.game.items.foods.ItemDuckFood;
 import com.countgandi.com.game.items.swords.ItemWoodSword;
@@ -48,11 +43,6 @@ public class InventoryGui extends Gui {
 		items[0] = new ItemWoodSword(handler);
 		items[1] = new ItemWoodBow(handler);
 		items[2] = new ItemStackable(new ItemDuckFood(handler), 8);
-		headpiece = new ItemLeatherArmorHeadpiece(handler);
-		chestpiece = new ItemLeatherArmorChestpiece(handler);
-		leggings = new ItemLeatherArmorLeggings(handler);
-		boots = new ItemLeatherArmorBoots(handler);
-		trinket1 = new ItemWoodenRingTrinket(handler);
 		for (int y = 0; y < ColumnAmount; y++) {
 			for (int x = 0; x < RowAmount; x++) {
 				if (y == 0) {
@@ -318,8 +308,10 @@ public class InventoryGui extends Gui {
 	public static void removeItem(Item item) {
 		int found = 0;
 		for (int k = 0; k < items.length; k++) {
-			if (items[k].equals(item)) {
-				found = k;
+			if (items[k] != null) {
+				if (items[k].equals(item)) {
+					found = k;
+				}
 			}
 		}
 		if (item.stackable) {
@@ -327,18 +319,20 @@ public class InventoryGui extends Gui {
 				if (InventoryGui.items[i] instanceof ItemStackable) {
 					ItemStackable stackableItem = (ItemStackable) InventoryGui.items[i];
 					if (stackableItem.item.getClass().equals(item.getClass()) && stackableItem.stacked - 1 > 0) {
-						stackableItem.stacked--;
+						stackableItem.stacked -= 0.5F;
 						return;
 					} else if (stackableItem.stacked - 1 <= 0) {
-						InventoryGui.items[found] = null;
+						InventoryGui.items[i] = null;
 						return;
 					}
 				} else if (i >= InventoryGui.items.length - 1) {
-					InventoryGui.items[found] = null;
+					InventoryGui.items[i] = null;
+					return;
 				}
 			}
 		} else {
 			InventoryGui.items[found] = null;
+			return;
 		}
 	}
 
