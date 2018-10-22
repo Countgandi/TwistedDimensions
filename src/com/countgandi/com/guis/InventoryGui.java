@@ -31,7 +31,7 @@ public class InventoryGui extends Gui {
 	public static ItemTrinket trinket1, trinket2;
 	public static int RowAmount = 10, ColumnAmount = 5;
 	private Rectangle[] slots = new Rectangle[RowAmount * ColumnAmount + 6];
-	private AddButton[] buttons = new AddButton[getStatText().length];
+	private AddButton[] buttons = new AddButton[getStatText().length - 1];
 	private Rectangle currentSlot;
 	private Item item;
 	private ItemStatGui itemGui;
@@ -54,8 +54,8 @@ public class InventoryGui extends Gui {
 			slots[slots.length - i - 1] = new Rectangle(xPos + 238, yPos + 4 + i * 22, 16, 16);
 		}
 		String[] strings = getStatText();
-		for(int i = 0; i < buttons.length; i++) {
-			buttons[i] = new AddButton(xPos + 4 + strings[0].length() * 4, yPos + 4 + i * 8, strings[i], handler);
+		for (int i = 0; i < buttons.length; i++) {
+			buttons[i] = new AddButton(xPos + 4 + strings[0].length() * 4, yPos + 4 + (i + 1) * 8, strings[i], handler);
 		}
 	}
 
@@ -80,19 +80,16 @@ public class InventoryGui extends Gui {
 								if (((ItemStackable) items[i]).stacked > 1) {
 									g.setColor(Color.WHITE);
 									g.setFont(new Font("arial", 2, 6));
-									g.drawString("" + ((ItemStackable) items[i]).stacked, xPos + 4 + x * 26,
-											yPos + 241);
+									g.drawString("" + ((ItemStackable) items[i]).stacked, xPos + 4 + x * 26, yPos + 241);
 								}
 							}
 						} else {
-							g.drawImage(items[i].getImage(), xPos + 4 + x * 26, yPos + 137 + (y - 1) * 22, 16, 16,
-									null);
+							g.drawImage(items[i].getImage(), xPos + 4 + x * 26, yPos + 137 + (y - 1) * 22, 16, 16, null);
 							if (items[i] instanceof ItemStackable) {
 								if (((ItemStackable) items[i]).stacked > 1) {
 									g.setColor(Color.WHITE);
 									g.setFont(new Font("arial", 2, 6));
-									g.drawString("" + ((ItemStackable) items[i]).stacked, xPos + 4 + x * 26,
-											yPos + 152 + (y - 1) * 22);
+									g.drawString("" + ((ItemStackable) items[i]).stacked, xPos + 4 + x * 26, yPos + 152 + (y - 1) * 22);
 								}
 							}
 						}
@@ -106,7 +103,9 @@ public class InventoryGui extends Gui {
 		String[] strings = getStatText();
 		for (int k = 0; k < strings.length; k++) {
 			g.drawString(strings[k], xPos + 4, yPos + 10 + k * 8);
-			buttons[k].render(g);
+			if (k < buttons.length) {
+				buttons[k].render(g);
+			}
 		}
 		g.drawString("Skill points: " + SkillHandler.available, xPos + 4, yPos + 10 + strings.length * 8);
 
@@ -143,9 +142,7 @@ public class InventoryGui extends Gui {
 	}
 
 	public String[] getStatText() {
-		return new String[] { "Player Stats - level " + handler.getPlayer().level,
-				"Maximum Energy: " + handler.getPlayer().maxEnergy, "Maximum Health: " + handler.getPlayer().maxHealth,
-				"Base Bow Damage: " + handler.getPlayer().getBaseBowDamage(),
+		return new String[] { "Player Stats - level " + handler.getPlayer().level, "Maximum Energy: " + handler.getPlayer().maxEnergy, "Maximum Health: " + handler.getPlayer().maxHealth, "Base Bow Damage: " + handler.getPlayer().getBaseBowDamage(),
 				"Base Sword Damage: " + handler.getPlayer().getBaseSwordDamage() };
 	}
 
@@ -153,11 +150,10 @@ public class InventoryGui extends Gui {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		for(int i = 0; i < buttons.length; i++) {
+		for (int i = 0; i < buttons.length; i++) {
 			buttons[i].mousePressed(e);
 		}
-		Point m = new Point((int) (e.getX() / Toolkit.getDefaultToolkit().getScreenSize().getWidth() * Game.WIDTH),
-				(int) (e.getY() / Toolkit.getDefaultToolkit().getScreenSize().getHeight() * Game.HEIGHT));
+		Point m = new Point((int) (e.getX() / Toolkit.getDefaultToolkit().getScreenSize().getWidth() * Game.WIDTH), (int) (e.getY() / Toolkit.getDefaultToolkit().getScreenSize().getHeight() * Game.HEIGHT));
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			for (int y = 0; y < ColumnAmount; y++) {
 				for (int x = 0; x < RowAmount; x++) {
@@ -218,8 +214,7 @@ public class InventoryGui extends Gui {
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		Point m = new Point((int) (e.getX() / Toolkit.getDefaultToolkit().getScreenSize().getWidth() * Game.WIDTH),
-				(int) (e.getY() / Toolkit.getDefaultToolkit().getScreenSize().getHeight() * Game.HEIGHT));
+		Point m = new Point((int) (e.getX() / Toolkit.getDefaultToolkit().getScreenSize().getWidth() * Game.WIDTH), (int) (e.getY() / Toolkit.getDefaultToolkit().getScreenSize().getHeight() * Game.HEIGHT));
 		// move items
 		itemGui = null;
 		mx = (int) m.getX();
@@ -228,14 +223,14 @@ public class InventoryGui extends Gui {
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		for(int i = 0; i < buttons.length; i++) {
+		for (int i = 0; i < buttons.length; i++) {
 			buttons[i].mouseMoved(e);
 		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		for(int i = 0; i < buttons.length; i++) {
+		for (int i = 0; i < buttons.length; i++) {
 			buttons[i].mouseReleased(e);
 		}
 		if (dragging) {
@@ -297,21 +292,21 @@ public class InventoryGui extends Gui {
 	}
 
 	/**
-	 * Adds an item to an itemstack (if stackable) and adds that to the item storage
+	 * Adds an item to an itemstack (if stackable) and adds that to the item
+	 * storage
 	 * 
-	 * @param item - the item to be added
+	 * @param item
+	 *            - the item to be added
 	 */
 	public static void addItem(Item item) {
 		if (item.stackable) {
 			for (int i = 0; i < InventoryGui.items.length; i++) {
 				if (InventoryGui.items[i] instanceof ItemStackable) {
 					ItemStackable stackableItem = (ItemStackable) InventoryGui.items[i];
-					if (stackableItem.item.getClass().equals(item.getClass())
-							&& stackableItem.stacked < ItemStackable.MAX_STACKS) {
+					if (stackableItem.item.getClass().equals(item.getClass()) && stackableItem.stacked < ItemStackable.MAX_STACKS) {
 						stackableItem.stacked++;
 						return;
-					} else if (stackableItem.stacked >= ItemStackable.MAX_STACKS
-							&& i >= InventoryGui.items.length - 1) {
+					} else if (stackableItem.stacked >= ItemStackable.MAX_STACKS && i >= InventoryGui.items.length - 1) {
 						InventoryGui.items[findFirstInventoryFreeSpace()] = new ItemStackable(item, 1);
 						return;
 					}
@@ -368,9 +363,12 @@ public class InventoryGui extends Gui {
 	/**
 	 * Moves an item to a different location in the inventory
 	 * 
-	 * @param item    - the item being moved
-	 * @param current - the current position of the item
-	 * @param next    - the position to move to
+	 * @param item
+	 *            - the item being moved
+	 * @param current
+	 *            - the current position of the item
+	 * @param next
+	 *            - the position to move to
 	 * @return if the item was moved successfully
 	 */
 	public static boolean moveItem(Item item, int current, int next) {
@@ -386,8 +384,7 @@ public class InventoryGui extends Gui {
 			items[current] = nitem;
 			return true;
 		}
-		System.err.println("Could not move item: " + item.getClass().getName() + " to position " + next
-				+ " from position " + current);
+		System.err.println("Could not move item: " + item.getClass().getName() + " to position " + next + " from position " + current);
 		return false;
 	}
 

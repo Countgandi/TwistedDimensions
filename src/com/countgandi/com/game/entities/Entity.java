@@ -55,7 +55,7 @@ public abstract class Entity {
 			y = Dimension.WorldBounds - height;
 		}
 
-		if (health < 0) {
+		if (health <= 0) {
 			if (width >= 1) {
 				width--;
 			}
