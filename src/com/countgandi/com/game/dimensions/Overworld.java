@@ -8,6 +8,11 @@ import com.countgandi.com.game.entities.Entity;
 import com.countgandi.com.game.entities.other.EntityCoyote;
 import com.countgandi.com.game.entities.overworld.EntityDuck;
 import com.countgandi.com.game.items.Item;
+import com.countgandi.com.game.items.armor.leather.ItemLeatherArmorBoots;
+import com.countgandi.com.game.items.armor.leather.ItemLeatherArmorChestpiece;
+import com.countgandi.com.game.items.armor.leather.ItemLeatherArmorHeadpiece;
+import com.countgandi.com.game.items.armor.leather.ItemLeatherArmorLeggings;
+import com.countgandi.com.game.items.armor.trinkets.ItemWoodenRingTrinket;
 import com.countgandi.com.game.items.swords.ItemWoodSword;
 
 public class Overworld extends Dimension {
@@ -33,7 +38,12 @@ public class Overworld extends Dimension {
 	public ChestTable getChestTable() {
 		ArrayList<Class<? extends Item>> items = new ArrayList<Class<? extends Item>>();
 		items.add(ItemWoodSword.class);
-		return new ChestTable(items, new int[] {1}, handler);
+		items.add(ItemWoodenRingTrinket.class);
+		items.add(ItemLeatherArmorHeadpiece.class);
+		items.add(ItemLeatherArmorChestpiece.class);
+		items.add(ItemLeatherArmorLeggings.class);
+		items.add(ItemLeatherArmorBoots.class);
+		return new ChestTable(items, handler);
 	}
 
 }

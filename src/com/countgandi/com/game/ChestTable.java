@@ -32,6 +32,26 @@ public class ChestTable {
 		}
 	}
 	
+	public ChestTable(ArrayList<Class<? extends Item>> items, Handler handler) {
+		try {
+			ArrayList<Class<? extends Item>> newItems = new ArrayList<Class<? extends Item>>();
+			for(int i = 0; i < items.size(); i++) {
+				newItems.add(items.get(i));
+			}
+			item = (Item) newItems.get(new Random().nextInt(newItems.size())).getConstructors()[0].newInstance(handler);
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public Item getItem() {
 		return item;
 	}

@@ -8,6 +8,10 @@ import com.countgandi.com.game.entities.Entity;
 import com.countgandi.com.game.entities.overworld.EntityDuck;
 import com.countgandi.com.game.entities.underworld.EntitySpider;
 import com.countgandi.com.game.items.Item;
+import com.countgandi.com.game.items.armor.frostbite.ItemFrostbiteArmorBoots;
+import com.countgandi.com.game.items.armor.frostbite.ItemFrostbiteArmorChestpiece;
+import com.countgandi.com.game.items.armor.frostbite.ItemFrostbiteArmorHeadpiece;
+import com.countgandi.com.game.items.armor.frostbite.ItemFrostbiteArmorLeggings;
 import com.countgandi.com.game.items.swords.ItemFrostbiteSword;
 
 public class Arctic extends Dimension {
@@ -33,6 +37,10 @@ public class Arctic extends Dimension {
 	public ChestTable getChestTable() {
 		ArrayList<Class<? extends Item>> items = new ArrayList<Class<? extends Item>>();
 		items.add(ItemFrostbiteSword.class);
+		items.add(ItemFrostbiteArmorHeadpiece.class);
+		items.add(ItemFrostbiteArmorChestpiece.class);
+		items.add(ItemFrostbiteArmorLeggings.class);
+		items.add(ItemFrostbiteArmorBoots.class);
 		return new ChestTable(items, new int[] {1}, handler);
 	}
 

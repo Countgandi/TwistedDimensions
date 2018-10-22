@@ -8,6 +8,10 @@ import com.countgandi.com.game.entities.Entity;
 import com.countgandi.com.game.entities.other.EntityCoyote;
 import com.countgandi.com.game.entities.savannah.EntityGiraffe;
 import com.countgandi.com.game.items.Item;
+import com.countgandi.com.game.items.armor.metal.ItemMetalArmorBoots;
+import com.countgandi.com.game.items.armor.metal.ItemMetalArmorChestpiece;
+import com.countgandi.com.game.items.armor.metal.ItemMetalArmorHeadpiece;
+import com.countgandi.com.game.items.armor.metal.ItemMetalArmorLeggings;
 import com.countgandi.com.game.items.swords.ItemStoneSword;
 
 public class Savannah extends Dimension {
@@ -33,7 +37,11 @@ public class Savannah extends Dimension {
 	public ChestTable getChestTable() {
 		ArrayList<Class<? extends Item>> items = new ArrayList<Class<? extends Item>>();
 		items.add(ItemStoneSword.class);
-		return new ChestTable(items, new int[] {1}, handler);
+		items.add(ItemMetalArmorHeadpiece.class);
+		items.add(ItemMetalArmorChestpiece.class);
+		items.add(ItemMetalArmorLeggings.class);
+		items.add(ItemMetalArmorBoots.class);
+		return new ChestTable(items, handler);
 	}
 
 }

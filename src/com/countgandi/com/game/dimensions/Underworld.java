@@ -8,6 +8,10 @@ import com.countgandi.com.game.entities.Entity;
 import com.countgandi.com.game.entities.underworld.EntityBat;
 import com.countgandi.com.game.entities.underworld.EntitySpider;
 import com.countgandi.com.game.items.Item;
+import com.countgandi.com.game.items.armor.amethyst.ItemAmethystArmorBoots;
+import com.countgandi.com.game.items.armor.amethyst.ItemAmethystArmorChestpiece;
+import com.countgandi.com.game.items.armor.amethyst.ItemAmethystArmorHeadpiece;
+import com.countgandi.com.game.items.armor.amethyst.ItemAmethystArmorLeggings;
 import com.countgandi.com.game.items.swords.ItemAmethystSword;
 
 public class Underworld extends Dimension {
@@ -33,6 +37,10 @@ public class Underworld extends Dimension {
 	public ChestTable getChestTable() {
 		ArrayList<Class<? extends Item>> items = new ArrayList<Class<? extends Item>>();
 		items.add(ItemAmethystSword.class);
+		items.add(ItemAmethystArmorHeadpiece.class);
+		items.add(ItemAmethystArmorChestpiece.class);
+		items.add(ItemAmethystArmorLeggings.class);
+		items.add(ItemAmethystArmorBoots.class);
 		return new ChestTable(items, new int[] {1}, handler);
 	}
 
