@@ -18,14 +18,7 @@ import com.countgandi.com.game.items.armor.ItemArmorBoots;
 import com.countgandi.com.game.items.armor.ItemArmorChestpiece;
 import com.countgandi.com.game.items.armor.ItemArmorHeadpiece;
 import com.countgandi.com.game.items.armor.ItemArmorLeggings;
-import com.countgandi.com.game.items.armor.frostbite.ItemFrostbiteArmorBoots;
-import com.countgandi.com.game.items.armor.frostbite.ItemFrostbiteArmorChestpiece;
-import com.countgandi.com.game.items.armor.frostbite.ItemFrostbiteArmorHeadpiece;
-import com.countgandi.com.game.items.armor.frostbite.ItemFrostbiteArmorLeggings;
 import com.countgandi.com.game.items.armor.trinkets.ItemTrinket;
-import com.countgandi.com.game.items.bows.ItemWoodBow;
-import com.countgandi.com.game.items.foods.ItemDuckFood;
-import com.countgandi.com.game.items.swords.ItemWoodSword;
 import com.countgandi.com.guis.buttons.AddButton;
 
 public class InventoryGui extends Gui {
