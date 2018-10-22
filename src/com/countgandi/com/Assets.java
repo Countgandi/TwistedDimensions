@@ -28,7 +28,7 @@ public class Assets {
 	}
 
 	public static final class Entities {
-		public static BufferedImage[] giraffe = loadImageSheet(59, 38, "/pics/mobs/giraffe.png");
+		public static BufferedImage[] giraffe = loadImageSheet(59, 38, "/pics/mobs/Giraffe.png");
 		public static BufferedImage[] lion = loadImageSheet(18, 9, "/pics/mobs/Lion.png");
 		public static BufferedImage[] bat = loadImageSheet(16, 13, "/pics/mobs/Bat.png");
 		public static BufferedImage[] dragons = loadImageSheet(54, 64, "/pics/dragon/Dragons.png");

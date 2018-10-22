@@ -47,13 +47,7 @@ public class InventoryGui extends Gui {
 
 	public InventoryGui(Handler handler) {
 		super(handler);
-		items[0] = new ItemWoodSword(handler);
-		items[1] = new ItemWoodBow(handler);
-		items[2] = new ItemStackable(new ItemDuckFood(handler), 16);
-		items[3] = new ItemFrostbiteArmorHeadpiece(handler);
-		items[4] = new ItemFrostbiteArmorChestpiece(handler);
-		items[5] = new ItemFrostbiteArmorLeggings(handler);
-		items[6] = new ItemFrostbiteArmorBoots(handler);
+
 		for (int y = 0; y < ColumnAmount; y++) {
 			for (int x = 0; x < RowAmount; x++) {
 				if (y == 0) {

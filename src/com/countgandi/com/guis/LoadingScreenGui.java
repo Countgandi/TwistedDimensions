@@ -38,9 +38,9 @@ public class LoadingScreenGui extends Gui {
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("arial", 2, 50));
-		g.drawString("Loading", 200, 400);
+		g.drawString("Loading", 100, 200);
 		for(int i = 0; i < dotAmount; i++) {
-			g.drawString(".", 380 + i * 15, 400);
+			g.drawString(".", 280 + i * 15, 200);
 		}
 	}
 
