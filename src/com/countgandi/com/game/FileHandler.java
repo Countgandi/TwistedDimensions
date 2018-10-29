@@ -14,6 +14,7 @@ import com.countgandi.com.game.dimensions.Dimension;
 import com.countgandi.com.game.entities.Entity;
 import com.countgandi.com.game.entities.Player;
 import com.countgandi.com.guis.InventoryGui;
+import com.countgandi.com.net.Handler;
 
 public class FileHandler {
 

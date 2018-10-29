@@ -1,8 +1,9 @@
 package com.countgandi.com.game.entities.activities;
 
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.entities.Entity;
 import com.countgandi.com.game.entities.Player;
+import com.countgandi.com.net.Handler;
+import com.countgandi.com.net.client.ClientSideHandler;
 
 public class ActivityJumpToTarget extends ActivityBasic {
 
@@ -28,7 +29,8 @@ public class ActivityJumpToTarget extends ActivityBasic {
 				}
 				jumpTimer++;
 			}
-		} else if (handler.dungeon == null) {
+		} else if(handler instanceof ClientSideHandler) {
+			if (((ClientSideHandler)handler).dungeon == null) {
 			for (int i = 0; i < handler.getDimensionHandler().currentDimension.entities.size(); i++) {
 				Entity entity = handler.getDimensionHandler().currentDimension.entities.get(i);
 				if (target.equals(entity.getClass()) && e.getAttackBounds().intersects(entity.getRectangle())) {
@@ -41,8 +43,8 @@ public class ActivityJumpToTarget extends ActivityBasic {
 				}
 			}
 		} else {
-			for (int i = 0; i < handler.dungeon.getEntities().size(); i++) {
-				Entity entity = handler.dungeon.getEntities().get(i);
+			for (int i = 0; i < ((ClientSideHandler)handler).dungeon.getEntities().size(); i++) {
+				Entity entity = ((ClientSideHandler)handler).dungeon.getEntities().get(i);
 				if (target.equals(entity.getClass()) && e.getAttackBounds().intersects(entity.getRectangle())) {
 					if (jumpTimer > jumpFrequency) {
 						e.setX(entity.getX());
@@ -54,6 +56,7 @@ public class ActivityJumpToTarget extends ActivityBasic {
 
 			}
 
+		}
 		}
 	}
 

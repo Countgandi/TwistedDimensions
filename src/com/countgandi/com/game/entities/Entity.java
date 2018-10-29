@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.countgandi.com.game.EntityDrop;
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.dimensions.Dimension;
 import com.countgandi.com.game.entities.activities.ActivityBasic;
 import com.countgandi.com.game.entities.other.EntityArrow;
 import com.countgandi.com.guis.InventoryGui;
+import com.countgandi.com.net.Handler;
 
 public abstract class Entity {
 

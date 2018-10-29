@@ -1,6 +1,6 @@
 package com.countgandi.com.game.items.armor.trinkets;
 
-import com.countgandi.com.game.Handler;
+import com.countgandi.com.net.Handler;
 
 public class ItemWoodenRingTrinket extends ItemTrinket {
 

@@ -3,7 +3,6 @@ package com.countgandi.com.game.dimensions;
 import java.util.ArrayList;
 
 import com.countgandi.com.game.ChestTable;
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.entities.Entity;
 import com.countgandi.com.game.entities.other.EntityCoyote;
 import com.countgandi.com.game.entities.overworld.EntityDuck;
@@ -14,6 +13,7 @@ import com.countgandi.com.game.items.armor.leather.ItemLeatherArmorHeadpiece;
 import com.countgandi.com.game.items.armor.leather.ItemLeatherArmorLeggings;
 import com.countgandi.com.game.items.armor.trinkets.ItemWoodenRingTrinket;
 import com.countgandi.com.game.items.swords.ItemWoodSword;
+import com.countgandi.com.net.Handler;
 
 public class Overworld extends Dimension {
 

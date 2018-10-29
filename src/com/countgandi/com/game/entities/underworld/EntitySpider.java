@@ -3,13 +3,13 @@ package com.countgandi.com.game.entities.underworld;
 import java.awt.Graphics;
 
 import com.countgandi.com.Assets;
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.entities.DamageType;
 import com.countgandi.com.game.entities.Entity;
 import com.countgandi.com.game.entities.Player;
 import com.countgandi.com.game.entities.activities.ActivityAttackTarget;
 import com.countgandi.com.game.entities.activities.ActivityJumpToTarget;
 import com.countgandi.com.game.entities.other.EntityCoyote;
+import com.countgandi.com.net.Handler;
 
 public class EntitySpider extends Entity {
 	

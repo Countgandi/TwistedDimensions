@@ -3,13 +3,14 @@ package com.countgandi.com.game.items.swords;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.animations.SwordSlashAnimation;
 import com.countgandi.com.game.entities.DamageType;
 import com.countgandi.com.game.entities.Entity;
 import com.countgandi.com.game.entities.Player;
 import com.countgandi.com.game.items.Item;
 import com.countgandi.com.guis.ItemStatGui;
+import com.countgandi.com.net.Handler;
+import com.countgandi.com.net.client.ClientSideHandler;
 
 public abstract class ItemSword extends Item {
 
@@ -26,15 +27,15 @@ public abstract class ItemSword extends Item {
 		int x, y = (int) (handler.getPlayer().getY() + 12), width = 32, height = 8;
 		if (facingl) {
 			x = (int) handler.getPlayer().getX() - 19;
-			handler.addAnimation(new SwordSlashAnimation((int) handler.getPlayer().getX() - 19, (int) handler.getPlayer().getY() + 12, handler));
+			((ClientSideHandler)handler).addAnimation(new SwordSlashAnimation((int) handler.getPlayer().getX() - 19, (int) handler.getPlayer().getY() + 12, (ClientSideHandler)handler));
 		} else {
 			x = (int) handler.getPlayer().getX() + 2;
-			handler.addAnimation(new SwordSlashAnimation((int) handler.getPlayer().getX() + 2, (int) handler.getPlayer().getY() + 12, handler));
+			((ClientSideHandler)handler).addAnimation(new SwordSlashAnimation((int) handler.getPlayer().getX() + 2, (int) handler.getPlayer().getY() + 12, (ClientSideHandler)handler));
 		}
-		if (handler.dungeon != null) {
+		if (((ClientSideHandler)handler).dungeon != null) {
 			try {
-				for (int i = 0; i < handler.dungeon.getEntities().size(); i++) {
-					Entity e = handler.dungeon.getEntities().get(i);
+				for (int i = 0; i < ((ClientSideHandler)handler).dungeon.getEntities().size(); i++) {
+					Entity e = ((ClientSideHandler)handler).dungeon.getEntities().get(i);
 					if (e.getRectangle().intersects(new Rectangle(x, y, width, height)) && !e.getClass().equals(Player.class)) {
 						e.takeDamage(weapDamage + handler.getPlayer().getBaseSwordDamage(), null, DamageType.Attack);
 					}
@@ -62,7 +63,7 @@ public abstract class ItemSword extends Item {
 
 	@Override
 	public ItemStatGui createGuiStats(int x, int y) {
-		return new ItemStatGui(x, y, new String[] { name + "/#00FFFF", weapDamage + " " + DamageType.Attack.toString() + " Dmg" + "/#FF0000" }, handler);
+		return new ItemStatGui(x, y, new String[] { name + "/#00FFFF", weapDamage + " " + DamageType.Attack.toString() + " Dmg" + "/#FF0000" }, (ClientSideHandler)handler);
 	}
 
 }

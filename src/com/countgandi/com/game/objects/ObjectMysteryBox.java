@@ -4,8 +4,8 @@ import java.awt.Graphics;
 
 import com.countgandi.com.Assets;
 import com.countgandi.com.game.ChestTable;
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.guis.InventoryGui;
+import com.countgandi.com.net.Handler;
 
 public class ObjectMysteryBox extends GameObject {
 	
@@ -35,11 +35,7 @@ public class ObjectMysteryBox extends GameObject {
 	@Override
 	public void onHit() {
 		InventoryGui.addItem(table.getItem());
-		if(handler.dungeon == null) {
-			handler.getDimensionHandler().currentDimension.objects.remove(this);
-		} else {
-			handler.dungeon.getObjects().remove(this);
-		}
+		handler.removeObject(this);
 	}
 
 }

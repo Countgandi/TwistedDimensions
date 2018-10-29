@@ -5,11 +5,11 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import com.countgandi.com.Game;
-import com.countgandi.com.game.Handler;
+import com.countgandi.com.net.client.ClientSideHandler;
 
 public class SettingsGui extends Gui {
 
-	public SettingsGui(Handler handler) {
+	public SettingsGui(ClientSideHandler handler) {
 		super(handler);
 	}
 

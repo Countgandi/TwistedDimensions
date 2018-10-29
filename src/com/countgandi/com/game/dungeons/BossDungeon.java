@@ -6,10 +6,11 @@ import java.awt.Rectangle;
 import com.countgandi.com.Assets;
 import com.countgandi.com.Game;
 import com.countgandi.com.game.Camera;
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.dimensions.Dimension;
 import com.countgandi.com.game.entities.Player;
 import com.countgandi.com.game.entities.other.DragonBoss;
+import com.countgandi.com.net.Handler;
+import com.countgandi.com.net.client.ClientSideHandler;
 
 public class BossDungeon extends Dungeon {
 
@@ -20,7 +21,7 @@ public class BossDungeon extends Dungeon {
 
 	@Override
 	public void renderEntity(Graphics g) {
-		if (handler.dungeon == null) {
+		if (((ClientSideHandler) handler).dungeon == null) {
 			g.drawImage(Assets.Objects.BossDungeon, (int) x, (int) y, width, height, null);
 		}
 	}
@@ -33,11 +34,13 @@ public class BossDungeon extends Dungeon {
 	@Override
 	public void tick() {
 		super.tick();
-		if (handler.dungeon == this) {
-			Camera.x = 0;
-			Camera.y = 0;
-			handler.getPlayer().setX(Game.clamp(handler.getPlayer().getX(), 0, Game.WIDTH - handler.getPlayer().getWidth()));
-			handler.getPlayer().setY(Game.clamp(handler.getPlayer().getY(), 0, Game.HEIGHT - handler.getPlayer().getHeight()));
+		if (handler instanceof ClientSideHandler) {
+			if (((ClientSideHandler)handler).dungeon == this) {
+				Camera.x = 0;
+				Camera.y = 0;
+				handler.getPlayer().setX(Game.clamp(handler.getPlayer().getX(), 0, Game.WIDTH - handler.getPlayer().getWidth()));
+				handler.getPlayer().setY(Game.clamp(handler.getPlayer().getY(), 0, Game.HEIGHT - handler.getPlayer().getHeight()));
+			}
 		}
 	}
 

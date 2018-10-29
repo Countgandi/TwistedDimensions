@@ -3,7 +3,6 @@ package com.countgandi.com.game.dimensions;
 import java.util.ArrayList;
 
 import com.countgandi.com.game.ChestTable;
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.entities.Entity;
 import com.countgandi.com.game.entities.other.EntityCoyote;
 import com.countgandi.com.game.entities.savannah.EntityGiraffe;
@@ -13,6 +12,7 @@ import com.countgandi.com.game.items.armor.metal.ItemMetalArmorChestpiece;
 import com.countgandi.com.game.items.armor.metal.ItemMetalArmorHeadpiece;
 import com.countgandi.com.game.items.armor.metal.ItemMetalArmorLeggings;
 import com.countgandi.com.game.items.swords.ItemStoneSword;
+import com.countgandi.com.net.Handler;
 
 public class Savannah extends Dimension {
 

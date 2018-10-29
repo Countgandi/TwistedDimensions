@@ -2,10 +2,11 @@ package com.countgandi.com.game.items.foods;
 
 import java.awt.image.BufferedImage;
 
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.items.Item;
 import com.countgandi.com.guis.InventoryGui;
 import com.countgandi.com.guis.ItemStatGui;
+import com.countgandi.com.net.Handler;
+import com.countgandi.com.net.client.ClientSideHandler;
 
 public abstract class ItemFood extends Item {
 
@@ -37,7 +38,7 @@ public abstract class ItemFood extends Item {
 
 	@Override
 	public ItemStatGui createGuiStats(int x, int y) {
-		return new ItemStatGui(x, y, new String[] { name + "/#00FFFF", "Restore: " + health + "/#00FF00" }, handler);
+		return new ItemStatGui(x, y, new String[] { name + "/#00FFFF", "Restore: " + health + "/#00FF00" }, (ClientSideHandler)handler);
 	}
 
 }

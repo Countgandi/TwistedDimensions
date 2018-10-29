@@ -4,13 +4,13 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-import com.countgandi.com.game.Handler;
+import com.countgandi.com.net.client.ClientSideHandler;
 
 public abstract class Menu {
 
-	protected Handler handler;
+	protected ClientSideHandler handler;
 
-	public Menu(Handler handler) {
+	public Menu(ClientSideHandler handler) {
 		this.handler = handler;
 	}
 
@@ -29,5 +29,7 @@ public abstract class Menu {
 	public abstract void mouseDragged(MouseEvent e);
 
 	public abstract void mouseMoved(MouseEvent e);
+
+	public abstract void closeMenu();
 
 }

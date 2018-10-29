@@ -4,17 +4,22 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.objects.GameObject;
 import com.countgandi.com.guis.HotbarGui;
 import com.countgandi.com.guis.HudGui;
+import com.countgandi.com.guis.LoadingScreenGui;
+import com.countgandi.com.net.client.Client;
+import com.countgandi.com.net.client.ClientSideHandler;
 
 public class GameScreen extends Menu {
 
+	@SuppressWarnings("unused")
+	private Client client;
 	private boolean inventoryOpen = false;
 
-	public GameScreen(Handler handler) {
+	public GameScreen(ClientSideHandler handler) {
 		super(handler);
+		
 		this.handler.addGui(new HotbarGui(handler));
 		this.handler.addGui(new HudGui(handler));
 		try {
@@ -26,9 +31,18 @@ public class GameScreen extends Menu {
 			e.printStackTrace();
 		}
 	}
+	public GameScreen(Client client, ClientSideHandler handler) {
+		super(handler);
+		
+		this.handler.addGui(new HotbarGui(handler));
+		this.handler.addGui(new HudGui(handler));
+		this.handler.addGui(new LoadingScreenGui(handler));
+		this.client = client;
+	}
 
 	@Override
 	public void tick() {
+		
 		handler.tick();
 	}
 
@@ -117,6 +131,10 @@ public class GameScreen extends Menu {
 	@Override
 	public void mouseMoved(MouseEvent e) {
 
+	}
+	
+	public void closeMenu() {
+		
 	}
 
 }

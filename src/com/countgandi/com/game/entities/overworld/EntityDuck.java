@@ -5,11 +5,11 @@ import java.util.ArrayList;
 
 import com.countgandi.com.Assets;
 import com.countgandi.com.game.EntityDrop;
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.entities.Entity;
 import com.countgandi.com.game.entities.activities.ActivityWander;
 import com.countgandi.com.game.items.Item;
 import com.countgandi.com.game.items.foods.ItemDuckFood;
+import com.countgandi.com.net.Handler;
 
 public class EntityDuck extends Entity {
 

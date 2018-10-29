@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
-import com.countgandi.com.game.Handler;
+import com.countgandi.com.net.client.ClientSideHandler;
 
 public class ItemStatGui extends Gui {
 	
@@ -17,7 +17,7 @@ public class ItemStatGui extends Gui {
 	 * @param text
 	 * @param handler
 	 */
-	public ItemStatGui(int x, int y, String[] text, Handler handler) {
+	public ItemStatGui(int x, int y, String[] text, ClientSideHandler handler) {
 		super(handler);
 		this.text = text;
 		this.x = x + 16;

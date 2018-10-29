@@ -8,7 +8,7 @@ Add Textures:
 	new splash, inventory, health bar, player & most creatures
 
 Add Items:
-	leather armor, metal armor, amethyst armor, frostbite armor, chain armor
+	
 
 Add Entities:
 	water dragon, crabs, frost walkers, mamoths, sabertooth tigers, sharks, sting rays, jellyfish

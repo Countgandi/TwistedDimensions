@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.countgandi.com.game.items.Item;
+import com.countgandi.com.net.Handler;
 
 public class ChestTable {
 	

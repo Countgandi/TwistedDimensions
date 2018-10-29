@@ -1,4 +1,4 @@
-package com.countgandi.com.game;
+package com.countgandi.com.net.client;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -9,47 +9,61 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
+import com.countgandi.com.Assets;
 import com.countgandi.com.Game;
+import com.countgandi.com.game.Camera;
+import com.countgandi.com.game.DimensionHandler;
+import com.countgandi.com.game.FileHandler;
 import com.countgandi.com.game.animations.Animation;
 import com.countgandi.com.game.dimensions.Dimension;
 import com.countgandi.com.game.dungeons.Dungeon;
 import com.countgandi.com.game.entities.Entity;
 import com.countgandi.com.game.entities.Player;
-import com.countgandi.com.game.map.MapHandler;
+import com.countgandi.com.game.objects.GameObject;
 import com.countgandi.com.guis.Gui;
 import com.countgandi.com.guis.InventoryGui;
+import com.countgandi.com.menus.Menu;
+import com.countgandi.com.net.Handler;
 
-public class Handler {
+public class ClientSideHandler extends Handler {
 
 	public ArrayList<Gui> guis = new ArrayList<Gui>();
 	public ArrayList<Animation> animations = new ArrayList<Animation>();
-	public boolean up, down, left, right, holdingSpace;
+	public boolean up, down, left, right, holdingSpace, multiplayer;
 	public Dungeon dungeon;
 	private Game game;
-	private MapHandler mapHandler;
-	private DimensionHandler dimensionHandler;
-	private Player player;
+	
 	private Camera camera;
 	private InventoryGui inventoryGui;
 
-	public Handler(Game game) {
+	public ClientSideHandler(Game game) {
+		multiplayer = false;
 		this.game = game;
-		player = new Player(Dimension.WorldBounds / 2, Dimension.WorldBounds / 2, this);
+		players.add(new Player(Dimension.WorldBounds / 2, Dimension.WorldBounds / 2, this));
 		dimensionHandler = new DimensionHandler(this);
-		mapHandler = new MapHandler(this);
 		camera = new Camera(this);
 		inventoryGui = new InventoryGui(this);
 	}
 
+	public ClientSideHandler() {
+		multiplayer = true;
+		players.add(new Player(Dimension.WorldBounds / 2, Dimension.WorldBounds / 2, this));
+		dimensionHandler = new DimensionHandler(this);
+	}
+
 	public void tick() {
-		dimensionHandler.tick();
-		for (int i = 0; i < animations.size(); i++) {
-			animations.get(i).tick();
+		if (multiplayer) {
+
+		} else {
+			dimensionHandler.tick();
+			for (int i = 0; i < animations.size(); i++) {
+				animations.get(i).tick();
+			}
+			for (int i = 0; i < guis.size(); i++) {
+				guis.get(i).tick();
+			}
+			camera.tick();
 		}
-		for (int i = 0; i < guis.size(); i++) {
-			guis.get(i).tick();
-		}
-		camera.tick();
 	}
 
 	public void tickGuis() {
@@ -61,7 +75,23 @@ public class Handler {
 	public void render(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.translate(-Camera.x, -Camera.y);
-		mapHandler.render(g);
+		if (dimensionHandler.currentDimension != null) {
+			int yIncrement = 48, xIncrement = 48;
+			if (dungeon != null) {
+				int dungenID = dungeon.id;
+				for (int y = (int) (Camera.y - yIncrement - (Camera.y % yIncrement)); y < Camera.y + Game.HEIGHT + yIncrement; y += yIncrement) {
+					for (int x = (int) (Camera.x - xIncrement - (Camera.x % xIncrement)); x < Camera.x + Game.WIDTH + xIncrement; x += xIncrement) {
+						g.drawImage(Assets.tileSet[dungenID], x, y, xIncrement, yIncrement, null);
+					}
+				}
+			} else {
+				for (int y = (int) (Camera.y - yIncrement - (Camera.y % yIncrement)); y < Camera.y + Game.HEIGHT + yIncrement; y += yIncrement) {
+					for (int x = (int) (Camera.x - xIncrement - (Camera.x % xIncrement)); x < Camera.x + Game.WIDTH + xIncrement; x += xIncrement) {
+						g.drawImage(Assets.tileSet[dimensionHandler.currentDimension.getGroundTexture()], x, y, xIncrement, yIncrement, null);
+					}
+				}
+			}
+		}
 		dimensionHandler.renderDungeonEntity(g);
 		dimensionHandler.renderEntities(g);
 		for (int i = 0; i < animations.size(); i++) {
@@ -138,21 +168,30 @@ public class Handler {
 	public Game getGame() {
 		return game;
 	}
-
-	public MapHandler getMapHandler() {
-		return mapHandler;
+	
+	public InventoryGui getInventory() {
+		return inventoryGui;
 	}
 
 	public DimensionHandler getDimensionHandler() {
 		return dimensionHandler;
 	}
-
-	public Player getPlayer() {
-		return player;
+	
+	public ArrayList<Player> getPlayers() {
+		if(multiplayer) {
+			return players;
+		} else {
+			System.err.println("You cannot get players without multiplayer...");
+			return null;
+		}
 	}
 
-	public InventoryGui getInventory() {
-		return inventoryGui;
+	public Player getPlayer() {
+		if(multiplayer) {
+			return players.get(0);
+		} else {
+			return players.get(0);
+		}
 	}
 
 	public boolean saveFiles() {
@@ -174,26 +213,43 @@ public class Handler {
 	 * @throws InstantiationException
 	 * @throws ClassNotFoundException
 	 */
-	public boolean loadFiles() throws IOException, ClassNotFoundException, InstantiationException,
-			IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException {
+	public boolean loadFiles() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException {
 		return FileHandler.load(this);
 	}
 
 	public void keyPressed(KeyEvent e) {
-		for(int i = 0; i < guis.size(); i++) {
+		for (int i = 0; i < guis.size(); i++) {
 			guis.get(i).keyPressed(e);
 		}
 	}
 
 	public void keyReleased(KeyEvent e) {
-		for(int i = 0; i < guis.size(); i++) {
+		for (int i = 0; i < guis.size(); i++) {
 			guis.get(i).keyReleased(e);
 		}
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		for(int i = 0; i < guis.size(); i++) {
+		for (int i = 0; i < guis.size(); i++) {
 			guis.get(i).mouseDragged(e);
 		}
 	}
+	
+	public void setMenu(Menu menu) {
+		game.menu.closeMenu();
+		game.menu = menu;
+	}
+
+	@Override
+	public void removeObject(GameObject obj) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addObject(GameObject obj) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

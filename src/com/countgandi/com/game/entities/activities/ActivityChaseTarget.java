@@ -1,8 +1,9 @@
 package com.countgandi.com.game.entities.activities;
 
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.entities.Entity;
 import com.countgandi.com.game.entities.Player;
+import com.countgandi.com.net.Handler;
+import com.countgandi.com.net.client.ClientSideHandler;
 
 public class ActivityChaseTarget extends ActivityBasic {
 
@@ -24,16 +25,17 @@ public class ActivityChaseTarget extends ActivityBasic {
 				double direction = Math.atan2((found.getY() + found.getHeight() / 2) - (e.getY() + e.getHeight() / 2), (found.getX() + found.getWidth() / 2) - (e.getX() + e.getWidth()));
 				e.setVelX((float) (Math.cos(direction) * chaseSpeed));
 				e.setVelY((float) (Math.sin(direction) * chaseSpeed));
-				if(found.isDead()) {
+				if (found.isDead()) {
 					found = null;
 				}
 			} else {
 				found = null;
 			}
 		} else {
-				if (target.equals(Player.class)) {
-					found = handler.getPlayer();
-				} else if (handler.dungeon == null) {
+			if (target.equals(Player.class)) {
+				found = handler.getPlayer();
+			} else if (handler instanceof ClientSideHandler) {
+				if (((ClientSideHandler)handler).dungeon == null) {
 					for (int i = 0; i < handler.getDimensionHandler().currentDimension.entities.size(); i++) {
 						Entity entity = handler.getDimensionHandler().currentDimension.entities.get(i);
 						if (target.equals(entity.getClass()) && e.getAttackBounds().intersects(entity.getRectangle())) {
@@ -41,18 +43,16 @@ public class ActivityChaseTarget extends ActivityBasic {
 						}
 					}
 				} else {
-					for (int i = 0; i < handler.dungeon.getEntities().size(); i++) {
-						Entity entity = handler.dungeon.getEntities().get(i);
+					for (int i = 0; i < ((ClientSideHandler)handler).dungeon.getEntities().size(); i++) {
+						Entity entity = ((ClientSideHandler)handler).dungeon.getEntities().get(i);
 						if (target.equals(entity.getClass()) && e.getAttackBounds().intersects(entity.getRectangle())) {
 							found = entity;
 						}
 
 					}
 				}
-			
+			}
 		}
 	}
-	
-	
-	
+
 }

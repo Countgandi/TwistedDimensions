@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import com.countgandi.com.Assets;
-import com.countgandi.com.game.Handler;
+import com.countgandi.com.net.Handler;
 
 public class ObjectTree extends GameObject {
 
@@ -21,12 +21,18 @@ public class ObjectTree extends GameObject {
 		}
 		width = img.getWidth() * 3;
 		height = img.getHeight() * 3;
-
 	}
 
 	@Override
 	public void tick() {
-		
+		if(getRectangle().intersects(handler.getPlayer().getRectangle())) {
+			if(handler.getPlayer().getVelX() != 0) {
+				handler.getPlayer().setX(handler.getPlayer().getX() - handler.getPlayer().getVelY());
+			}
+			if(handler.getPlayer().getVelY() != 0) {
+				handler.getPlayer().setY(handler.getPlayer().getY() - handler.getPlayer().getVelY());
+			}
+		}
 	}
 	
 	@Override

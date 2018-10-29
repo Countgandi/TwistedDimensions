@@ -3,7 +3,6 @@ package com.countgandi.com.game.dimensions;
 import java.util.ArrayList;
 
 import com.countgandi.com.game.ChestTable;
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.entities.Entity;
 import com.countgandi.com.game.entities.underworld.EntityBat;
 import com.countgandi.com.game.entities.underworld.EntitySpider;
@@ -13,6 +12,7 @@ import com.countgandi.com.game.items.armor.amethyst.ItemAmethystArmorChestpiece;
 import com.countgandi.com.game.items.armor.amethyst.ItemAmethystArmorHeadpiece;
 import com.countgandi.com.game.items.armor.amethyst.ItemAmethystArmorLeggings;
 import com.countgandi.com.game.items.swords.ItemAmethystSword;
+import com.countgandi.com.net.Handler;
 
 public class Underworld extends Dimension {
 	

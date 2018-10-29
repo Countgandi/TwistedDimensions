@@ -7,7 +7,6 @@ import java.util.Random;
 
 import com.countgandi.com.Assets;
 import com.countgandi.com.game.ChestTable;
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.dungeons.BossDungeon;
 import com.countgandi.com.game.dungeons.Dungeon;
 import com.countgandi.com.game.entities.Entity;
@@ -16,6 +15,9 @@ import com.countgandi.com.game.objects.ObjectBush;
 import com.countgandi.com.game.objects.ObjectMysteryBox;
 import com.countgandi.com.game.objects.ObjectTree;
 import com.countgandi.com.guis.LoadingScreenGui;
+import com.countgandi.com.net.Handler;
+import com.countgandi.com.net.client.Client;
+import com.countgandi.com.net.client.ClientSideHandler;
 
 public abstract class Dimension {
 
@@ -35,7 +37,9 @@ public abstract class Dimension {
 	}
 
 	public void loadDimension(Dimension previous) {
-		handler.addGui(new LoadingScreenGui(handler));
+		if (handler instanceof ClientSideHandler) {
+			((ClientSideHandler) handler).addGui(new LoadingScreenGui((ClientSideHandler) handler));
+		}
 		if (previous != null) {
 			if (previous.entities.contains(handler.getPlayer())) {
 				previous.entities.remove(handler.getPlayer());
@@ -71,11 +75,26 @@ public abstract class Dimension {
 	/**
 	 * For spawning in entities
 	 */
+	private int tickOnEntities = 0;
+
 	public void tick() {
-		if (entities.size() < numberOfEntities) {
-			entities.add(getRandomEntity());
-		} else if (entities.size() >= numberOfEntities && LoadingScreenGui.isLoading) {
-			LoadingScreenGui.isLoading = false;
+		if (handler instanceof ClientSideHandler) {
+			if (((ClientSideHandler) handler).multiplayer && LoadingScreenGui.isLoading) {
+				if (entities.size() < Client.currentEntities.size()) {
+					entities.add(Client.currentEntities.get(tickOnEntities));
+					tickOnEntities++;
+				} else {
+					tickOnEntities = 0;
+					LoadingScreenGui.isLoading = false;
+				}
+			} else if (!((ClientSideHandler) handler).multiplayer && LoadingScreenGui.isLoading) {
+				if (entities.size() < numberOfEntities) {
+					entities.add(getRandomEntity());
+				} else {
+					tickOnEntities = 0;
+					LoadingScreenGui.isLoading = false;
+				}
+			}
 		}
 	}
 
@@ -119,9 +138,9 @@ public abstract class Dimension {
 		System.out.println("Could not use random entity: " + i);
 		return null;
 	}
-	
+
 	public abstract ChestTable getChestTable();
-	
+
 	@Override
 	public String toString() {
 		return title;

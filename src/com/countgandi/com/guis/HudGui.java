@@ -4,14 +4,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.SkillHandler;
+import com.countgandi.com.net.client.ClientSideHandler;
 
 public class HudGui extends Gui {
 	
 	private static int healthWidth = 125;
 
-	public HudGui(Handler handler) {
+	public HudGui(ClientSideHandler handler) {
 		super(handler);
 	}
 

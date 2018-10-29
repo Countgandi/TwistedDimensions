@@ -3,7 +3,6 @@ package com.countgandi.com.game.entities.underworld;
 import java.awt.Graphics;
 
 import com.countgandi.com.Assets;
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.dimensions.Dimension;
 import com.countgandi.com.game.entities.DamageType;
 import com.countgandi.com.game.entities.Entity;
@@ -11,6 +10,7 @@ import com.countgandi.com.game.entities.Player;
 import com.countgandi.com.game.entities.activities.ActivityAttackTarget;
 import com.countgandi.com.game.entities.activities.ActivityChaseTarget;
 import com.countgandi.com.game.entities.activities.ActivityWander;
+import com.countgandi.com.net.Handler;
 
 public class EntityBat extends Entity {
 	

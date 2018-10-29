@@ -10,7 +10,6 @@ import java.awt.event.MouseEvent;
 
 import com.countgandi.com.Assets;
 import com.countgandi.com.Game;
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.SkillHandler;
 import com.countgandi.com.game.items.Item;
 import com.countgandi.com.game.items.ItemStackable;
@@ -20,6 +19,7 @@ import com.countgandi.com.game.items.armor.ItemArmorHeadpiece;
 import com.countgandi.com.game.items.armor.ItemArmorLeggings;
 import com.countgandi.com.game.items.armor.trinkets.ItemTrinket;
 import com.countgandi.com.guis.buttons.AddButton;
+import com.countgandi.com.net.client.ClientSideHandler;
 
 public class InventoryGui extends Gui {
 
@@ -38,7 +38,7 @@ public class InventoryGui extends Gui {
 	private static final int xPos = 191, yPos = 40;
 	private int mx, my;
 
-	public InventoryGui(Handler handler) {
+	public InventoryGui(ClientSideHandler handler) {
 		super(handler);
 
 		for (int y = 0; y < ColumnAmount; y++) {

@@ -3,9 +3,9 @@ package com.countgandi.com.game.entities.savannah;
 import java.awt.Graphics;
 
 import com.countgandi.com.Assets;
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.entities.Entity;
 import com.countgandi.com.game.entities.activities.ActivityWander;
+import com.countgandi.com.net.Handler;
 
 public class EntityGiraffe extends Entity {
 

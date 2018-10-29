@@ -4,9 +4,10 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import com.countgandi.com.Assets;
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.items.Item;
 import com.countgandi.com.guis.ItemStatGui;
+import com.countgandi.com.net.Handler;
+import com.countgandi.com.net.client.ClientSideHandler;
 
 public abstract class ItemArmor extends Item {
 
@@ -58,7 +59,7 @@ public abstract class ItemArmor extends Item {
 
 	@Override
 	public ItemStatGui createGuiStats(int x, int y) {
-		return new ItemStatGui(x, y, new String[] {mat + " " + type + "/#00FFFF", "MR:" + magical, "Armor:" + physical}, handler);
+		return new ItemStatGui(x, y, new String[] {mat + " " + type + "/#00FFFF", "MR:" + magical, "Armor:" + physical}, (ClientSideHandler)handler);
 	}
 
 	protected enum ArmorType {

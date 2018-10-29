@@ -5,14 +5,14 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import com.countgandi.com.Game;
-import com.countgandi.com.game.Handler;
+import com.countgandi.com.net.client.ClientSideHandler;
 
 public class LoadingScreenGui extends Gui {
 
 	public static boolean isLoading = false;
 	private int dotAmount = 0, timer;
 
-	public LoadingScreenGui(Handler handler) {
+	public LoadingScreenGui(ClientSideHandler handler) {
 		super(handler);
 		isLoading = true;
 	}

@@ -11,17 +11,17 @@ import java.util.List;
 
 import com.countgandi.com.Assets;
 import com.countgandi.com.Game;
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.items.Item;
 import com.countgandi.com.game.items.ItemStackable;
 import com.countgandi.com.game.items.armor.ItemArmor;
+import com.countgandi.com.net.client.ClientSideHandler;
 
 public class HotbarGui extends Gui {
 
 	public List<Item> items = new ArrayList<Item>(10);
 	public static Item currentItem;
 
-	public HotbarGui(Handler handler) {
+	public HotbarGui(ClientSideHandler handler) {
 		super(handler);
 	}
 

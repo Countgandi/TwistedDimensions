@@ -7,15 +7,15 @@ import java.awt.event.MouseEvent;
 
 import com.countgandi.com.Assets;
 import com.countgandi.com.Game;
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.SkillHandler;
+import com.countgandi.com.net.client.ClientSideHandler;
 
 public class AddButton extends Button {
 
 	private boolean over = false, down = false;
 	private String string;
 
-	public AddButton(int x, int y, String s, Handler handler) {
+	public AddButton(int x, int y, String s, ClientSideHandler handler) {
 		super(x, y, 7, 7, handler);
 		this.string = s;
 	}

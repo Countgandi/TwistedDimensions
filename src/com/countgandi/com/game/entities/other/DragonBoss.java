@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import com.countgandi.com.Assets;
 import com.countgandi.com.Game;
 import com.countgandi.com.game.ChestTable;
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.dimensions.Dimension;
 import com.countgandi.com.game.entities.DamageType;
 import com.countgandi.com.game.entities.Entity;
@@ -15,6 +14,7 @@ import com.countgandi.com.game.items.bows.ItemAmethystBow;
 import com.countgandi.com.game.items.bows.ItemFrostbiteBow;
 import com.countgandi.com.game.items.bows.ItemWoodBow;
 import com.countgandi.com.game.objects.ObjectMysteryBox;
+import com.countgandi.com.net.Handler;
 
 public class DragonBoss extends Entity {
 
@@ -33,7 +33,7 @@ public class DragonBoss extends Entity {
 	public void tick() {
 		timer++;
 		if (timer > 60 && !(health <= 0)) {
-			handler.dungeon.getEntities().add(new EntityFireball(x - 30, y + 30, this, handler));
+			handler.addEntity(new EntityFireball(x - 30, y + 30, this, handler));
 			timer = 0;
 		}
 	}
@@ -81,9 +81,9 @@ public class DragonBoss extends Entity {
 			if (width <= 1 && height <= 0) {
 				dead = true;
 				onKill();
-				handler.dungeon.getObjects().add(new ObjectMysteryBox(200, 200, getTable(), handler));
-				handler.dungeon.getEntities().add(new EntityDimensionPortal(Game.WIDTH - 200, Game.HEIGHT / 2, handler));
-				handler.dungeon.getEntities().remove(this);
+				handler.addObject(new ObjectMysteryBox(200, 200, getTable(), handler));
+				handler.addEntity(new EntityDimensionPortal(Game.WIDTH - 200, Game.HEIGHT / 2, handler));
+				handler.removeEntity(this);
 			}
 		}
 		tick();

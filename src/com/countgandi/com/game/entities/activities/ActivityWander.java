@@ -1,7 +1,7 @@
 package com.countgandi.com.game.entities.activities;
 
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.entities.Entity;
+import com.countgandi.com.net.Handler;
 
 public class ActivityWander extends ActivityBasic {
 
@@ -12,7 +12,7 @@ public class ActivityWander extends ActivityBasic {
 		super(handler);
 		this.e = e;
 	}
-
+	
 	@Override
 	public void tick() {
 		timer++;

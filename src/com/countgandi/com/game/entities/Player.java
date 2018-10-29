@@ -3,14 +3,15 @@ package com.countgandi.com.game.entities;
 import java.awt.Graphics;
 
 import com.countgandi.com.Assets;
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.SkillHandler;
 import com.countgandi.com.game.dimensions.Dimension;
 import com.countgandi.com.guis.HotbarGui;
 import com.countgandi.com.guis.InventoryGui;
+import com.countgandi.com.net.Handler;
 
 public class Player extends Entity {
 
+	public static boolean up, down, left, right, holdingSpace;
 	public int maxHealth = 100, maxEnergy = 100, maxExperience = 100, level = 1;
 	public int[] baseDamage = new int[3];
 	public boolean sprinting = false;
@@ -32,28 +33,28 @@ public class Player extends Entity {
 
 	@Override
 	public void tick() {
-		if (handler.up) {
+		if (up) {
 			velY = -speed;
 			direction = 2;
-		} else if (!handler.down) {
+		} else if (!down) {
 			velY = 0;
 		}
-		if (handler.down) {
+		if (down) {
 			velY = speed;
 			direction = 0;
-		} else if (!handler.up) {
+		} else if (!up) {
 			velY = 0;
 		}
-		if (handler.left) {
+		if (left) {
 			velX = -speed;
 			direction = 1;
-		} else if (!handler.right) {
+		} else if (!right) {
 			velX = 0;
 		}
-		if (handler.right) {
+		if (right) {
 			velX = speed;
 			direction = 3;
-		} else if (!handler.left) {
+		} else if (!left) {
 			velX = 0;
 		}
 		if(InventoryGui.headpiece != null) {

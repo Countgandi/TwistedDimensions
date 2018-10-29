@@ -7,25 +7,26 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 
 import com.countgandi.com.game.FileHandler;
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.InputHandler;
 import com.countgandi.com.menus.Menu;
 import com.countgandi.com.menus.MenuScreen;
+import com.countgandi.com.net.client.ClientSideHandler;
 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 	private static Thread thread;
 	private static boolean running = false;
-	public static int WIDTH = 640, HEIGHT = (int)((float)WIDTH * 9.0F / 16.0F);
+	public static int WIDTH = 640, HEIGHT = (int) ((float) WIDTH * 9.0F / 16.0F);
 	public static String TITLE = "Twisted Dimensions";
 	public static Window window;
+	public static boolean render = true;
 
 	public Menu menu;
-	private Handler handler;
+	private ClientSideHandler handler;
 	private InputHandler inputs;
 
 	public Game() {
-		handler = new Handler(this);
+		handler = new ClientSideHandler(this);
 		new FileHandler("world");
 		inputs = new InputHandler(handler);
 		menu = new MenuScreen(handler);
@@ -35,7 +36,7 @@ public class Game extends Canvas implements Runnable {
 		this.addMouseMotionListener(inputs);
 		this.addMouseWheelListener(inputs);
 		window = new Window(WIDTH, HEIGHT, 0, TITLE, this);
-		
+
 		start();
 	}
 
@@ -44,20 +45,22 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void render() {
-		if (this.getBufferStrategy() == null) {
-			this.createBufferStrategy(3);
+		if (render) {
+			if (this.getBufferStrategy() == null) {
+				this.createBufferStrategy(3);
+			}
+			Graphics g = this.getBufferStrategy().getDrawGraphics();
+			Graphics2D g2d = (Graphics2D) g;
+			g2d.scale(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / WIDTH, Toolkit.getDefaultToolkit().getScreenSize().getHeight() / HEIGHT);
+
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 0, WIDTH, HEIGHT);
+
+			menu.render(g);
+
+			g.dispose();
+			this.getBufferStrategy().show();
 		}
-		Graphics g = this.getBufferStrategy().getDrawGraphics();
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.scale(Toolkit.getDefaultToolkit().getScreenSize().getWidth() / WIDTH, Toolkit.getDefaultToolkit().getScreenSize().getHeight() / HEIGHT);
-
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
-
-		menu.render(g);
-
-		g.dispose();
-		this.getBufferStrategy().show();
 	}
 
 	public static void main(String[] args) {
@@ -102,7 +105,7 @@ public class Game extends Canvas implements Runnable {
 
 		}
 	}
-	
+
 	public static int clamp(double x, int min, int max) {
 		if (x >= max) {
 			return (int) (x = max);

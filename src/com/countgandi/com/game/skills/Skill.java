@@ -1,6 +1,6 @@
 package com.countgandi.com.game.skills;
 
-import com.countgandi.com.game.Handler;
+import com.countgandi.com.net.Handler;
 
 public interface Skill {
 	

@@ -1,26 +1,56 @@
 package com.countgandi.com.menus;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import com.countgandi.com.Assets;
 import com.countgandi.com.Game;
-import com.countgandi.com.game.Handler;
+import com.countgandi.com.engine.CanvasButton;
+import com.countgandi.com.engine.CanvasPanel;
+import com.countgandi.com.net.client.ClientSideHandler;
 
 public class MenuScreen extends Menu {
 
-	private Rectangle playRectangle = new Rectangle(25, 150, 100, 25);
+	private CanvasPanel panel;
 
-	private int mx, my, timer;
+	private int timer;
 
-	public MenuScreen(Handler handler) {
+	public MenuScreen(ClientSideHandler handler) {
 		super(handler);
+		panel = new CanvasPanel(handler.getGame());
+		
+		CanvasButton playButton = new CanvasButton(new Rectangle(Game.WIDTH / 2 - 58, 150, 115, 25), 20, "Singleplayer", handler.getGame());
+		CanvasButton multiplayerButton = new CanvasButton(new Rectangle(Game.WIDTH / 2 - 50, 200, 100, 25), 20, "Multiplayer", handler.getGame());
+		CanvasButton exitButton = new CanvasButton(new Rectangle(Game.WIDTH / 2 - 20, 250, 40, 25), 20, "Exit", handler.getGame());
+		
+		panel.add(playButton);
+		panel.add(multiplayerButton);
+		panel.add(exitButton);
+		
+		playButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				handler.setMenu(new GameScreen(handler));
+			}
+		});
+		multiplayerButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				handler.setMenu(new MultiplayerLoginScreen(handler));
+			}
+		});
+		exitButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		
 	}
 
 	@Override
@@ -30,21 +60,19 @@ public class MenuScreen extends Menu {
 			timer = -Game.WIDTH;
 		}
 		handler.tickGuis();
+		panel.tick();
 	}
 
 	@Override
 	public void render(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g;
 		g.setColor(Color.CYAN);
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 		g.drawImage(Assets.Menu.splash2, timer, 100, Game.WIDTH, Game.HEIGHT, null);
 		g.drawImage(Assets.Menu.splash1, 0, 0, Game.WIDTH, Game.HEIGHT, null);
 		
 		g.drawImage(Assets.Menu.splash3, 60, 60, (int)(333 * 1.5f), (int)(22.5F * 1.5f), null);
-		g.setColor(Color.WHITE);
-		g.setFont(new Font("arial", 2, 50));
-
-		g2d.draw(playRectangle);
+		
+		panel.render(g);
 		
 		handler.renderGuis(g);
 	}
@@ -56,9 +84,7 @@ public class MenuScreen extends Menu {
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		if (playRectangle.contains(mx, my)) {
-			handler.getGame().menu = new GameScreen(handler);
-		}
+		
 	}
 
 	@Override
@@ -78,8 +104,12 @@ public class MenuScreen extends Menu {
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		mx = (int) (e.getX() / Toolkit.getDefaultToolkit().getScreenSize().getWidth() * Game.WIDTH);
-		my = (int) (e.getY() / Toolkit.getDefaultToolkit().getScreenSize().getHeight() * Game.HEIGHT);
+		
+	}
+	
+	@Override
+	public void closeMenu() {
+		panel.dispose();
 	}
 
 }

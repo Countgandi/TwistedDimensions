@@ -1,9 +1,10 @@
 package com.countgandi.com.game.entities.activities;
 
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.entities.DamageType;
 import com.countgandi.com.game.entities.Entity;
 import com.countgandi.com.game.entities.Player;
+import com.countgandi.com.net.Handler;
+import com.countgandi.com.net.client.ClientSideHandler;
 
 public class ActivityAttackTarget extends ActivityBasic {
 
@@ -50,32 +51,34 @@ public class ActivityAttackTarget extends ActivityBasic {
 				}
 				attackTimer++;
 			}
-		} else if (handler.dungeon == null) {
-			for (int i = 0; i < handler.getDimensionHandler().currentDimension.entities.size(); i++) {
-				Entity entity = handler.getDimensionHandler().currentDimension.entities.get(i);
-				if (e.getRectangle().intersects(entity.getRectangle()) && target.equals(entity.getClass())) {
-					if (attackTimer > attackFrequency) {
-						entity.takeDamage(min + ran.nextInt(max - min), e, dmg);
-						if(entity.isDead()) {
-							e.onKill();
+		} else if (handler instanceof ClientSideHandler) {
+			if (((ClientSideHandler) handler).dungeon == null) {
+				for (int i = 0; i < handler.getDimensionHandler().currentDimension.entities.size(); i++) {
+					Entity entity = handler.getDimensionHandler().currentDimension.entities.get(i);
+					if (e.getRectangle().intersects(entity.getRectangle()) && target.equals(entity.getClass())) {
+						if (attackTimer > attackFrequency) {
+							entity.takeDamage(min + ran.nextInt(max - min), e, dmg);
+							if (entity.isDead()) {
+								e.onKill();
+							}
+							attackTimer = 0;
 						}
-						attackTimer = 0;
+						attackTimer++;
 					}
-					attackTimer++;
 				}
-			}
-		} else {
-			for (int i = 0; i < handler.dungeon.getEntities().size(); i++) {
-				Entity entity = handler.dungeon.getEntities().get(i);
-				if (e.getRectangle().intersects(entity.getRectangle()) && target.equals(entity.getClass())) {
-					if (attackTimer > attackFrequency) {
-						entity.takeDamage(min + ran.nextInt(max - min), e, dmg);
-						if(entity.isDead()) {
-							e.onKill();
+			} else {
+				for (int i = 0; i < ((ClientSideHandler) handler).dungeon.getEntities().size(); i++) {
+					Entity entity = ((ClientSideHandler) handler).dungeon.getEntities().get(i);
+					if (e.getRectangle().intersects(entity.getRectangle()) && target.equals(entity.getClass())) {
+						if (attackTimer > attackFrequency) {
+							entity.takeDamage(min + ran.nextInt(max - min), e, dmg);
+							if (entity.isDead()) {
+								e.onKill();
+							}
+							attackTimer = 0;
 						}
-						attackTimer = 0;
+						attackTimer++;
 					}
-					attackTimer++;
 				}
 			}
 		}

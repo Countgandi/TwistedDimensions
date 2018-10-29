@@ -9,12 +9,13 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
 import com.countgandi.com.guis.HotbarGui;
+import com.countgandi.com.net.client.ClientSideHandler;
 
 public class InputHandler implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener {
 
-	private Handler handler;
+	private ClientSideHandler handler;
 
-	public InputHandler(Handler handler) {
+	public InputHandler(ClientSideHandler handler) {
 		this.handler = handler;
 	}
 
@@ -50,8 +51,8 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 		int key = e.getKeyCode();
 
 		if (key == KeyEvent.VK_ESCAPE) {
-			//handler.saveFiles();
-			System.exit(0);
+			// handler.saveFiles();
+			// System.exit(0);
 		}
 		if (key == KeyEvent.VK_SHIFT) {
 			handler.getPlayer().beginSprint();

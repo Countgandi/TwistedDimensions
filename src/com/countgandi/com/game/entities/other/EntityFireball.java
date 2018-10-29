@@ -3,9 +3,9 @@ package com.countgandi.com.game.entities.other;
 import java.awt.Graphics;
 
 import com.countgandi.com.Assets;
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.entities.DamageType;
 import com.countgandi.com.game.entities.Entity;
+import com.countgandi.com.net.Handler;
 
 public class EntityFireball extends Entity {
 
@@ -28,12 +28,12 @@ public class EntityFireball extends Entity {
 	public void tick() {
 		if (getRectangle().intersects(handler.getPlayer().getRectangle())) {
 			handler.getPlayer().takeDamage(25 + handler.getDimensionHandler().dimension * 25, b, DamageType.Magic);
-			handler.dungeon.getEntities().remove(this);
+			handler.removeEntity(this);
 		}
 
 		timer++;
 		if (timer > 180) {
-			handler.dungeon.getEntities().remove(this);
+			handler.removeEntity(this);
 		}
 	}
 	
@@ -50,7 +50,7 @@ public class EntityFireball extends Entity {
 			}
 			if (width == 1 && height == 1) {
 				dead = true;
-				handler.dungeon.getEntities().remove(this);
+				handler.removeEntity(this);
 			}
 		}
 		tick();

@@ -2,7 +2,7 @@ package com.countgandi.com.game.entities.activities;
 
 import java.util.Random;
 
-import com.countgandi.com.game.Handler;
+import com.countgandi.com.net.Handler;
 
 public abstract class ActivityBasic {
 	

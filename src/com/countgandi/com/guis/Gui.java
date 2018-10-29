@@ -5,14 +5,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
-import com.countgandi.com.game.Handler;
+import com.countgandi.com.net.client.ClientSideHandler;
 
 public abstract class Gui {
 
-	protected Handler handler;
+	protected ClientSideHandler handler;
 	protected int x, y;
 
-	public Gui(Handler handler) {
+	public Gui(ClientSideHandler handler) {
 		this.handler = handler;
 	}
 

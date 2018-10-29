@@ -4,11 +4,13 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import com.countgandi.com.Assets;
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.game.entities.DamageType;
+import com.countgandi.com.game.entities.Player;
 import com.countgandi.com.game.entities.other.EntityArrow;
 import com.countgandi.com.game.items.Item;
 import com.countgandi.com.guis.ItemStatGui;
+import com.countgandi.com.net.Handler;
+import com.countgandi.com.net.client.ClientSideHandler;
 
 public abstract class ItemBow extends Item {
 
@@ -27,7 +29,7 @@ public abstract class ItemBow extends Item {
 	@Override
 	public void tick() {
 		super.tick();
-		if (handler.holdingSpace) {
+		if (Player.holdingSpace) {
 			if (timer > 60) {
 				tex = 3;
 			} else if (timer > 40) {
@@ -72,7 +74,7 @@ public abstract class ItemBow extends Item {
 
 	@Override
 	public ItemStatGui createGuiStats(int x, int y) {
-		return new ItemStatGui(x, y, new String[] { name + "/#00FFFF", dmg + " " + type.toString() + " Dmg/#00FF00" }, handler);
+		return new ItemStatGui(x, y, new String[] { name + "/#00FFFF", dmg + " " + type.toString() + " Dmg/#00FF00" }, (ClientSideHandler)handler);
 	}
 
 }

@@ -1,6 +1,6 @@
 package com.countgandi.com.game.items.armor;
 
-import com.countgandi.com.game.Handler;
+import com.countgandi.com.net.Handler;
 
 public abstract class ItemArmorChestpiece extends ItemArmor {
 

@@ -9,6 +9,8 @@ import com.countgandi.com.game.dimensions.Overworld;
 import com.countgandi.com.game.dimensions.Savannah;
 import com.countgandi.com.game.dimensions.Underworld;
 import com.countgandi.com.guis.LoadingScreenGui;
+import com.countgandi.com.net.Handler;
+import com.countgandi.com.net.client.ClientSideHandler;
 
 public class DimensionHandler {
 
@@ -29,30 +31,33 @@ public class DimensionHandler {
 	 * For spawning in entities and stuff
 	 */
 	public void tick() {
-		if (handler.dungeon == null) {
-			currentDimension.tick();
-			if (!LoadingScreenGui.isLoading) {
-				for (int i = 0; i < currentDimension.entities.size(); i++) {
-					currentDimension.entities.get(i).btick();
+		if (handler instanceof ClientSideHandler) {
+			if (((ClientSideHandler)handler).dungeon == null) {
+				currentDimension.tick();
+				if (!LoadingScreenGui.isLoading) {
+					for (int i = 0; i < currentDimension.entities.size(); i++) {
+						currentDimension.entities.get(i).btick();
+					}
+					for (int i = 0; i < currentDimension.objects.size(); i++) {
+						currentDimension.objects.get(i).tick();
+					}
+					for (int i = 0; i < currentDimension.dungeons.size(); i++) {
+						currentDimension.dungeons.get(i).tick();
+					}
 				}
-				for (int i = 0; i < currentDimension.objects.size(); i++) {
-					currentDimension.objects.get(i).tick();
+			} else {
+				for (int i = 0; i < ((ClientSideHandler)handler).dungeon.getEntities().size(); i++) {
+					((ClientSideHandler)handler).dungeon.getEntities().get(i).btick();
 				}
-				for (int i = 0; i < currentDimension.dungeons.size(); i++) {
-					currentDimension.dungeons.get(i).tick();
+				for (int i = 0; i < ((ClientSideHandler)handler).dungeon.getObjects().size(); i++) {
+					((ClientSideHandler)handler).dungeon.getObjects().get(i).tick();
 				}
-			}
-		} else {
-			for (int i = 0; i < handler.dungeon.getEntities().size(); i++) {
-				handler.dungeon.getEntities().get(i).btick();
-			}
-			for (int i = 0; i < handler.dungeon.getObjects().size(); i++) {
-				handler.dungeon.getObjects().get(i).tick();
 			}
 		}
 	}
 
 	public void renderEntities(Graphics g) {
+		ClientSideHandler handler = (ClientSideHandler) this.handler;
 		if (handler.dungeon == null) {
 			for (int i = 0; i < currentDimension.entities.size(); i++) {
 				currentDimension.entities.get(i).render(g);
@@ -76,7 +81,7 @@ public class DimensionHandler {
 		}
 	}
 
-	 public void loadDimension(int dimension) {
+	public void loadDimension(int dimension) {
 		this.dimension = dimension;
 		Dimension dimensionC = currentDimension;
 		currentDimension = dimensions.get(dimension);

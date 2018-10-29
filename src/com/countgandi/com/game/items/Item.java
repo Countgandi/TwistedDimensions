@@ -4,8 +4,8 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import com.countgandi.com.Assets;
-import com.countgandi.com.game.Handler;
 import com.countgandi.com.guis.ItemStatGui;
+import com.countgandi.com.net.Handler;
 
 public abstract class Item {
 	
