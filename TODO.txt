@@ -12,3 +12,8 @@ Add Items:
 
 Add Entities:
 	water dragon, crabs, frost walkers, mamoths, sabertooth tigers, sharks, sting rays, jellyfish
+
+- fix add entity/object methods in handler and subclasses
+- finish multiplayer
+- send data to and from server and update the data
+- when some thing happens to a client, update it to the other clients
