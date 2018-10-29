@@ -24,11 +24,11 @@ public abstract class Dungeon {
 	protected float x, y;
 	protected int width, height;
 	protected int worldBorderWidth, worldBorderHeight;
-	private String path;
+	//private String path;
 	public int id = -1;
 
 	public Dungeon(String dungeonFileName, float x, float y, int width, int height, Handler handler) {
-		this.path = dungeonFileName;
+		//this.path = dungeonFileName;
 		this.x = x;
 		this.y = y;
 		this.width = width;

@@ -29,7 +29,7 @@ public class ClientSideHandler extends Handler {
 
 	public ArrayList<Gui> guis = new ArrayList<Gui>();
 	public ArrayList<Animation> animations = new ArrayList<Animation>();
-	public boolean up, down, left, right, holdingSpace, multiplayer;
+	public boolean multiplayer;
 	public Dungeon dungeon;
 	private Game game;
 	
@@ -43,12 +43,6 @@ public class ClientSideHandler extends Handler {
 		dimensionHandler = new DimensionHandler(this);
 		camera = new Camera(this);
 		inventoryGui = new InventoryGui(this);
-	}
-
-	public ClientSideHandler() {
-		multiplayer = true;
-		players.add(new Player(Dimension.WorldBounds / 2, Dimension.WorldBounds / 2, this));
-		dimensionHandler = new DimensionHandler(this);
 	}
 
 	public void tick() {
@@ -242,13 +236,11 @@ public class ClientSideHandler extends Handler {
 
 	@Override
 	public void removeObject(GameObject obj) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void addObject(GameObject obj) {
-		// TODO Auto-generated method stub
 		
 	}
 	

@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import com.countgandi.com.game.entities.Player;
 import com.countgandi.com.game.objects.GameObject;
 import com.countgandi.com.guis.HotbarGui;
 import com.countgandi.com.guis.HudGui;
@@ -75,16 +76,16 @@ public class GameScreen extends Menu {
 			}
 		}
 		if (key == KeyEvent.VK_W) {
-			handler.up = true;
+			Player.up = true;
 		}
 		if (key == KeyEvent.VK_S) {
-			handler.down = true;
+			Player.down = true;
 		}
 		if (key == KeyEvent.VK_A) {
-			handler.left = true;
+			Player.left = true;
 		}
 		if (key == KeyEvent.VK_D) {
-			handler.right = true;
+			Player.right = true;
 		}
 	}
 
@@ -93,16 +94,16 @@ public class GameScreen extends Menu {
 		int key = e.getKeyCode();
 
 		if (key == KeyEvent.VK_W) {
-			handler.up = false;
+			Player.up = false;
 		}
 		if (key == KeyEvent.VK_S) {
-			handler.down = false;
+			Player.down = false;
 		}
 		if (key == KeyEvent.VK_A) {
-			handler.left = false;
+			Player.left = false;
 		}
 		if (key == KeyEvent.VK_D) {
-			handler.right = false;
+			Player.right = false;
 		}
 		if (key == KeyEvent.VK_SPACE) {
 			if(handler.dungeon == null) {

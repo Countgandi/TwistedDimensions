@@ -8,6 +8,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
+import com.countgandi.com.game.entities.Player;
 import com.countgandi.com.guis.HotbarGui;
 import com.countgandi.com.net.client.ClientSideHandler;
 
@@ -58,7 +59,7 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 			handler.getPlayer().beginSprint();
 		}
 		if(key == KeyEvent.VK_SPACE) {
-			handler.holdingSpace = true;
+			Player.holdingSpace = true;
 		}
 
 		handler.getGame().menu.keyPressed(e);
@@ -79,7 +80,7 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 			handler.getPlayer().stopSprint();
 		}
 		if(key == KeyEvent.VK_SPACE) {
-			handler.holdingSpace = false;
+			Player.holdingSpace = false;
 		}
 
 		if (key == KeyEvent.VK_SPACE) {

@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import com.countgandi.com.Game;
 import com.countgandi.com.engine.CanvasButton;
 import com.countgandi.com.engine.CanvasLabel;
 import com.countgandi.com.engine.CanvasPanel;
@@ -25,9 +26,9 @@ public class MultiplayerLoginScreen extends Menu {
 		super(handler);
 
 		panel = new CanvasPanel(handler.getGame());
-		username = new CanvasTextField(240, 178, 250, handler.getGame());
+		username = new CanvasTextField(240, 178, 250, handler.getGame(), Game.WIDTH, Game.HEIGHT);
 		username.setFontSize(24);
-		ipAddress = new CanvasTextField(240, 210, 250, handler.getGame());
+		ipAddress = new CanvasTextField(240, 210, 250, handler.getGame(), Game.WIDTH, Game.HEIGHT);
 		ipAddress.setFontSize(24);
 
 		titleLabel = new CanvasLabel("Connect to a Server", 100, 100, 50, handler.getGame());

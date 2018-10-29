@@ -4,7 +4,9 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -14,14 +16,23 @@ public class CanvasTextField extends CanvasComponent {
 	public static final String alphabet = "abcdefghijklmnopqrstuvwxyz";
 	private String text = "";
 	protected int fontSize = 12;
-	private int textWidth, timer;
-	protected boolean shift = false, showingCaret = true;
+	private int textWidth, timer, graphicsWidth, graphicsHeight;
+	protected boolean shift = false, showingCaret = true, extendedState = false;
 	public int caretSpeed = 30;
 	protected Color caretColor = Color.WHITE, textColor = Color.WHITE, BackgroundColor = Color.BLACK, ForegroundColor = Color.WHITE;
 
 	public CanvasTextField(int x, int y, int width, Canvas canvas) {
 		super(canvas);
 		setBounds(new Rectangle(x, y, width, fontSize));
+	}
+
+	public CanvasTextField(int x, int y, int width, Canvas canvas, int graphicsWidth, int graphicsHeight) {
+		super(canvas);
+		this.graphicsHeight = graphicsHeight;
+		this.graphicsWidth = graphicsWidth;
+		setBounds(new Rectangle(x, y, width, fontSize));
+		extendedState = true;
+
 	}
 
 	@Override
@@ -34,7 +45,6 @@ public class CanvasTextField extends CanvasComponent {
 		g.setColor(textColor);
 		g.drawString(getText(), bounds.x + 1, bounds.y + bounds.height - fontSize / 8);
 		textWidth = g.getFontMetrics().stringWidth(text);
-		g.setColor(caretColor);
 		if (focused && showingCaret) {
 			g.drawRect(bounds.x + 1 + textWidth, bounds.y + 3, 2, bounds.height - 6);
 		}
@@ -137,11 +147,19 @@ public class CanvasTextField extends CanvasComponent {
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		//Point m = new Point((int) (e.getX() / Toolkit.getDefaultToolkit().getScreenSize().getWidth() * Game.WIDTH), (int) (e.getY() / Toolkit.getDefaultToolkit().getScreenSize().getHeight() * Game.HEIGHT));
-		if (bounds.contains(e.getPoint())) {
-			focused = true;
+		if (extendedState) {
+			Point m = new Point((int) (e.getX() / Toolkit.getDefaultToolkit().getScreenSize().getWidth() * graphicsWidth), (int) (e.getY() / Toolkit.getDefaultToolkit().getScreenSize().getHeight() * graphicsHeight));
+			if (bounds.contains(m)) {
+				focused = true;
+			} else {
+				focused = false;
+			}
 		} else {
-			focused = false;
+			if (bounds.contains(e.getPoint())) {
+				focused = true;
+			} else {
+				focused = false;
+			}
 		}
 	}
 
