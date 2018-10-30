@@ -32,6 +32,7 @@ public class ClientSideHandler extends Handler {
 	public boolean multiplayer;
 	public Dungeon dungeon;
 	private Game game;
+	private Graphics g;
 	
 	private Camera camera;
 	private InventoryGui inventoryGui;
@@ -67,6 +68,9 @@ public class ClientSideHandler extends Handler {
 	}
 
 	public void render(Graphics g) {
+		if(this.g == null) {
+			this.g = g;
+		}
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.translate(-Camera.x, -Camera.y);
 		if (dimensionHandler.currentDimension != null) {
@@ -98,6 +102,12 @@ public class ClientSideHandler extends Handler {
 	}
 
 	public void renderGuis(Graphics g) {
+		for (int i = 0; i < guis.size(); i++) {
+			guis.get(i).render(g);
+		}
+	}
+	
+	public void renderGuis() {
 		for (int i = 0; i < guis.size(); i++) {
 			guis.get(i).render(g);
 		}

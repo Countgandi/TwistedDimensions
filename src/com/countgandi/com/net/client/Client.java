@@ -34,7 +34,7 @@ public class Client {
 			packet = new DatagramPacket(new byte[256], 256);
 			running = true;
 			handler.multiplayer = true;
-			sendTcp(username);
+			sendTcp("");
 		} catch (Exception e) {
 			return false;
 		}

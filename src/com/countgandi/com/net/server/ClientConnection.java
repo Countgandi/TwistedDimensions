@@ -23,8 +23,10 @@ public class ClientConnection {
 		try {
 			byte[] bytes = new byte[256];
 			socket.getInputStream().read(bytes);
-			player = new MPlayer(new String(bytes), server.getHandler());
-			label = new CanvasLabel(player.username, 0, 0, 0, null);
+			String s = new String(bytes);
+			s = s.substring(7).trim();
+			player = new MPlayer(s, server.getHandler());
+			label = new CanvasLabel(player.username, 0, 0, 0, server.getCanvas());
 			Server.players.add(label);
 			System.out.println(player.username + " has joined the game.");
 		} catch (IOException e) {
@@ -45,6 +47,7 @@ public class ClientConnection {
 	private void disconnect() {
 		Server.players.remove(label);
 		server.clients.remove(this);
+		System.out.println(player.username + " has left the game.");
 	}
 
 	public void recieveUdp(String data) {
@@ -101,6 +104,7 @@ public class ClientConnection {
 			Server.udpSocket.send(packet);
 		} catch (IOException e) {
 			System.err.println("Could not write to socket with data: " + data);
+			disconnect();
 			e.printStackTrace();
 		}
 	}
@@ -110,6 +114,7 @@ public class ClientConnection {
 			socket.getOutputStream().write(data.getBytes());
 		} catch (IOException e) {
 			System.err.println("Could not write to socket with data: " + data);
+			disconnect();
 			e.printStackTrace();
 		}
 	}

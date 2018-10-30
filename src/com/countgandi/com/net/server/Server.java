@@ -27,6 +27,7 @@ public class Server {
 	public static CanvasPanel panel;
 	public static CanvasTextArea console;
 	public static CanvasLabelList players;
+	private Canvas canvas;
 	private static CanvasTextField commands;
 	public static boolean serverRunning = false;
 	public static ServerSocket tcpSocket;
@@ -55,7 +56,7 @@ public class Server {
 	private void createWindow() {
 		JFrame frame = new JFrame(Game.TITLE + " Server");
 		Dimension size = new Dimension(1024, 720);
-		Canvas canvas = new Canvas();
+		canvas = new Canvas();
 		panel = new CanvasPanel(canvas);
 		console = new CanvasTextArea(new Rectangle(410, 5, 600, 640), canvas);
 		commands = new CanvasTextField(410, 655, 600, canvas);
@@ -164,6 +165,10 @@ public class Server {
 
 	public GameManager getGameManager() {
 		return gameManager;
+	}
+
+	public Canvas getCanvas() {
+		return canvas;
 	}
 
 }

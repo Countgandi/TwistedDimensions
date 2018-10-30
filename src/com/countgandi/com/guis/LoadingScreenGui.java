@@ -10,11 +10,13 @@ import com.countgandi.com.net.client.ClientSideHandler;
 public class LoadingScreenGui extends Gui {
 
 	public static boolean isLoading = false;
+	private static String status = "Loading";
 	private int dotAmount = 0, timer;
 
 	public LoadingScreenGui(ClientSideHandler handler) {
 		super(handler);
 		isLoading = true;
+		status = "Loading";
 	}
 
 	@Override
@@ -38,10 +40,12 @@ public class LoadingScreenGui extends Gui {
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("arial", 2, 50));
-		g.drawString("Loading", 100, 200);
-		for(int i = 0; i < dotAmount; i++) {
-			g.drawString(".", 280 + i * 15, 200);
-		}
+		g.drawString(status, 100, 200);
+	}
+	
+	public static void updateStatus(String status, ClientSideHandler handler) {
+		LoadingScreenGui.status = status;
+		handler.renderGuis();
 	}
 
 }

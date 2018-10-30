@@ -70,15 +70,9 @@ public abstract class Dimension {
 		handler.getPlayer().setX(WorldBounds / 2);
 		handler.getPlayer().setY(WorldBounds / 2);
 
-	}
-
-	/**
-	 * For spawning in entities
-	 */
-	private int tickOnEntities = 0;
-
-	public void tick() {
-		if (handler instanceof ClientSideHandler) {
+		
+		
+		/*if (handler instanceof ClientSideHandler) {
 			if (((ClientSideHandler) handler).multiplayer && LoadingScreenGui.isLoading) {
 				if (entities.size() < Client.currentEntities.size()) {
 					entities.add(Client.currentEntities.get(tickOnEntities));
@@ -95,6 +89,12 @@ public abstract class Dimension {
 					LoadingScreenGui.isLoading = false;
 				}
 			}
+		}*/
+	}
+
+	public void tick() {
+		if(!entities.equals(Client.currentEntities)) {
+			entities = Client.currentEntities;
 		}
 	}
 
