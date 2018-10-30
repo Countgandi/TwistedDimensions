@@ -71,7 +71,7 @@ public class Client {
 		} catch (IOException e) {
 			System.err.println("Could not send data to server through tcp...");
 			handler.setMenu(new ErrorOccurredScreen(ErrorOccurredScreen.CONNECTION_ERROR1, handler));
-		}
+		}	
 	}
 
 	public void sendUdp(String data) {
