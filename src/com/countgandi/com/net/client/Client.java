@@ -34,7 +34,13 @@ public class Client {
 			packet = new DatagramPacket(new byte[256], 256);
 			running = true;
 			handler.multiplayer = true;
-			sendTcp("");
+			sendTcp(""); // sends username
+			byte[] bytes = new byte[256];
+			tcpSocket.getInputStream().read(bytes);
+			String s = new String(bytes).substring(username.length() + 7).trim();
+			if(s.contains("dimension:")) {
+				handler.getDimensionHandler().loadDimension(Integer.parseInt(s.substring("dimension:".length())));
+			}
 		} catch (Exception e) {
 			return false;
 		}

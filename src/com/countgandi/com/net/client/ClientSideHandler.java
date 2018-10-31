@@ -29,7 +29,7 @@ public class ClientSideHandler extends Handler {
 
 	public ArrayList<Gui> guis = new ArrayList<Gui>();
 	public ArrayList<Animation> animations = new ArrayList<Animation>();
-	public boolean multiplayer;
+	public boolean multiplayer = false;
 	public Dungeon dungeon;
 	private Game game;
 	private Graphics g;
@@ -38,7 +38,6 @@ public class ClientSideHandler extends Handler {
 	private InventoryGui inventoryGui;
 
 	public ClientSideHandler(Game game) {
-		multiplayer = false;
 		this.game = game;
 		players.add(new Player(Dimension.WorldBounds / 2, Dimension.WorldBounds / 2, this));
 		dimensionHandler = new DimensionHandler(this);
