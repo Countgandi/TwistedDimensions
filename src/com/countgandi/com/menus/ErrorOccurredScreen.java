@@ -13,6 +13,7 @@ import com.countgandi.com.net.client.ClientSideHandler;
 
 public class ErrorOccurredScreen extends Menu {
 	
+	public static final String CONNECTION_ERROR2 = "Server Disconnected...";
 	public static final String CONNECTION_ERROR1 = "Could not connect to server...";
 	public static final String DEFAULT_ERROR = "An Error has occurred...";
 	private CanvasButton returnButton;

@@ -52,6 +52,7 @@ public class MultiplayerLoginScreen extends Menu {
 				if(username.getText().length() > 4 && (ipAddress.getText().equals("localhost") || ipAddress.getText().length() > 7)) {
 					Client client = new Client(ipAddress.getText().trim(), username.getText().trim(), handler);
 					if(client.connect()) {
+						System.out.println("Entering the game");
 						handler.setMenu(new GameScreen(client, handler));
 					} else {
 						handler.setMenu(new ErrorOccurredScreen(ErrorOccurredScreen.CONNECTION_ERROR1, handler));

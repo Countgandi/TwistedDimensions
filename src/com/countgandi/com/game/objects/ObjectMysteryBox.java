@@ -10,10 +10,6 @@ import com.countgandi.com.net.Handler;
 public class ObjectMysteryBox extends GameObject {
 	
 	private ChestTable table;
-
-	public ObjectMysteryBox(int x, int y, Handler handler) {
-		this(x, y, handler.getDimensionHandler().currentDimension.getChestTable(), handler);
-	}
 	
 	public ObjectMysteryBox(int x, int y, ChestTable table, Handler handler) {
 		super(x, y, handler);

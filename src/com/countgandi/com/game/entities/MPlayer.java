@@ -1,15 +1,15 @@
 package com.countgandi.com.game.entities;
 
+import com.countgandi.com.game.dungeons.Dungeon;
 import com.countgandi.com.net.Handler;
 
 public class MPlayer extends Player {
 	
 	public String username;
-	public int dimension = 0;
+	public Dungeon dungeon;
 
-	public MPlayer(String username, float x, float y, Handler handler) {
+	public MPlayer(float x, float y, Handler handler) {
 		super(x, y, handler);
-		this.username = username;
 	}
 	
 	public MPlayer(String username, Handler handler) {

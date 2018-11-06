@@ -41,7 +41,7 @@ public class Underworld extends Dimension {
 		items.add(ItemAmethystArmorChestpiece.class);
 		items.add(ItemAmethystArmorLeggings.class);
 		items.add(ItemAmethystArmorBoots.class);
-		return new ChestTable(items, new int[] {1}, handler);
+		return new ChestTable(items, handler);
 	}
 
 }

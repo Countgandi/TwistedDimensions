@@ -21,6 +21,7 @@ public class Player extends Entity {
 	 * Chestpiece AR, Leggings AR, Boots AR
 	 */
 	public int[] armorStats = { 0, 0, 0, 0, 0, 0, 0, 0 };
+	public int dimension = 0;
 
 	public Player(float x, float y, Handler handler) {
 		super(x, y, handler);

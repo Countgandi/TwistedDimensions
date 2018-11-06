@@ -8,6 +8,7 @@ import com.countgandi.com.game.dimensions.Dimension;
 import com.countgandi.com.game.dimensions.Overworld;
 import com.countgandi.com.game.dimensions.Savannah;
 import com.countgandi.com.game.dimensions.Underworld;
+import com.countgandi.com.game.entities.Player;
 import com.countgandi.com.guis.LoadingScreenGui;
 import com.countgandi.com.net.Handler;
 import com.countgandi.com.net.client.ClientSideHandler;
@@ -17,7 +18,7 @@ public class DimensionHandler {
 	public ArrayList<Dimension> dimensions = new ArrayList<Dimension>();
 	public Dimension currentDimension;
 	public int dimension;
-	private Handler handler;
+	protected Handler handler;
 
 	public DimensionHandler(Handler handler) {
 		this.handler = handler;
@@ -31,27 +32,25 @@ public class DimensionHandler {
 	 * For spawning in entities and stuff
 	 */
 	public void tick() {
-		if (handler instanceof ClientSideHandler) {
-			if (((ClientSideHandler)handler).dungeon == null) {
-				currentDimension.tick();
-				if (!LoadingScreenGui.isLoading) {
-					for (int i = 0; i < currentDimension.entities.size(); i++) {
-						currentDimension.entities.get(i).btick();
-					}
-					for (int i = 0; i < currentDimension.objects.size(); i++) {
-						currentDimension.objects.get(i).tick();
-					}
-					for (int i = 0; i < currentDimension.dungeons.size(); i++) {
-						currentDimension.dungeons.get(i).tick();
-					}
+		if (((ClientSideHandler) handler).dungeon == null) {
+			currentDimension.tick();
+			if (!LoadingScreenGui.isLoading) {
+				for (int i = 0; i < currentDimension.entities.size(); i++) {
+					currentDimension.entities.get(i).btick();
 				}
-			} else {
-				for (int i = 0; i < ((ClientSideHandler)handler).dungeon.getEntities().size(); i++) {
-					((ClientSideHandler)handler).dungeon.getEntities().get(i).btick();
+				for (int i = 0; i < currentDimension.objects.size(); i++) {
+					currentDimension.objects.get(i).tick();
 				}
-				for (int i = 0; i < ((ClientSideHandler)handler).dungeon.getObjects().size(); i++) {
-					((ClientSideHandler)handler).dungeon.getObjects().get(i).tick();
+				for (int i = 0; i < currentDimension.dungeons.size(); i++) {
+					currentDimension.dungeons.get(i).tick();
 				}
+			}
+		} else {
+			for (int i = 0; i < ((ClientSideHandler) handler).dungeon.getEntities().size(); i++) {
+				((ClientSideHandler) handler).dungeon.getEntities().get(i).btick();
+			}
+			for (int i = 0; i < ((ClientSideHandler) handler).dungeon.getObjects().size(); i++) {
+				((ClientSideHandler) handler).dungeon.getObjects().get(i).tick();
 			}
 		}
 	}
@@ -81,11 +80,11 @@ public class DimensionHandler {
 		}
 	}
 
-	public void loadDimension(int dimension) {
+	public void loadDimension(int dimension, Player player) {
 		this.dimension = dimension;
 		Dimension dimensionC = currentDimension;
 		currentDimension = dimensions.get(dimension);
-		currentDimension.loadDimension(dimensionC);
+		currentDimension.loadDimension(dimensionC, player);
 	}
 
 }

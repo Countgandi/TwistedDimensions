@@ -15,6 +15,7 @@ public abstract class Handler {
 	public abstract void removeEntity(Entity entity);
 	public abstract void addEntity(Entity entity);
 	public abstract void tick();
+	
 	public DimensionHandler getDimensionHandler() {
 		return dimensionHandler;
 	}

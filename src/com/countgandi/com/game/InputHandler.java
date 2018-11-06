@@ -70,12 +70,6 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 
-		if (key == KeyEvent.VK_UP) {
-			handler.getDimensionHandler().loadDimension(1);
-		}
-		if (key == KeyEvent.VK_DOWN) {
-			handler.getDimensionHandler().loadDimension(0);
-		}
 		if (key == KeyEvent.VK_SHIFT) {
 			handler.getPlayer().stopSprint();
 		}

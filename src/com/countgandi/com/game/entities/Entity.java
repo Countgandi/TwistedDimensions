@@ -173,4 +173,8 @@ public abstract class Entity {
 		return dead;
 	}
 
+	public int getDirection() {
+		return direction;
+	}
+
 }

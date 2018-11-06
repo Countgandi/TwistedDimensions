@@ -15,8 +15,9 @@ public class CanvasTextArea extends CanvasTextField {
 	private ByteArrayOutputStream bos = new ByteArrayOutputStream();
 	private ByteArrayOutputStream bosErr = new ByteArrayOutputStream();
 	private boolean editable = false, newData = false, newDataErr = false;
-	public int x, y;
+	public int x = bounds.x, y = bounds.x;
 	private ArrayList<String> text = new ArrayList<String>();
+	public boolean autoscroll;
 
 	public CanvasTextArea(Rectangle bounds, Canvas canvas) {
 		super(0, 0, 0, canvas);
@@ -35,8 +36,12 @@ public class CanvasTextArea extends CanvasTextField {
 
 		g2d.setClip(bounds);
 		g.setColor(textColor);
+		
+		if(autoscroll && y + text.size() * g.getFontMetrics().getHeight() > bounds.getHeight()) {
+			y -= g.getFontMetrics().getHeight();
+		}
 		for (int i = 0; i < text.size(); i++) {
-			g.drawString(text.get(i), bounds.x, bounds.y + (i + 1) * g.getFontMetrics().getHeight());
+			g.drawString(text.get(i), x + bounds.x, y + bounds.y + (i + 1) * g.getFontMetrics().getHeight());
 		}
 		g2d.setClip(0, 0, canvas.getWidth(), canvas.getHeight());
 

@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import com.countgandi.com.Assets;
 import com.countgandi.com.game.entities.DamageType;
 import com.countgandi.com.game.entities.Entity;
+import com.countgandi.com.game.entities.Player;
 import com.countgandi.com.net.Handler;
 import com.countgandi.com.net.client.ClientSideHandler;
 
@@ -20,10 +21,11 @@ public class EntityDimensionPortal extends Entity {
 	public void takeDamage(float damage, Entity e, DamageType type) {
 		if (e instanceof EntityArrow)
 			return;
-		if(handler instanceof ClientSideHandler) {
-			((ClientSideHandler)handler).dungeon.exitDungeon(null);
+		if(handler instanceof ClientSideHandler && e instanceof Player) {
+			((ClientSideHandler)handler).dungeon.exitDungeon(null, (Player) e);
+			handler.getDimensionHandler().loadDimension(handler.getDimensionHandler().dimension + 1, (Player)e);
 		}
-		handler.getDimensionHandler().loadDimension(handler.getDimensionHandler().dimension + 1);
+		
 	}
 
 	@Override

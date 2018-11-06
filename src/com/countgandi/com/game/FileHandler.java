@@ -59,7 +59,7 @@ public class FileHandler {
 			if (s[0].startsWith("level")) {
 				handler.getPlayer().level = Integer.parseInt(s[1]);
 			} else if (s[0].startsWith("dimension")) {
-				handler.getDimensionHandler().loadDimension(Integer.parseInt(s[1]));
+				handler.getDimensionHandler().loadDimension(Integer.parseInt(s[1]), handler.getPlayer());
 			} else if (s[0].startsWith("exp")) {
 				handler.getPlayer().setExp(Integer.parseInt(s[1]));
 			} else if (s[0].startsWith("maxExp")) {

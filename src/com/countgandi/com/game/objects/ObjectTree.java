@@ -11,13 +11,15 @@ public class ObjectTree extends GameObject {
 
 	private BufferedImage img;
 
-	public ObjectTree(int x, int y, Handler handler) {
+	public ObjectTree(int x, int y, int dimension, Handler handler) {
 		super(x, y, handler);
-		int id = handler.getDimensionHandler().dimensions.indexOf(handler.getDimensionHandler().currentDimension);
+		int id = dimension;
 		if (id == 0) {
 			img = Assets.Objects.OverworldTree;
 		} else if (id == 1) {
 			img = Assets.Objects.SavannahTree;
+		} else {
+			img = Assets.Objects.OverworldTree;
 		}
 		width = img.getWidth() * 3;
 		height = img.getHeight() * 3;

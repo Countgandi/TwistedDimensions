@@ -25,7 +25,7 @@ public class GameScreen extends Menu {
 		this.handler.addGui(new HudGui(handler));
 		try {
 			//if(!this.handler.loadFiles()) {
-				this.handler.getDimensionHandler().loadDimension(0);
+				this.handler.getDimensionHandler().loadDimension(0, handler.getPlayer());
 			//	System.out.println("No world could be detected, creating new world...");
 			//}
 		} catch(Exception e) {
@@ -39,11 +39,11 @@ public class GameScreen extends Menu {
 		this.handler.addGui(new HudGui(handler));
 		this.handler.addGui(new LoadingScreenGui(handler));
 		this.client = client;
+		handler.dimensionHandler.loadDimension(Client.dimension, handler.getPlayer());
 	}
 
 	@Override
 	public void tick() {
-		
 		handler.tick();
 	}
 

@@ -35,6 +35,7 @@ public class Server {
 	public ArrayList<ClientConnection> clients;
 	private ServerSideHandler handler;
 	private GameManager gameManager;
+	private PlayerDatabase playerDatabase;
 	private int maxClients = 4;
 
 	public Server() throws IOException, NoSuchMethodException, SecurityException {
@@ -42,13 +43,15 @@ public class Server {
 		createWindow();
 		System.setOut(new PrintStream(console.getOutputStream()));
 		System.setErr(new PrintStream(console.getOutputErrStream()));
-		System.out.println("Starting Server on port: " + NetConstants.TcpPort);
+		System.out.println("Starting Server on port: " + NetConstants.Port);
 		handler = new ServerSideHandler();
+		playerDatabase = new PlayerDatabase(handler);
 		clients = new ArrayList<ClientConnection>();
-		gameManager = new GameManager(this);
 		System.out.println("Starting connections to the internet...");
-		tcpSocket = new ServerSocket(NetConstants.TcpPort);
-		udpSocket = new DatagramSocket();
+		tcpSocket = new ServerSocket(NetConstants.Port);
+		udpSocket = new DatagramSocket(NetConstants.Port);
+		new ClientManager(this);
+		gameManager = new GameManager(this);
 		System.out.println("Server has started successfully...");
 		startThreads();
 	}
@@ -59,6 +62,7 @@ public class Server {
 		canvas = new Canvas();
 		panel = new CanvasPanel(canvas);
 		console = new CanvasTextArea(new Rectangle(410, 5, 600, 640), canvas);
+		console.autoscroll = true;
 		commands = new CanvasTextField(410, 655, 600, canvas);
 		players = new CanvasLabelList(new Rectangle(5, 300, 390, 380), canvas);
 		commands.setFontSize(24);
@@ -169,6 +173,10 @@ public class Server {
 
 	public Canvas getCanvas() {
 		return canvas;
+	}
+
+	public PlayerDatabase getPlayerDatabase() {
+		return playerDatabase;
 	}
 
 }

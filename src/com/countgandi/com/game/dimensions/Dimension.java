@@ -10,6 +10,8 @@ import com.countgandi.com.game.ChestTable;
 import com.countgandi.com.game.dungeons.BossDungeon;
 import com.countgandi.com.game.dungeons.Dungeon;
 import com.countgandi.com.game.entities.Entity;
+import com.countgandi.com.game.entities.MPlayer;
+import com.countgandi.com.game.entities.Player;
 import com.countgandi.com.game.objects.GameObject;
 import com.countgandi.com.game.objects.ObjectBush;
 import com.countgandi.com.game.objects.ObjectMysteryBox;
@@ -34,67 +36,55 @@ public abstract class Dimension {
 	public Dimension(String title, Handler handler) {
 		this.handler = handler;
 		this.title = title;
-	}
-
-	public void loadDimension(Dimension previous) {
-		if (handler instanceof ClientSideHandler) {
-			((ClientSideHandler) handler).addGui(new LoadingScreenGui((ClientSideHandler) handler));
-		}
-		if (previous != null) {
-			if (previous.entities.contains(handler.getPlayer())) {
-				previous.entities.remove(handler.getPlayer());
-			}
-		}
-		if (!entities.contains(handler.getPlayer())) {
-			entities.add(handler.getPlayer());
-		}
-
+		
 		if (objects.size() < 1) {
 			BufferedImage img = Assets.loadImage("/pics/Dimensions/" + title.replaceAll(" ", "") + "ob.png");
 			for (int y = 0; y < img.getHeight(); y++) {
 				for (int x = 0; x < img.getWidth(); x++) {
 					int color = img.getRGB(x, y);
 					if (color == 0xFF007F0E) {
-						objects.add(new ObjectTree(x * 32, y * 32, handler));
+						objects.add(new ObjectTree(x * 32, y * 32, id, handler));
 					} else if (color == 0xFF00FF21) {
 						objects.add(new ObjectBush(x * 32, y * 32, handler));
 					} else if (color == 0xFFFF0000) {
 						dungeons.add(new BossDungeon(x * 32, y * 32, handler));
 					} else if (color == 0xFF7F3300) {
-						objects.add(new ObjectMysteryBox(x * 32, y * 32, handler));
+						objects.add(new ObjectMysteryBox(x * 32, y * 32, getChestTable(), handler));
 					}
 				}
 			}
 		}
+	}
 
-		handler.getPlayer().setX(WorldBounds / 2);
-		handler.getPlayer().setY(WorldBounds / 2);
-
-		
-		
-		/*if (handler instanceof ClientSideHandler) {
-			if (((ClientSideHandler) handler).multiplayer && LoadingScreenGui.isLoading) {
-				if (entities.size() < Client.currentEntities.size()) {
-					entities.add(Client.currentEntities.get(tickOnEntities));
-					tickOnEntities++;
-				} else {
-					tickOnEntities = 0;
-					LoadingScreenGui.isLoading = false;
-				}
-			} else if (!((ClientSideHandler) handler).multiplayer && LoadingScreenGui.isLoading) {
-				if (entities.size() < numberOfEntities) {
-					entities.add(getRandomEntity());
-				} else {
-					tickOnEntities = 0;
-					LoadingScreenGui.isLoading = false;
-				}
+	public void loadDimension(Dimension previous, Player player) {
+		if (handler instanceof ClientSideHandler) {
+			((ClientSideHandler) handler).addGui(new LoadingScreenGui((ClientSideHandler) handler));
+		}
+		if (previous != null) {
+			if (previous.entities.contains(player)) {
+				previous.entities.remove(player);
 			}
-		}*/
+		}
+		if (!entities.contains(player)) {
+			entities.add(player);
+		}
+
+		player.setX(WorldBounds / 2);
+		player.setY(WorldBounds / 2);
+
+		LoadingScreenGui.isLoading = false;
+		if(player instanceof MPlayer) {
+			System.out.println("Dimension loaded for player: " + ((MPlayer)player).username);
+		} else {
+			System.out.println("Dimension loaded for player");
+		}
 	}
 
 	public void tick() {
-		if(!entities.equals(Client.currentEntities)) {
-			entities = Client.currentEntities;
+		if (Client.running && Client.currentEntities != null) {
+			if (!entities.equals(Client.currentEntities)) {
+				//entities = Client.currentEntities;
+			}
 		}
 	}
 

@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import com.countgandi.com.game.entities.MPlayer;
@@ -16,7 +15,7 @@ public class PlayerDatabase {
 	public ArrayList<MPlayer> playersInDatabase = new ArrayList<MPlayer>();
 
 	public PlayerDatabase(ServerSideHandler handler) {
-		try {
+		/*try {
 			File folder = new File(PlayerDatabase.class.getProtectionDomain().getCodeSource().getLocation().toURI());
 			if (folder.exists()) {
 				File[] files = folder.listFiles();
@@ -46,7 +45,7 @@ public class PlayerDatabase {
 
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	public boolean addPlayerToDatabase(MPlayer player) {
@@ -94,6 +93,15 @@ public class PlayerDatabase {
 			System.err.println("Well this can't be good, file does not exist...");
 			e.printStackTrace();
 		}
+	}
+
+	public MPlayer getPlayer(MPlayer player) {
+		for(int i = 0; i < playersInDatabase.size(); i++) {
+			if(player.username.equals(playersInDatabase.get(i).username)) {
+				return player;
+			}
+		}
+		return null;
 	}
 
 }

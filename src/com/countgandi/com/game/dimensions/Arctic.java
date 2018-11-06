@@ -41,7 +41,7 @@ public class Arctic extends Dimension {
 		items.add(ItemFrostbiteArmorChestpiece.class);
 		items.add(ItemFrostbiteArmorLeggings.class);
 		items.add(ItemFrostbiteArmorBoots.class);
-		return new ChestTable(items, new int[] {1}, handler);
+		return new ChestTable(items, handler);
 	}
 
 }

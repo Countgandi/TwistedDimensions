@@ -47,7 +47,14 @@ public class ClientSideHandler extends Handler {
 
 	public void tick() {
 		if (multiplayer) {
-
+			dimensionHandler.tick();
+			for (int i = 0; i < animations.size(); i++) {
+				animations.get(i).tick();
+			}
+			for (int i = 0; i < guis.size(); i++) {
+				guis.get(i).tick();
+			}
+			camera.tick();
 		} else {
 			dimensionHandler.tick();
 			for (int i = 0; i < animations.size(); i++) {
