@@ -134,6 +134,24 @@ public class ClientSideHandler extends Handler {
 			dungeon.getEntities().remove(e);
 		}
 	}
+	
+	@Override
+	public void removeObject(GameObject obj) {
+		if (dungeon == null) {
+			dimensionHandler.currentDimension.objects.remove(obj);
+		} else {
+			dungeon.getObjects().remove(obj);
+		}
+	}
+
+	@Override
+	public void addObject(GameObject obj) {
+		if (dungeon == null) {
+			dimensionHandler.currentDimension.objects.add(obj);
+		} else {
+			dungeon.getObjects().add(obj);
+		}
+	}
 
 	public void addGui(Gui gui) {
 		guis.add(gui);
@@ -248,16 +266,6 @@ public class ClientSideHandler extends Handler {
 	public void setMenu(Menu menu) {
 		game.menu.closeMenu();
 		game.menu = menu;
-	}
-
-	@Override
-	public void removeObject(GameObject obj) {
-		
-	}
-
-	@Override
-	public void addObject(GameObject obj) {
-		
 	}
 	
 }
