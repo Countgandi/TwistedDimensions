@@ -13,6 +13,7 @@ import com.countgandi.com.game.items.Item;
 import com.countgandi.com.game.items.bows.ItemAmethystBow;
 import com.countgandi.com.game.items.bows.ItemFrostbiteBow;
 import com.countgandi.com.game.items.bows.ItemWoodBow;
+import com.countgandi.com.game.objects.ObjectDimensionPortal;
 import com.countgandi.com.game.objects.ObjectMysteryBox;
 import com.countgandi.com.net.Handler;
 
@@ -82,7 +83,7 @@ public class DragonBoss extends Entity {
 				dead = true;
 				onKill();
 				handler.addObject(new ObjectMysteryBox(200, 200, getTable(), handler));
-				handler.addEntity(new EntityDimensionPortal(Game.WIDTH - 200, Game.HEIGHT / 2, handler));
+				handler.addObject(new ObjectDimensionPortal(Game.WIDTH - 200, Game.HEIGHT / 2, handler));
 				handler.removeEntity(this);
 			}
 		}

@@ -17,7 +17,13 @@ import com.countgandi.com.game.items.armor.ItemArmorBoots;
 import com.countgandi.com.game.items.armor.ItemArmorChestpiece;
 import com.countgandi.com.game.items.armor.ItemArmorHeadpiece;
 import com.countgandi.com.game.items.armor.ItemArmorLeggings;
+import com.countgandi.com.game.items.armor.leather.ItemLeatherArmorBoots;
+import com.countgandi.com.game.items.armor.leather.ItemLeatherArmorChestpiece;
+import com.countgandi.com.game.items.armor.leather.ItemLeatherArmorHeadpiece;
+import com.countgandi.com.game.items.armor.leather.ItemLeatherArmorLeggings;
 import com.countgandi.com.game.items.armor.trinkets.ItemTrinket;
+import com.countgandi.com.game.items.bows.ItemWoodBow;
+import com.countgandi.com.game.items.swords.ItemWoodSword;
 import com.countgandi.com.guis.buttons.AddButton;
 import com.countgandi.com.net.client.ClientSideHandler;
 
@@ -40,7 +46,30 @@ public class InventoryGui extends Gui {
 
 	public InventoryGui(ClientSideHandler handler) {
 		super(handler);
-
+		addItem(new ItemWoodSword(handler));
+		addItem(new ItemLeatherArmorBoots(handler));
+		addItem(new ItemWoodBow(handler));
+		addItem(new ItemLeatherArmorHeadpiece(handler));
+		addItem(new ItemLeatherArmorChestpiece(handler));
+		addItem(new ItemLeatherArmorLeggings(handler));
+		addItem(new ItemWoodSword(handler));
+		addItem(new ItemLeatherArmorBoots(handler));
+		addItem(new ItemWoodBow(handler));
+		addItem(new ItemLeatherArmorHeadpiece(handler));
+		addItem(new ItemLeatherArmorChestpiece(handler));
+		addItem(new ItemLeatherArmorLeggings(handler));
+		addItem(new ItemWoodSword(handler));
+		addItem(new ItemLeatherArmorBoots(handler));
+		addItem(new ItemWoodBow(handler));
+		addItem(new ItemLeatherArmorHeadpiece(handler));
+		addItem(new ItemLeatherArmorChestpiece(handler));
+		addItem(new ItemLeatherArmorLeggings(handler));
+		addItem(new ItemWoodSword(handler));
+		addItem(new ItemLeatherArmorBoots(handler));
+		addItem(new ItemWoodBow(handler));
+		addItem(new ItemLeatherArmorHeadpiece(handler));
+		addItem(new ItemLeatherArmorChestpiece(handler));
+		addItem(new ItemLeatherArmorLeggings(handler));
 		for (int y = 0; y < ColumnAmount; y++) {
 			for (int x = 0; x < RowAmount; x++) {
 				if (y == 0) {
@@ -80,16 +109,19 @@ public class InventoryGui extends Gui {
 								if (((ItemStackable) items[i]).stacked > 1) {
 									g.setColor(Color.WHITE);
 									g.setFont(new Font("arial", 2, 6));
-									g.drawString("" + ((ItemStackable) items[i]).stacked, xPos + 4 + x * 26, yPos + 241);
+									g.drawString("" + ((ItemStackable) items[i]).stacked, xPos + 4 + x * 26,
+											yPos + 241);
 								}
 							}
 						} else {
-							g.drawImage(items[i].getImage(), xPos + 4 + x * 26, yPos + 137 + (y - 1) * 22, 16, 16, null);
+							g.drawImage(items[i].getImage(), xPos + 4 + x * 26, yPos + 137 + (y - 1) * 22, 16, 16,
+									null);
 							if (items[i] instanceof ItemStackable) {
 								if (((ItemStackable) items[i]).stacked > 1) {
 									g.setColor(Color.WHITE);
 									g.setFont(new Font("arial", 2, 6));
-									g.drawString("" + ((ItemStackable) items[i]).stacked, xPos + 4 + x * 26, yPos + 152 + (y - 1) * 22);
+									g.drawString("" + ((ItemStackable) items[i]).stacked, xPos + 4 + x * 26,
+											yPos + 152 + (y - 1) * 22);
 								}
 							}
 						}
@@ -142,7 +174,9 @@ public class InventoryGui extends Gui {
 	}
 
 	public String[] getStatText() {
-		return new String[] { "Player Stats - level " + handler.getPlayer().level, "Maximum Energy: " + handler.getPlayer().maxEnergy, "Maximum Health: " + handler.getPlayer().maxHealth, "Base Bow Damage: " + handler.getPlayer().getBaseBowDamage(),
+		return new String[] { "Player Stats - level " + handler.getPlayer().level,
+				"Maximum Energy: " + handler.getPlayer().maxEnergy, "Maximum Health: " + handler.getPlayer().maxHealth,
+				"Base Bow Damage: " + handler.getPlayer().getBaseBowDamage(),
 				"Base Sword Damage: " + handler.getPlayer().getBaseSwordDamage() };
 	}
 
@@ -153,7 +187,8 @@ public class InventoryGui extends Gui {
 		for (int i = 0; i < buttons.length; i++) {
 			buttons[i].mousePressed(e);
 		}
-		Point m = new Point((int) (e.getX() / Toolkit.getDefaultToolkit().getScreenSize().getWidth() * Game.WIDTH), (int) (e.getY() / Toolkit.getDefaultToolkit().getScreenSize().getHeight() * Game.HEIGHT));
+		Point m = new Point((int) (e.getX() / Toolkit.getDefaultToolkit().getScreenSize().getWidth() * Game.WIDTH),
+				(int) (e.getY() / Toolkit.getDefaultToolkit().getScreenSize().getHeight() * Game.HEIGHT));
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			for (int y = 0; y < ColumnAmount; y++) {
 				for (int x = 0; x < RowAmount; x++) {
@@ -165,7 +200,7 @@ public class InventoryGui extends Gui {
 								if (y == 0) {
 									itemGui = item.createGuiStats(xPos + 4 + x * 26, yPos + 226);
 								} else {
-									itemGui = item.createGuiStats(xPos + 4 + x * 26, yPos + 137 + y * 22);
+									itemGui = item.createGuiStats(xPos + 4 + x * 26, yPos + 115 + y * 22);
 								}
 							}
 						}
@@ -214,7 +249,8 @@ public class InventoryGui extends Gui {
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		Point m = new Point((int) (e.getX() / Toolkit.getDefaultToolkit().getScreenSize().getWidth() * Game.WIDTH), (int) (e.getY() / Toolkit.getDefaultToolkit().getScreenSize().getHeight() * Game.HEIGHT));
+		Point m = new Point((int) (e.getX() / Toolkit.getDefaultToolkit().getScreenSize().getWidth() * Game.WIDTH),
+				(int) (e.getY() / Toolkit.getDefaultToolkit().getScreenSize().getHeight() * Game.HEIGHT));
 		// move items
 		itemGui = null;
 		mx = (int) m.getX();
@@ -235,16 +271,22 @@ public class InventoryGui extends Gui {
 		}
 		if (dragging) {
 			int j = 0;
+			boolean dragOccurred = false;
 			for (int i = 0; i < slots.length; i++) {
 				if (currentSlot != null) {
 					if (slots[i].intersects(currentSlot)) {
+						dragOccurred = true;
 						j = i;
 					}
 				}
 			}
+			if (!dragOccurred) {
+				return;
+			}
 			for (int i = 0; i < slots.length; i++) {
 				if (slots[i].contains(mx, my)) {
 					if (j > slots.length - 7 && i < slots.length - 7) {
+
 						if (j == slots.length - 1) {
 							headpiece = null;
 						} else if (j == slots.length - 2) {
@@ -260,25 +302,28 @@ public class InventoryGui extends Gui {
 						}
 						moveItem(item, j, InventoryGui.findFirstInventoryFreeSpace());
 					} else if (i > slots.length - 7) {
-						boolean madeit = true;
+						Item oldItem = null;
 						if (i == slots.length - 1 && item instanceof ItemArmorHeadpiece) {
+							oldItem = headpiece;
 							headpiece = (ItemArmorHeadpiece) item;
 						} else if (i == slots.length - 2 && item instanceof ItemArmorChestpiece) {
+							oldItem = chestpiece;
 							chestpiece = (ItemArmorChestpiece) item;
 						} else if (i == slots.length - 3 && item instanceof ItemArmorLeggings) {
+							oldItem = leggings;
 							leggings = (ItemArmorLeggings) item;
 						} else if (i == slots.length - 4 && item instanceof ItemArmorBoots) {
+							oldItem = boots;
 							boots = (ItemArmorBoots) item;
 						} else if (i == slots.length - 5 && item instanceof ItemTrinket) {
+							oldItem = trinket1;
 							trinket1 = (ItemTrinket) item;
 						} else if (i == slots.length - 6 && item instanceof ItemTrinket) {
+							oldItem = trinket2;
 							trinket2 = (ItemTrinket) item;
-						} else {
-							madeit = false;
 						}
-						if (madeit) {
-							items[j] = null;
-						}
+						items[j] = oldItem;
+
 					} else {
 						moveItem(item, j, i);
 					}
@@ -292,21 +337,23 @@ public class InventoryGui extends Gui {
 	}
 
 	/**
-	 * Adds an item to an itemstack (if stackable) and adds that to the item
-	 * storage
+	 * Adds an item to an itemstack (if stackable) and adds that to the item storage
 	 * 
-	 * @param item
-	 *            - the item to be added
+	 * @param item - the item to be added
 	 */
 	public static void addItem(Item item) {
+		if (item == null)
+			return;
 		if (item.stackable) {
 			for (int i = 0; i < InventoryGui.items.length; i++) {
 				if (InventoryGui.items[i] instanceof ItemStackable) {
 					ItemStackable stackableItem = (ItemStackable) InventoryGui.items[i];
-					if (stackableItem.item.getClass().equals(item.getClass()) && stackableItem.stacked < ItemStackable.MAX_STACKS) {
+					if (stackableItem.item.getClass().equals(item.getClass())
+							&& stackableItem.stacked < ItemStackable.MAX_STACKS) {
 						stackableItem.stacked++;
 						return;
-					} else if (stackableItem.stacked >= ItemStackable.MAX_STACKS && i >= InventoryGui.items.length - 1) {
+					} else if (stackableItem.stacked >= ItemStackable.MAX_STACKS
+							&& i >= InventoryGui.items.length - 1) {
 						InventoryGui.items[findFirstInventoryFreeSpace()] = new ItemStackable(item, 1);
 						return;
 					}
@@ -327,7 +374,7 @@ public class InventoryGui extends Gui {
 			}
 		}
 		System.err.println("There is no free space in INVENTORY....");
-		return items.length;
+		return -1;
 	}
 
 	public static void removeItem(Item item) {
@@ -363,12 +410,9 @@ public class InventoryGui extends Gui {
 	/**
 	 * Moves an item to a different location in the inventory
 	 * 
-	 * @param item
-	 *            - the item being moved
-	 * @param current
-	 *            - the current position of the item
-	 * @param next
-	 *            - the position to move to
+	 * @param item    - the item being moved
+	 * @param current - the current position of the item
+	 * @param next    - the position to move to
 	 * @return if the item was moved successfully
 	 */
 	public static boolean moveItem(Item item, int current, int next) {
@@ -384,7 +428,8 @@ public class InventoryGui extends Gui {
 			items[current] = nitem;
 			return true;
 		}
-		System.err.println("Could not move item: " + item.getClass().getName() + " to position " + next + " from position " + current);
+		System.err.println("Could not move item: " + item.getClass().getName() + " to position " + next
+				+ " from position " + current);
 		return false;
 	}
 

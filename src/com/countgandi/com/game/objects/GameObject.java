@@ -3,6 +3,7 @@ package com.countgandi.com.game.objects;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import com.countgandi.com.game.entities.Entity;
 import com.countgandi.com.net.Handler;
 
 public abstract class GameObject {
@@ -48,7 +49,7 @@ public abstract class GameObject {
 		return height;
 	}
 	
-	public void onHit() {
+	public void onHit(Entity e) {
 		
 	}
 

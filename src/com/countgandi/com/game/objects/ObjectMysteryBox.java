@@ -4,6 +4,8 @@ import java.awt.Graphics;
 
 import com.countgandi.com.Assets;
 import com.countgandi.com.game.ChestTable;
+import com.countgandi.com.game.entities.Entity;
+import com.countgandi.com.game.entities.Player;
 import com.countgandi.com.guis.InventoryGui;
 import com.countgandi.com.net.Handler;
 
@@ -29,7 +31,10 @@ public class ObjectMysteryBox extends GameObject {
 	}
 
 	@Override
-	public void onHit() {
+	public void onHit(Entity e) {
+		if(!(e instanceof Player)) {
+			return;
+		}
 		InventoryGui.addItem(table.getItem());
 		handler.removeObject(this);
 	}

@@ -36,7 +36,7 @@ public abstract class Dimension {
 	public Dimension(String title, Handler handler) {
 		this.handler = handler;
 		this.title = title;
-		
+
 		if (objects.size() < 1) {
 			BufferedImage img = Assets.loadImage("/pics/Dimensions/" + title.replaceAll(" ", "") + "ob.png");
 			for (int y = 0; y < img.getHeight(); y++) {
@@ -69,12 +69,16 @@ public abstract class Dimension {
 			entities.add(player);
 		}
 
+		while (entities.size() < numberOfEntities) {
+			entities.add(getRandomEntity());
+		}
+
 		player.setX(WorldBounds / 2);
 		player.setY(WorldBounds / 2);
 
 		LoadingScreenGui.isLoading = false;
-		if(player instanceof MPlayer) {
-			System.out.println("Dimension loaded for player: " + ((MPlayer)player).username);
+		if (player instanceof MPlayer) {
+			System.out.println("Dimension loaded for player: " + ((MPlayer) player).username);
 		} else {
 			System.out.println("Dimension loaded for player");
 		}
@@ -83,7 +87,11 @@ public abstract class Dimension {
 	public void tick() {
 		if (Client.running && Client.currentEntities != null) {
 			if (!entities.equals(Client.currentEntities)) {
-				//entities = Client.currentEntities;
+				// entities = Client.currentEntities;
+			}
+		} else if(handler instanceof ClientSideHandler && !Client.running){
+			while (entities.size() < numberOfEntities) {
+				entities.add(getRandomEntity());
 			}
 		}
 	}
@@ -99,11 +107,11 @@ public abstract class Dimension {
 
 	/**
 	 * 
-	 * @param classes
-	 *            - add all the classes of the entities you want to spawn in
+	 * @param classes - add all the classes of the entities you want to spawn in
 	 * @return - return classes
 	 */
-	protected abstract ArrayList<Class<? extends Entity>> getEntitiesSpawnable(ArrayList<Class<? extends Entity>> classes);
+	protected abstract ArrayList<Class<? extends Entity>> getEntitiesSpawnable(
+			ArrayList<Class<? extends Entity>> classes);
 
 	/**
 	 * 
@@ -113,7 +121,8 @@ public abstract class Dimension {
 		ArrayList<Class<? extends Entity>> classes = getEntitiesSpawnable(new ArrayList<Class<? extends Entity>>());
 		int i = ran.nextInt(classes.size());
 		try {
-			return (Entity) classes.get(i).getConstructors()[0].newInstance(ran.nextInt(WorldBounds), ran.nextInt(WorldBounds), handler);
+			return (Entity) classes.get(i).getConstructors()[0].newInstance(ran.nextInt(WorldBounds),
+					ran.nextInt(WorldBounds), handler);
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {

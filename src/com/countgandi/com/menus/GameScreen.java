@@ -20,21 +20,22 @@ public class GameScreen extends Menu {
 
 	public GameScreen(ClientSideHandler handler) {
 		super(handler);
-		
+
 		this.handler.addGui(new HotbarGui(handler));
 		this.handler.addGui(new HudGui(handler));
 		try {
-			//if(!this.handler.loadFiles()) {
-				this.handler.getDimensionHandler().loadDimension(0, handler.getPlayer());
-			//	System.out.println("No world could be detected, creating new world...");
-			//}
-		} catch(Exception e) {
+			// if(!this.handler.loadFiles()) {
+			this.handler.getDimensionHandler().loadDimension(0, handler.getPlayer());
+			// System.out.println("No world could be detected, creating new world...");
+			// }
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
 	public GameScreen(Client client, ClientSideHandler handler) {
 		super(handler);
-		
+
 		this.handler.addGui(new HotbarGui(handler));
 		this.handler.addGui(new HudGui(handler));
 		this.handler.addGui(new LoadingScreenGui(handler));
@@ -106,19 +107,23 @@ public class GameScreen extends Menu {
 			Player.right = false;
 		}
 		if (key == KeyEvent.VK_SPACE) {
-			if(handler.dungeon == null) {
-				for(int i = 0; i < handler.getDimensionHandler().currentDimension.objects.size(); i++) {
+			if (handler.dungeon == null) {
+				for (int i = 0; i < handler.getDimensionHandler().currentDimension.objects.size(); i++) {
 					GameObject ob = handler.getDimensionHandler().currentDimension.objects.get(i);
-					if(ob.getRectangle().intersects(handler.getPlayer().getAttackBounds())) {
-						ob.onHit();
+					if (ob.getRectangle().intersects(handler.getPlayer().getAttackBounds())) {
+						ob.onHit(handler.getPlayer());
 					}
 				}
 			} else {
-				for(int i = 0; i < handler.dungeon.getObjects().size(); i++) {
-					GameObject ob = handler.dungeon.getObjects().get(i);
-					if(ob.getRectangle().intersects(handler.getPlayer().getAttackBounds())) {
-						ob.onHit();
+				try {
+					for (int i = 0; i < handler.dungeon.getObjects().size(); i++) {
+						GameObject ob = handler.dungeon.getObjects().get(i);
+						if (ob.getRectangle().intersects(handler.getPlayer().getAttackBounds())) {
+							ob.onHit(handler.getPlayer());
+						}
 					}
+				} catch (NullPointerException ne) {
+
 				}
 			}
 		}
@@ -133,9 +138,9 @@ public class GameScreen extends Menu {
 	public void mouseMoved(MouseEvent e) {
 
 	}
-	
+
 	public void closeMenu() {
-		
+
 	}
 
 }

@@ -268,4 +268,8 @@ public class ClientSideHandler extends Handler {
 		game.menu = menu;
 	}
 	
+	public Graphics getGraphics() {
+		return game.getGraphics();
+	}
+	
 }

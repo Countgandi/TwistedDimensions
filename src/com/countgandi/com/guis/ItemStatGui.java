@@ -9,6 +9,7 @@ import com.countgandi.com.net.client.ClientSideHandler;
 public class ItemStatGui extends Gui {
 	
 	private String[] text;
+	private static Font font = new Font("arial", 0, 6);
 	private int x, y, width;
 
 	/**
@@ -22,12 +23,15 @@ public class ItemStatGui extends Gui {
 		this.text = text;
 		this.x = x + 16;
 		this.y = y + 16;
+		int largest = 0;
+		handler.getGraphics().setFont(font);
 		for(int i = 0; i < text.length; i++) {
 			String[] strs = text[i].split("/#");
-			if(strs[0].length() > this.width) {
-				this.width = strs[i].length();
+			if(strs[0].length() > text[largest].split("/#")[0].length()) {
+				largest = i;
 			}
 		}
+		this.width = handler.getGraphics().getFontMetrics().stringWidth(text[largest].split("/#")[0]);
 	}
 
 	@Override
@@ -38,11 +42,11 @@ public class ItemStatGui extends Gui {
 	@Override
 	public void render(Graphics g) {
 		g.setColor(Color.DARK_GRAY);
-		g.fillRect(x, y, width * 4, text.length * 6 + 11);
+		g.fillRect(x, y, width + 2, g.getFontMetrics().getHeight() * text.length + 2);
 		g.setColor(Color.BLACK);
-		g.drawRect(x, y, width * 4, text.length * 6 + 11);
+		g.drawRect(x, y, width + 2, g.getFontMetrics().getHeight() * text.length + 2);
 		
-		g.setFont(new Font("arial", 0, 6));
+		g.setFont(font);
 		for(int i = 0; i < text.length; i++) {
 			String[] strs = text[i].split("/#");
 			if(strs.length > 1) {
@@ -50,7 +54,7 @@ public class ItemStatGui extends Gui {
 			} else {
 				g.setColor(Color.WHITE);
 			}
-			g.drawString(strs[0], x + 1, y + 6 * (i + 1));
+			g.drawString(strs[0], x + 1, y + g.getFontMetrics().getHeight() * (i + 1) - 1);
 		}
 	}
 
