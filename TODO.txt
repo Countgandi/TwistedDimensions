@@ -6,6 +6,8 @@ Add Sounds:
 
 Add Textures:
 	new splash, inventory, health bar, player & most creatures
+	
+	savannah shrub, 
 
 Add Items:
 	

@@ -1,21 +1,15 @@
 package com.countgandi.com.game.dimensions;
 
-import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.countgandi.com.Assets;
 import com.countgandi.com.game.ChestTable;
-import com.countgandi.com.game.dungeons.BossDungeon;
 import com.countgandi.com.game.dungeons.Dungeon;
 import com.countgandi.com.game.entities.Entity;
 import com.countgandi.com.game.entities.MPlayer;
 import com.countgandi.com.game.entities.Player;
 import com.countgandi.com.game.objects.GameObject;
-import com.countgandi.com.game.objects.ObjectBush;
-import com.countgandi.com.game.objects.ObjectMysteryBox;
-import com.countgandi.com.game.objects.ObjectTree;
 import com.countgandi.com.guis.LoadingScreenGui;
 import com.countgandi.com.net.Handler;
 import com.countgandi.com.net.client.Client;
@@ -37,24 +31,10 @@ public abstract class Dimension {
 		this.handler = handler;
 		this.title = title;
 
-		if (objects.size() < 1) {
-			BufferedImage img = Assets.loadImage("/pics/Dimensions/" + title.replaceAll(" ", "") + "ob.png");
-			for (int y = 0; y < img.getHeight(); y++) {
-				for (int x = 0; x < img.getWidth(); x++) {
-					int color = img.getRGB(x, y);
-					if (color == 0xFF007F0E) {
-						objects.add(new ObjectTree(x * 32, y * 32, id, handler));
-					} else if (color == 0xFF00FF21) {
-						objects.add(new ObjectBush(x * 32, y * 32, handler));
-					} else if (color == 0xFFFF0000) {
-						dungeons.add(new BossDungeon(x * 32, y * 32, handler));
-					} else if (color == 0xFF7F3300) {
-						objects.add(new ObjectMysteryBox(x * 32, y * 32, getChestTable(), handler));
-					}
-				}
-			}
-		}
+		loadObjects();
 	}
+
+	protected abstract void loadObjects();
 
 	public void loadDimension(Dimension previous, Player player) {
 		if (handler instanceof ClientSideHandler) {
