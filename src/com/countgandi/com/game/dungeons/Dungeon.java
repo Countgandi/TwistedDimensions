@@ -106,7 +106,7 @@ public abstract class Dungeon {
 		return new Rectangle((int) x, (int) y, width, height);
 	}
 
-	private String[] ReadFile(String string) {
+	public String[] ReadFile(String string) {
 		try {
 			Scanner scanner = new Scanner(this.getClass().getResourceAsStream(string));
 			List<String> lines = new ArrayList<String>();

@@ -8,8 +8,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import com.countgandi.com.game.entities.Entity;
-import com.countgandi.com.game.entities.MPlayer;
-import com.countgandi.com.game.entities.Player;
 import com.countgandi.com.menus.ErrorOccurredScreen;
 import com.countgandi.com.net.NetConstants;
 

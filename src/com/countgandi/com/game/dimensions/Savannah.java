@@ -15,7 +15,6 @@ import com.countgandi.com.game.items.armor.metal.ItemMetalArmorChestpiece;
 import com.countgandi.com.game.items.armor.metal.ItemMetalArmorHeadpiece;
 import com.countgandi.com.game.items.armor.metal.ItemMetalArmorLeggings;
 import com.countgandi.com.game.items.swords.ItemStoneSword;
-import com.countgandi.com.game.objects.ObjectBush;
 import com.countgandi.com.game.objects.ObjectMysteryBox;
 import com.countgandi.com.game.objects.ObjectSavannahShrub;
 import com.countgandi.com.game.objects.ObjectTree;
