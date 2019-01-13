@@ -16,10 +16,10 @@ import com.countgandi.com.net.client.ClientSideHandler;
  * 
  * @author Count
  * 
- * A bad game (it's better if you don't scare your eyes with this code)...
+ * A bad game (it's better if you don't hurt your eyes with this code)...
  *
  */
-
+ 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 	private static Thread thread;
